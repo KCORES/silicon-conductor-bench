@@ -6,6 +6,8 @@
 
 A benchmark that puts an LLM in the role of a traffic officer: at a busy intersection with no traffic lights, the model schedules vehicles and pedestrians using only text / structured observations and tool calls. The final balance is the score.
 
+leaderboard: [https://silicon-conductor-bench.kcores.com/](https://silicon-conductor-bench.kcores.com/)
+
 ## What it tests
 
 The simulator is a deterministic, tick-based four-way intersection. Each decision cycle the model receives a compact JSON observation, uses tools to inspect, dry-run and commit a release plan, then decides how long to sleep. It has to deal with:
