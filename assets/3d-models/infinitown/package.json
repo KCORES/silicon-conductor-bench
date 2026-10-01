@@ -1,0 +1,23 @@
+{
+  "name": "infinitown-extracted",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^23.1.1",
+    "bluebird": "^3.7.2",
+    "jquery": "^3.7.1",
+    "jquery-mousewheel": "^3.1.13",
+    "lodash": "^4.17.21",
+    "seedrandom": "^3.0.5",
+    "three": "0.160.0"
+  },
+  "devDependencies": {
+    "sirv": "^2.0.4",
+    "vite": "^5.4.11"
+  }
+}

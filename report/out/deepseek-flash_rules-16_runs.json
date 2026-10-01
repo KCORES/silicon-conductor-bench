@@ -1,0 +1,114 @@
+{
+  "model": "deepseek-flash",
+  "rulesVersion": 16,
+  "seed": 63916,
+  "horizonTicks": 200,
+  "best": {
+    "id": "deepseek-flash_2026-10-01_114857254-73552",
+    "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_deepseek-flash_2026-10-01_114857254-73552.json",
+    "finalBalance": 748.3015
+  },
+  "runs": [
+    {
+      "rank": 1,
+      "id": "deepseek-flash_2026-10-01_114857254-73552",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_deepseek-flash_2026-10-01_114857254-73552.json",
+      "model": "deepseek-flash",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 748.3015,
+      "apiCalls": 185,
+      "fallbacks": 1,
+      "admittedVehicles": 123,
+      "incidents": 4,
+      "generatedAt": "2026-10-01T05:10:00.360Z",
+      "hasRawLog": true,
+      "problems": []
+    },
+    {
+      "rank": 2,
+      "id": "deepseek-flash_2026-10-01_141147819-122688",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_deepseek-flash_2026-10-01_141147819-122688.json",
+      "model": "deepseek-flash",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 607.4742,
+      "apiCalls": 193,
+      "fallbacks": 0,
+      "admittedVehicles": 137,
+      "incidents": 7,
+      "generatedAt": "2026-10-01T07:26:31.021Z",
+      "hasRawLog": true,
+      "problems": []
+    },
+    {
+      "rank": 3,
+      "id": "deepseek-flash_2026-10-01_114857242-96632",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_deepseek-flash_2026-10-01_114857242-96632.json",
+      "model": "deepseek-flash",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 572.6186,
+      "apiCalls": 175,
+      "fallbacks": 0,
+      "admittedVehicles": 96,
+      "incidents": 5,
+      "generatedAt": "2026-10-01T04:44:25.431Z",
+      "hasRawLog": true,
+      "problems": []
+    }
+  ],
+  "balanceSpread": {
+    "count": 3,
+    "mean": 642.8,
+    "min": 572.62,
+    "max": 748.3,
+    "stdev": 75.95
+  },
+  "baselines": [
+    {
+      "name": "baseline-balanced",
+      "file": "report_baseline-balanced_2026-10-01_113043254-40212.json",
+      "generatedAt": "2026-10-01T03:30:48.809Z",
+      "finalBalance": 674.4877
+    },
+    {
+      "name": "baseline-balanced-bus",
+      "file": "report_baseline-balanced-bus_2026-10-01_113054221-67660.json",
+      "generatedAt": "2026-10-01T03:30:58.859Z",
+      "finalBalance": 659.6075
+    },
+    {
+      "name": "baseline-balanced-no-ped",
+      "file": "report_baseline-balanced-no-ped_2026-10-01_113049422-16528.json",
+      "generatedAt": "2026-10-01T03:30:53.582Z",
+      "finalBalance": 717.5856
+    },
+    {
+      "name": "baseline-longest-queue",
+      "file": "report_baseline-longest-queue_2026-10-01_113035482-51312.json",
+      "generatedAt": "2026-10-01T03:30:42.556Z",
+      "finalBalance": 633.9934
+    },
+    {
+      "name": "baseline-random",
+      "file": "report_baseline-random_2026-10-01_113029281-47212.json",
+      "generatedAt": "2026-10-01T03:30:34.784Z",
+      "finalBalance": 539.4876
+    },
+    {
+      "name": "baseline-search",
+      "file": "report_baseline-search_2026-10-01_113016663-21140.json",
+      "generatedAt": "2026-10-01T03:39:02.632Z",
+      "finalBalance": 788.3813
+    }
+  ],
+  "otherRulesVersions": [],
+  "warnings": []
+}

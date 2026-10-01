@@ -1,0 +1,59 @@
+{
+  "model": "qwen-3.8-27b",
+  "rulesVersion": 18,
+  "seed": 63916,
+  "horizonTicks": 200,
+  "best": {
+    "id": "qwen-3.8-27b_2026-10-02_034707777-14640",
+    "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_qwen-3.8-27b_2026-10-02_034707777-14640.json",
+    "finalBalance": 575.2557
+  },
+  "runs": [
+    {
+      "rank": 1,
+      "id": "qwen-3.8-27b_2026-10-02_034707777-14640",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_qwen-3.8-27b_2026-10-02_034707777-14640.json",
+      "model": "qwen-3.8-27b",
+      "rulesVersion": 18,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 575.2557,
+      "apiCalls": 140,
+      "fallbacks": 3,
+      "admittedVehicles": 89,
+      "incidents": 6,
+      "generatedAt": "2026-10-01T19:58:04.497Z",
+      "hasRawLog": true,
+      "problems": []
+    }
+  ],
+  "balanceSpread": {
+    "count": 1,
+    "mean": 575.26,
+    "min": 575.26,
+    "max": 575.26,
+    "stdev": 0
+  },
+  "baselines": [
+    {
+      "name": "baseline-balanced",
+      "file": "report_baseline-balanced_2026-10-02_033652163-31352.json",
+      "generatedAt": "2026-10-01T19:36:57.241Z",
+      "finalBalance": 674.4877
+    },
+    {
+      "name": "baseline-search",
+      "file": "report_baseline-search_2026-10-02_033657885-32528.json",
+      "generatedAt": "2026-10-01T19:45:28.410Z",
+      "finalBalance": 788.3813
+    }
+  ],
+  "otherRulesVersions": [
+    16,
+    17
+  ],
+  "warnings": [
+    "Only 1 comparable run(s); expected 3."
+  ]
+}

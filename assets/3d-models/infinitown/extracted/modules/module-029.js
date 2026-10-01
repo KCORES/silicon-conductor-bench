@@ -1,0 +1,1 @@
+29:[function(t,e,n){var r=t("26"),i=t("31"),o=t("30"),a=t("32"),n=e.exports=function(){var t=o(arguments).map(s);return a.isUri(t[0])?i.apply(i,t):r.join.apply(r,t)},s=(n.isUrl=function(t){return a.isUri(t)||"http://"===t||"https://"===t||"ftp://"===t},n.replaceUndefined=function(t,e,n){return void 0===t||null===t?a.isUri(n[0])?"/":r.sep:t})},{26:26,30:30,31:31,32:32}],

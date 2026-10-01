@@ -1,0 +1,1428 @@
+{
+  "version": 1,
+  "runtimeBaseUrl": "/assets/replay-models",
+  "modelCount": 255,
+  "fileCount": 284,
+  "files": [
+    {
+      "path": "cars/Textures/colormap.png",
+      "bytes": 12371,
+      "sha256": "f3622a03a20c6696065cae9cbe391351be873508af190c2ebd1d420c055787a5"
+    },
+    {
+      "path": "cars/ambulance.glb",
+      "bytes": 233612,
+      "sha256": "9e429e2b6202c0d78d0c38b2adbaae6b77716bb2a0f6fbb2811556e1fb31edba"
+    },
+    {
+      "path": "cars/delivery-flat.glb",
+      "bytes": 214456,
+      "sha256": "2973152df7699767692ce890b3a0845a11333a52a23aa74b86a12ed443254c1b"
+    },
+    {
+      "path": "cars/delivery.glb",
+      "bytes": 240264,
+      "sha256": "426a3e3a2c242c05c889b1445ba02ef95b2c8b7cd6f597e1275ef736a826014b"
+    },
+    {
+      "path": "cars/firetruck.glb",
+      "bytes": 232448,
+      "sha256": "c0c0a22809316536468da7e9c7f57b8ec1a8e387ec3a1cde032976c6d8a6c7a4"
+    },
+    {
+      "path": "cars/garbage-truck.glb",
+      "bytes": 268224,
+      "sha256": "6f2943e0ba4c6d86eb69a9243224259d6e0f169f474228439cda0579d49d3509"
+    },
+    {
+      "path": "cars/hatchback-sports.glb",
+      "bytes": 197804,
+      "sha256": "bd5c9d4c3b4bdd254a66b8426563a68b1487ae7a5076df3a2488e6ffed7be64f"
+    },
+    {
+      "path": "cars/kart-oobi.glb",
+      "bytes": 251516,
+      "sha256": "035c80531d201f050fb38c3edb348833fd0f6be0b2a132fe8d804f52a15e5756"
+    },
+    {
+      "path": "cars/police.glb",
+      "bytes": 195336,
+      "sha256": "a617b880594f56239b7ac4cf6fd4d74ebdae3ba6c5d842e77c76a5906eff352a"
+    },
+    {
+      "path": "cars/sedan-sports.glb",
+      "bytes": 177676,
+      "sha256": "2889c428ca1dd9c975c3ff760eb8757883490410555ab60b818f712f583826d6"
+    },
+    {
+      "path": "cars/sedan.glb",
+      "bytes": 172216,
+      "sha256": "b532ea7d2c59f7f6b22b138cf1955218a2c1898f1cea932af4d3fd563c3959b7"
+    },
+    {
+      "path": "cars/suv-luxury.glb",
+      "bytes": 175908,
+      "sha256": "9e2a79dc050189d4555a88d2e9da0f30ff946ba74f1d43b5b3bda3c193d1f7d7"
+    },
+    {
+      "path": "cars/suv.glb",
+      "bytes": 207572,
+      "sha256": "9df31f6e89e927a8176fc792aa125f0b19dc1ba29d2025bfef7c4f4d6ab1778a"
+    },
+    {
+      "path": "cars/taxi.glb",
+      "bytes": 175608,
+      "sha256": "3803539718ffd3b84b515dbce8ed6b489f1ff5be58edb1903d2c5db5c584bdc7"
+    },
+    {
+      "path": "cars/truck-flat.glb",
+      "bytes": 207424,
+      "sha256": "4279862f2442e96c6603c514edf50bfb932707545695d8c4747611cd3796cf3b"
+    },
+    {
+      "path": "cars/truck.glb",
+      "bytes": 176360,
+      "sha256": "5e1bc66c343501dd7d5734b57e672dd949bf95d7abdce680c6508cef99d374f8"
+    },
+    {
+      "path": "cars/van.glb",
+      "bytes": 175664,
+      "sha256": "ed4ed56e8e5ed98db050af09ed2062b3b6bb7b93eab1e563cb6774b387b233a1"
+    },
+    {
+      "path": "characters/quaternius/BaseCharacter.gltf",
+      "bytes": 1607960,
+      "sha256": "8c8018dd52654a301f20add4ed51d0951257d5a2ec6d865cde98c06d0613e208"
+    },
+    {
+      "path": "characters/quaternius/BlueSoldier_Female.gltf",
+      "bytes": 2106807,
+      "sha256": "8d34cffce30c2f917004ba771821afcd5049f71db819514919b4c632fa81ff46"
+    },
+    {
+      "path": "characters/quaternius/BlueSoldier_Male.gltf",
+      "bytes": 1829453,
+      "sha256": "d47a3a9c2c3c6f78ccd423658386db2138c689c801d39dc00b8c77cda85ddd06"
+    },
+    {
+      "path": "characters/quaternius/Casual2_Female.gltf",
+      "bytes": 2067565,
+      "sha256": "b614bfe01ae69e0d9dfdfb6ff74fb53abfcc32be59858a9b89fb05ffd3062324"
+    },
+    {
+      "path": "characters/quaternius/Casual2_Male.gltf",
+      "bytes": 1822291,
+      "sha256": "9e8f23af968979cc6945d11015d9fd3cb1e94d53c3b91c39cac39a80e7490a79"
+    },
+    {
+      "path": "characters/quaternius/Casual3_Female.gltf",
+      "bytes": 2179187,
+      "sha256": "75cb6d7fa20674cb6b1dc3ad4e3c6d0d1de03f0128817ba60dcc4fad4ca008a2"
+    },
+    {
+      "path": "characters/quaternius/Casual3_Male.gltf",
+      "bytes": 1936073,
+      "sha256": "f84ec360f53796287cfdb6082ad82fd76464dc34845759ca7f1f2ee9e7604057"
+    },
+    {
+      "path": "characters/quaternius/Casual_Bald.gltf",
+      "bytes": 1688080,
+      "sha256": "a75e2ade5703cd02371d7f38bb6ab307d94a7db2f07d4a219f9248fdecab5e6a"
+    },
+    {
+      "path": "characters/quaternius/Casual_Female.gltf",
+      "bytes": 2058883,
+      "sha256": "87327963ab0f37d004c7340d130808727f3d67b724c3d41aad01fd63c7d6fc8a"
+    },
+    {
+      "path": "characters/quaternius/Casual_Male.gltf",
+      "bytes": 2048792,
+      "sha256": "db66b2424af60d7799760795ca63c8a5be1c8af64e9f134217f0a3ff9e405379"
+    },
+    {
+      "path": "characters/quaternius/Chef_Female.gltf",
+      "bytes": 2209767,
+      "sha256": "3e1959fe0432026b521ff04ff83df4e4487790948cbb182b0a92b08998d9beda"
+    },
+    {
+      "path": "characters/quaternius/Chef_Hat.gltf",
+      "bytes": 1837083,
+      "sha256": "920c21e1d02dcf9a87832a285e08a3a7dcb4b869793cd4c51bb445ca39f1ea25"
+    },
+    {
+      "path": "characters/quaternius/Chef_Male.gltf",
+      "bytes": 1993527,
+      "sha256": "e503dbd75f595863689e7e1d5181624be34ce191e5231e3e9ce82b83d55aa134"
+    },
+    {
+      "path": "characters/quaternius/Cow.gltf",
+      "bytes": 1823141,
+      "sha256": "6e9753857a7bab6b7caa440c433fac8e172fa5319099b3e148d982f49df270b4"
+    },
+    {
+      "path": "characters/quaternius/Cowboy_Female.gltf",
+      "bytes": 2094188,
+      "sha256": "fdf0c238b0ad0047bc3342c9dc0535abb50ed65986044e53b07e3d7576f3ff60"
+    },
+    {
+      "path": "characters/quaternius/Cowboy_Hair.gltf",
+      "bytes": 2062028,
+      "sha256": "6d220031f05f2887562645356560eb451b0a308e8b7b0a0c587f3e463b526079"
+    },
+    {
+      "path": "characters/quaternius/Cowboy_Male.gltf",
+      "bytes": 1841931,
+      "sha256": "91e20fef76c4ac9a3bd73b786727b68b3d4a14848d63987180db88ee88fd2ee0"
+    },
+    {
+      "path": "characters/quaternius/Doctor_Female_Old.gltf",
+      "bytes": 2072083,
+      "sha256": "7574bea268ed05f11bb1e4a16fdf36ab6302051b5514f20e12f4befb4c99b172"
+    },
+    {
+      "path": "characters/quaternius/Doctor_Female_Young.gltf",
+      "bytes": 2189649,
+      "sha256": "2fd5082696aca804d77555eff96f6e07c11549e4f03661ce2467e2b9f881e5ab"
+    },
+    {
+      "path": "characters/quaternius/Doctor_Male_Old.gltf",
+      "bytes": 1946576,
+      "sha256": "882741dd558d5a4e91704c6ef88f2979f9c34d956f2da6ce83aca80e5f43a6ab"
+    },
+    {
+      "path": "characters/quaternius/Doctor_Male_Young.gltf",
+      "bytes": 2049445,
+      "sha256": "4f39182b6ecff6affac27f7c4cb2abf9529d68be4a77cc71343b40a83fe6e0cd"
+    },
+    {
+      "path": "characters/quaternius/Elf.gltf",
+      "bytes": 1800904,
+      "sha256": "f1f480b79f274a20e414eaa0a2c76bd2aa40ac8e29f1178d6208af74cc69eb88"
+    },
+    {
+      "path": "characters/quaternius/Goblin_Female.gltf",
+      "bytes": 2092543,
+      "sha256": "a4985db6a2fd3e04f49d6ec5464d196c70147695a89194aa08a1e146601c6d7e"
+    },
+    {
+      "path": "characters/quaternius/Goblin_Male.gltf",
+      "bytes": 1754008,
+      "sha256": "cab2cbe315e34f1f223fac6754c1e0c3f635060b7ebd516b95e5efbc9ba2c9ea"
+    },
+    {
+      "path": "characters/quaternius/Kimono_Female.gltf",
+      "bytes": 2236089,
+      "sha256": "8d3e909be3b854b1715855aed3c371a102788811a5c2673a0aee39fdb0a32df3"
+    },
+    {
+      "path": "characters/quaternius/Kimono_Male.gltf",
+      "bytes": 1766875,
+      "sha256": "0be982ad6230c46f4277a0bdd77cf6f0af5cbc9319a025a4bdf62ad3ac1dfcf0"
+    },
+    {
+      "path": "characters/quaternius/Knight_Golden_Female.gltf",
+      "bytes": 2073087,
+      "sha256": "dc468d46e898aa02b1ca92f19adfb1b5497721d273efb6405aa80e7155f26cc8"
+    },
+    {
+      "path": "characters/quaternius/Knight_Golden_Male.gltf",
+      "bytes": 1848993,
+      "sha256": "96b5ac2f7b46fd279bc28bb9eda54a9e1d8d6aa2ffded19fbeb33d3e7c09265f"
+    },
+    {
+      "path": "characters/quaternius/Knight_Male.gltf",
+      "bytes": 1852024,
+      "sha256": "7d71328d850869b2afca41cbe5436f8be19cefb6cd996afaff3e8a7b870188af"
+    },
+    {
+      "path": "characters/quaternius/Ninja_Female.gltf",
+      "bytes": 2120878,
+      "sha256": "4aca0a09782739f427092c270cdd114fe01af0e17b6f600157ac90ad9c8ec32e"
+    },
+    {
+      "path": "characters/quaternius/Ninja_Male.gltf",
+      "bytes": 1808187,
+      "sha256": "66b3ae718531ed8f4aeab2939069adb04a2f608c22497c998fab81ca04bc61d4"
+    },
+    {
+      "path": "characters/quaternius/Ninja_Male_Hair.gltf",
+      "bytes": 2182785,
+      "sha256": "f7c55a17f858bfbecd0006d531840d7c2447ec37b4b40845a7561f75f5b69cd7"
+    },
+    {
+      "path": "characters/quaternius/Ninja_Sand.gltf",
+      "bytes": 1808181,
+      "sha256": "34b70012a7b2955d256f340703271330416d5e4b5abee53d62558cfad27f3129"
+    },
+    {
+      "path": "characters/quaternius/Ninja_Sand_Female.gltf",
+      "bytes": 2120875,
+      "sha256": "e99369ce13d5850d5cdcf4a4aa5d93ad3e79c09ed00f1ba2444afc5f4933c648"
+    },
+    {
+      "path": "characters/quaternius/OldClassy_Female.gltf",
+      "bytes": 2103966,
+      "sha256": "0c116d90c588f357e6537f12bdab5f377f6cb30590f29826092824dc55f7c5eb"
+    },
+    {
+      "path": "characters/quaternius/OldClassy_Male.gltf",
+      "bytes": 1992147,
+      "sha256": "9ac226f58ee2f80acb2cd4c66f15cfb210937ee1744b9465425f796aa900d9b8"
+    },
+    {
+      "path": "characters/quaternius/Pirate_Female.gltf",
+      "bytes": 2284873,
+      "sha256": "766ca84f2b277879ddc724e2d1bd626f4d02c724243c3a1cfda3021245a48578"
+    },
+    {
+      "path": "characters/quaternius/Pirate_Male.gltf",
+      "bytes": 1801347,
+      "sha256": "b372461f1ca937385729c015fc7062671095b7b49b9e4f38f8a054d72c2a80e6"
+    },
+    {
+      "path": "characters/quaternius/Pug.gltf",
+      "bytes": 1794411,
+      "sha256": "5840f1367fd3ed2f28b662a969a4496aff774a33ce0bee0e80ed92032c6ef392"
+    },
+    {
+      "path": "characters/quaternius/Soldier_Female.gltf",
+      "bytes": 2106935,
+      "sha256": "5289293709f02a7cc42ec8b388ba2488f95446f7840398b9d1d3c9544033839d"
+    },
+    {
+      "path": "characters/quaternius/Soldier_Male.gltf",
+      "bytes": 1829457,
+      "sha256": "d1482e21910ed8b68541558efe9b79cc12666cfe26607d19ed2ebe64e27bc9d0"
+    },
+    {
+      "path": "characters/quaternius/Suit_Female.gltf",
+      "bytes": 2076878,
+      "sha256": "37cbe38d428f57aff788be0f585fb9892b6115cc014c494cb19ec65c621e1f07"
+    },
+    {
+      "path": "characters/quaternius/Suit_Male.gltf",
+      "bytes": 1987422,
+      "sha256": "d89d245d10c81ee637116b3400657dad2873ec1bbfb7f90579b2f77a8779fa5b"
+    },
+    {
+      "path": "characters/quaternius/VikingHelmet.gltf",
+      "bytes": 2114337,
+      "sha256": "1d458ba5ea81fcf63c1443fd8c127b6491cc1e19019652e50de13e705a161328"
+    },
+    {
+      "path": "characters/quaternius/Viking_Female.gltf",
+      "bytes": 2141514,
+      "sha256": "08926d623cdaea514b7ec558def1e958111603fe9097ceca0df0ff1f74669197"
+    },
+    {
+      "path": "characters/quaternius/Viking_Male.gltf",
+      "bytes": 2075413,
+      "sha256": "2b04e1f077813a8a6b4df951eb5c866ad17b20aec7db62f73e753d99e2d16d8e"
+    },
+    {
+      "path": "characters/quaternius/Witch.gltf",
+      "bytes": 2114096,
+      "sha256": "32d5c49fa0a3d4215116fd9eb7d672cd34367a19b6abb88f1a63aba7de882511"
+    },
+    {
+      "path": "characters/quaternius/Wizard.gltf",
+      "bytes": 2079352,
+      "sha256": "baa9cd2d9f1ab3452d6e47d6efc5d4c6c8381fe16a44fc710df46bf16bc7fce8"
+    },
+    {
+      "path": "characters/quaternius/Worker_Female.gltf",
+      "bytes": 2020830,
+      "sha256": "a1cb51a7bde7758884e8e83f7e8569cb6fede8f95bf4cfaf55102f468921c0d9"
+    },
+    {
+      "path": "characters/quaternius/Worker_Male.gltf",
+      "bytes": 1771584,
+      "sha256": "324e2c95c31d11b9b48171d78fe3a0715cb9e58cea77ebc7a5b0de4936bc7b9e"
+    },
+    {
+      "path": "characters/quaternius/Zombie_Female.gltf",
+      "bytes": 2357807,
+      "sha256": "ec5e14a401c41e1c7babe3cbf83562f5ff9d00926cbd35b460a8d62b5a35a044"
+    },
+    {
+      "path": "characters/quaternius/Zombie_Male.gltf",
+      "bytes": 1965645,
+      "sha256": "b29faf715aa2ee8180d0df3a314404ba1d3a7c3c7fe6e2a4c53733ad39912099"
+    },
+    {
+      "path": "city-builder/gltf/building_A_withoutBase.bin",
+      "bytes": 28820,
+      "sha256": "a0446a10d14c50267c3fa6be98104e8467171b57f288448a5d740e91666d5056"
+    },
+    {
+      "path": "city-builder/gltf/building_A_withoutBase.gltf",
+      "bytes": 3083,
+      "sha256": "37389d47e4ddec9175c40d41a48e2c1d16a1c44146833ec73fef2710e0b6876e"
+    },
+    {
+      "path": "city-builder/gltf/building_B_withoutBase.bin",
+      "bytes": 38844,
+      "sha256": "1fca25dd4b645058d55b069bbddc41fda2eea543a762237ed054f15bccbee34a"
+    },
+    {
+      "path": "city-builder/gltf/building_B_withoutBase.gltf",
+      "bytes": 3089,
+      "sha256": "69b1e3d91479c8fe3134e385fef567603cecd2423a032f2a11b9f2deb7046458"
+    },
+    {
+      "path": "city-builder/gltf/building_C_withoutBase.bin",
+      "bytes": 43548,
+      "sha256": "56ab30ffadc34b91a4ec6a8cc26bb644bb1c516b25afa8fa1eac4a3968dead2b"
+    },
+    {
+      "path": "city-builder/gltf/building_C_withoutBase.gltf",
+      "bytes": 3089,
+      "sha256": "f059362f96617268b7eff7a1f65f853288a79e21316e5793bbc23a0a2e937671"
+    },
+    {
+      "path": "city-builder/gltf/building_D_withoutBase.bin",
+      "bytes": 55680,
+      "sha256": "6342dbff9ee312838372b094bb65ae1d36c2382e95c1c49470e579e5eeac77d2"
+    },
+    {
+      "path": "city-builder/gltf/building_D_withoutBase.gltf",
+      "bytes": 3090,
+      "sha256": "40c07bd5026825a8cf95bf202b702fdb4858ae8a4f2236aa41a9db7a4fdd19ca"
+    },
+    {
+      "path": "city-builder/gltf/building_E_withoutBase.bin",
+      "bytes": 62084,
+      "sha256": "6403701c0185eeb53b60f76b359e99c47634c3240cd3e51f92aeeb472e7d341c"
+    },
+    {
+      "path": "city-builder/gltf/building_E_withoutBase.gltf",
+      "bytes": 3090,
+      "sha256": "0b2ab5f634eaf0d45ccf5fe585b4a9269f1b8e5b9ab34a412bafca046087e609"
+    },
+    {
+      "path": "city-builder/gltf/building_F_withoutBase.bin",
+      "bytes": 71192,
+      "sha256": "1bed0be4aae8523a76c669c2a85794e16a64709b14ac03d10da03be721027c7f"
+    },
+    {
+      "path": "city-builder/gltf/building_F_withoutBase.gltf",
+      "bytes": 3090,
+      "sha256": "7fe97913eb97fe868b440ac4f13ca60f4d36262624526bbcafcef94566016343"
+    },
+    {
+      "path": "city-builder/gltf/building_G_withoutBase.bin",
+      "bytes": 68880,
+      "sha256": "34112472a38f23489211829312a8e9e994ca772ee814c5295e39c62b2d4ca376"
+    },
+    {
+      "path": "city-builder/gltf/building_G_withoutBase.gltf",
+      "bytes": 3090,
+      "sha256": "2a2dc998168a01bd34390d6fbb2a273e191c8b6e3258f4f3df09a37465ebf0e1"
+    },
+    {
+      "path": "city-builder/gltf/building_H_withoutBase.bin",
+      "bytes": 86880,
+      "sha256": "310a8c61e9d0f29a0547a57c3aa1f3890c67cab554c5bd9cd5e0768f3c8499b7"
+    },
+    {
+      "path": "city-builder/gltf/building_H_withoutBase.gltf",
+      "bytes": 3089,
+      "sha256": "51d6e3ecb8d12703163c806193787bff9c034931733ca7cd497568c1d62f1793"
+    },
+    {
+      "path": "city-builder/gltf/car_hatchback.bin",
+      "bytes": 53564,
+      "sha256": "e7756d8a44553ef75091bb4baa41388bcb1a1b44388008a3e670d05cb12f4c5f"
+    },
+    {
+      "path": "city-builder/gltf/car_hatchback.gltf",
+      "bytes": 10952,
+      "sha256": "e38be3dbdfbc95b0e794fc5c8164b2ff658b2dc5049b51d38179d16a9432b4f3"
+    },
+    {
+      "path": "city-builder/gltf/car_police.bin",
+      "bytes": 62168,
+      "sha256": "07bf3160554753cb6365e85c1c99dd9bf9ca4e8ffabeab5f15ff03ac18640d87"
+    },
+    {
+      "path": "city-builder/gltf/car_police.gltf",
+      "bytes": 10937,
+      "sha256": "c6f1f85c2a8f56ec0abb76deac13486d42399c6d23868e5e524a090fce652d12"
+    },
+    {
+      "path": "city-builder/gltf/car_sedan.bin",
+      "bytes": 55332,
+      "sha256": "1d69e7f098a5456a8c6891c4fd718ad1c71397045c8931817550a8801f00338d"
+    },
+    {
+      "path": "city-builder/gltf/car_sedan.gltf",
+      "bytes": 10928,
+      "sha256": "96c9d38e682bc2c77470af09d1a7450208559ca652bf2cf6fd2bc20b8646ef59"
+    },
+    {
+      "path": "city-builder/gltf/car_stationwagon.bin",
+      "bytes": 56172,
+      "sha256": "46d28202e738f62ba6aae5caae5d56852334ca53ac0628d88d03a5e5e3042c4b"
+    },
+    {
+      "path": "city-builder/gltf/car_stationwagon.gltf",
+      "bytes": 10970,
+      "sha256": "49f7e2bdb70183214a3e8d8576e420ebb69520b21db81dddfc6a04e1ed8994fd"
+    },
+    {
+      "path": "city-builder/gltf/car_taxi.bin",
+      "bytes": 58704,
+      "sha256": "28abb85c4eb0d38be9b4b0beebe0a55038565b1f9545fea65f59cb56672c1d11"
+    },
+    {
+      "path": "city-builder/gltf/car_taxi.gltf",
+      "bytes": 10924,
+      "sha256": "781b3265473dab6f7e054f06c23abeba9b811516b19b61a7a88b0aa8d33e1323"
+    },
+    {
+      "path": "city-builder/gltf/citybits_texture.png",
+      "bytes": 19885,
+      "sha256": "6d2d9a5a13bce32209cd8c04572ab170504d68f34b1519165c9b0c41871e235b"
+    },
+    {
+      "path": "city-builder/gltf/dumpster.bin",
+      "bytes": 8180,
+      "sha256": "389a04cddf27b9514226597627fb0f217499432be1a26c6b43e6f2bfdb652fd2"
+    },
+    {
+      "path": "city-builder/gltf/dumpster.gltf",
+      "bytes": 3033,
+      "sha256": "56353a02aa70f61ea0f94f5806c66f489b2949b64db0611b5ccf2b500c815cb9"
+    },
+    {
+      "path": "city-builder/gltf/firehydrant.bin",
+      "bytes": 8056,
+      "sha256": "02cab93bf6af8c16da083c6ac92dcc5997bed24dabc1e746ee780e623b07b3de"
+    },
+    {
+      "path": "city-builder/gltf/firehydrant.gltf",
+      "bytes": 3067,
+      "sha256": "0a3f9fb95e8b4805602ad26050ee552408553682b41f3e54981a69dfa92a7f3b"
+    },
+    {
+      "path": "city-builder/gltf/road_corner_curved.bin",
+      "bytes": 7976,
+      "sha256": "5a89cc3e2cd8728512f52b0c1d1f643b2f8a5fecaedba6390f2b4f9b9d3ac453"
+    },
+    {
+      "path": "city-builder/gltf/road_corner_curved.gltf",
+      "bytes": 2986,
+      "sha256": "92a3a77292b6f2cc75accd7b0340d98805377925cd0c9593661bcbf541913e88"
+    },
+    {
+      "path": "city-builder/gltf/road_junction.bin",
+      "bytes": 9724,
+      "sha256": "deb16c15a1b4fb49b48a468c93ddee8a7afc64cd0e41616fff29d9ad3d063eac"
+    },
+    {
+      "path": "city-builder/gltf/road_junction.gltf",
+      "bytes": 2992,
+      "sha256": "28ea556cf76cf3efd38b62c3610a338bca46ff8e25c336406821c85cf58b7c6b"
+    },
+    {
+      "path": "city-builder/gltf/road_straight.bin",
+      "bytes": 3676,
+      "sha256": "6509b3509565e250de74a19728b9dd1e1351d40c8a50f4d18a1c6b3edb0bd068"
+    },
+    {
+      "path": "city-builder/gltf/road_straight.gltf",
+      "bytes": 2974,
+      "sha256": "35c74b311a04e5682dfc7fc823867aa53de1cc19b86fa801730496ee69b52e68"
+    },
+    {
+      "path": "city-builder/gltf/road_straight_crossing.bin",
+      "bytes": 4096,
+      "sha256": "2c9ffb1dcab28737a24af1b747a8fb233cb55e460724d517e2dc29cef80ca01b"
+    },
+    {
+      "path": "city-builder/gltf/road_straight_crossing.gltf",
+      "bytes": 2992,
+      "sha256": "7df128514884a9356404fa3b42b10816a6dec8a211bc22233372cdbb7e1e71a9"
+    },
+    {
+      "path": "city-builder/gltf/road_tsplit.bin",
+      "bytes": 7548,
+      "sha256": "4856ecd193740c544b8ff15bc7d0fc320a5cd83a1817eda7c69f35f75cb56f83"
+    },
+    {
+      "path": "city-builder/gltf/road_tsplit.gltf",
+      "bytes": 2971,
+      "sha256": "dcdf1facedbd82419b9d0533f327bcf0b66ad74ced86c63d5151244a9cec812f"
+    },
+    {
+      "path": "city-builder/gltf/streetlight.bin",
+      "bytes": 7136,
+      "sha256": "2e95833194e4cccbf00a413187cc54ede953c047f88b7cc7b1bef1a1d0aea9a1"
+    },
+    {
+      "path": "city-builder/gltf/streetlight.gltf",
+      "bytes": 3067,
+      "sha256": "4399e9023844319e0f74311779a2c0ebecacec16f5dfd8123b6141a3af903c6a"
+    },
+    {
+      "path": "city-builder/gltf/trafficlight_C.bin",
+      "bytes": 24136,
+      "sha256": "0be9badcc8096be76e7ff892a4ae19806189ed87bb0ea79df75f55a8e3efcb32"
+    },
+    {
+      "path": "city-builder/gltf/trafficlight_C.gltf",
+      "bytes": 3074,
+      "sha256": "1453697f533323bcf661d59842850a3054ac0bee3d3e7cd8e1ea5e2d627de226"
+    },
+    {
+      "path": "city-kits/commercial/Textures/colormap.png",
+      "bytes": 11002,
+      "sha256": "191bec3889aaaca5018380038fecc129ebb5c2182879a099b7b538b3fa050b5d"
+    },
+    {
+      "path": "city-kits/commercial/building-a.glb",
+      "bytes": 108936,
+      "sha256": "5cf220f90ee3f21e7abe38055ca409a48aa8ef1d5ffab6e2deb99e5a5e1ed5e0"
+    },
+    {
+      "path": "city-kits/commercial/building-b.glb",
+      "bytes": 106408,
+      "sha256": "3b5d3ac0799c024781d92bb15971d42f4f8e380554dc5cf6a40c2f07d948947a"
+    },
+    {
+      "path": "city-kits/commercial/building-c.glb",
+      "bytes": 102788,
+      "sha256": "f6887608a95a165503561730252c30506938803731c6546efca12bd47b1666bd"
+    },
+    {
+      "path": "city-kits/commercial/building-d.glb",
+      "bytes": 95160,
+      "sha256": "40605608e9aca0c98e294acff4af0f74afa417a51d589be490ca98f33ce4c2f5"
+    },
+    {
+      "path": "city-kits/commercial/building-e.glb",
+      "bytes": 128208,
+      "sha256": "edbe5b49858a3c83e72d3cf496129c06082ef3a3d6005769f8883138e275b456"
+    },
+    {
+      "path": "city-kits/commercial/building-f.glb",
+      "bytes": 148952,
+      "sha256": "633a25f7fb3ccf98e304a885a36ed900aecee5bde7ecd554729dec753cceea78"
+    },
+    {
+      "path": "city-kits/commercial/building-g.glb",
+      "bytes": 166356,
+      "sha256": "9a28fa2fdfac07492ee95589882213cfd6eb32d6752cb3b2f5404604c676d27a"
+    },
+    {
+      "path": "city-kits/commercial/building-h.glb",
+      "bytes": 127384,
+      "sha256": "6881613ce218bb33a0f56137d4d33b00d307c47e518fbb21ccba1083efbea896"
+    },
+    {
+      "path": "city-kits/commercial/building-i.glb",
+      "bytes": 209728,
+      "sha256": "3e572277d3eead30e24668a653ec6a11a488228a219d4902f08638cbca7c3dfe"
+    },
+    {
+      "path": "city-kits/commercial/building-j.glb",
+      "bytes": 440652,
+      "sha256": "eedc2690cda345b62351f03a218a817a6ad59f399c12e064ca5ff37333d059f5"
+    },
+    {
+      "path": "city-kits/commercial/building-k.glb",
+      "bytes": 246976,
+      "sha256": "afd36f573b9d6a6a890675aa0fbe762b29efb6258f322990752d79d9f0da42c6"
+    },
+    {
+      "path": "city-kits/commercial/building-l.glb",
+      "bytes": 290516,
+      "sha256": "0c3d1b346c142198b7f504d12b40cb1630bb14c3ff38a013922b700d09f9dcff"
+    },
+    {
+      "path": "city-kits/commercial/building-m.glb",
+      "bytes": 301004,
+      "sha256": "1cdc717ac86a0479043ff0d0146142f5dfc2622c0e3aaac484fad5807f94d580"
+    },
+    {
+      "path": "city-kits/commercial/building-n.glb",
+      "bytes": 341232,
+      "sha256": "35dc225d48516ead483a49e90dd164f1bc62b1ad75d3095488bd404cad1848b0"
+    },
+    {
+      "path": "city-kits/commercial/building-skyscraper-a.glb",
+      "bytes": 111336,
+      "sha256": "d8339bbb75944ff91d1ec9a70ec6dead71bd98b94a42d3dd0fc1f3b107ddbe85"
+    },
+    {
+      "path": "city-kits/commercial/building-skyscraper-b.glb",
+      "bytes": 138480,
+      "sha256": "3a383e8a0a8819023d30b2aee1c6f40fa6bc28990227a306a86e531f36c6b8d5"
+    },
+    {
+      "path": "city-kits/commercial/building-skyscraper-c.glb",
+      "bytes": 149524,
+      "sha256": "e73c357554f7561fedb8c1cbecf9d7163ba09ada264d661c59a0f0a180e0185f"
+    },
+    {
+      "path": "city-kits/commercial/building-skyscraper-d.glb",
+      "bytes": 167148,
+      "sha256": "5c524ec13be53fff85ace8b328bc2587cba4e93962230e4a0ba98998e53d30b5"
+    },
+    {
+      "path": "city-kits/commercial/building-skyscraper-e.glb",
+      "bytes": 101880,
+      "sha256": "21b58a2f2b18d6a7cf8915e8b947bdb6a6a0706da6cffb5a01677c29f03b5935"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-a.glb",
+      "bytes": 14340,
+      "sha256": "c3986108805f0aa7e27e566f5052cb5e8d478417e267779e55ade583ea809a0a"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-b.glb",
+      "bytes": 16336,
+      "sha256": "ef2ab63731c38a469df7f993c26b0e8137746f90ac20ed9485d61f48aa50fbdb"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-c.glb",
+      "bytes": 12284,
+      "sha256": "91ea91b2399cbb94e9b2209e12823dc5b720affc7163f74e0cb8ee07faf62d85"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-d.glb",
+      "bytes": 8716,
+      "sha256": "cca2c05bba22e1e33c5aeb3c4746843b61235cc75cb2c0269e9e0755b276f121"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-e.glb",
+      "bytes": 8240,
+      "sha256": "48c9554b54c6a6089ebf7d8acd0186fe5936dfc1711cabebdd97ad918b340fba"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-f.glb",
+      "bytes": 6932,
+      "sha256": "adc5b93981bb86aca9c7459e35920647039aa217d51705e445d4e699d2c54967"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-g.glb",
+      "bytes": 16320,
+      "sha256": "f9bc2fe27ffc93689a317959542ad6d1c24aeeaa1efcfed59f7ba67423f65702"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-h.glb",
+      "bytes": 26812,
+      "sha256": "6de95299129118224b739845202a6d6a688e3ca6f9f61c4b0fd04dba99a61e23"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-i.glb",
+      "bytes": 11768,
+      "sha256": "e277aad27d3e98f5880ac65acee0ec1f68cc20e7fb28eed0a688afe48f6564ae"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-j.glb",
+      "bytes": 16404,
+      "sha256": "a1291d4e277c45ee53fa5dc610490c54c302ab1cdc677b6b6b2ce31670f0423c"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-k.glb",
+      "bytes": 7556,
+      "sha256": "36215b34b01de7a48a78b9cc344a577ed436e13596b59d2bcb01bab9f50aab5c"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-l.glb",
+      "bytes": 12128,
+      "sha256": "6cc75bfa0e821db2997dca8a14d9f63c675de5987781c2ff0977b8a644d25fd5"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-m.glb",
+      "bytes": 15112,
+      "sha256": "597d8c18ac63de895de66fc4fe0695bd9958d76ccb9b340ad0dfd1589666a22e"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-n.glb",
+      "bytes": 5904,
+      "sha256": "8ab4dc2ed40e3f0c2d82eb9010b6e50a946dc07a3125e28568f0dfd12eae00bd"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-wide-a.glb",
+      "bytes": 12736,
+      "sha256": "4687e3200e1aba16d333a169ca5f7e5489c05ffcaeb06b7159a82c77ea42b42b"
+    },
+    {
+      "path": "city-kits/commercial/low-detail-building-wide-b.glb",
+      "bytes": 18736,
+      "sha256": "c082149c94ce9f6ae06969a7dbf4b3e92009cda8be90f1bcd5b89b9adcb1ce23"
+    },
+    {
+      "path": "city-kits/industrial/Textures/colormap.png",
+      "bytes": 11986,
+      "sha256": "950f4f891ebd05a2affac810e6eeb0fea1511bc39039b65a3cbf2e17d17bc6a2"
+    },
+    {
+      "path": "city-kits/industrial/building-a.glb",
+      "bytes": 177316,
+      "sha256": "0e6ef8eb1e1bdbb9d06b5496b5daf3066e00eaf74b3fcd61b74072116a1c86cf"
+    },
+    {
+      "path": "city-kits/industrial/building-b.glb",
+      "bytes": 212040,
+      "sha256": "2ae65bd9166449f0bef438fbefb75d57451cb15c16659d7f22a7d895296a46af"
+    },
+    {
+      "path": "city-kits/industrial/building-c.glb",
+      "bytes": 175844,
+      "sha256": "94eb05acef8d8e4c1d817eb12e1c2a1287ffed625879170663a8c4f48786b465"
+    },
+    {
+      "path": "city-kits/industrial/building-d.glb",
+      "bytes": 100768,
+      "sha256": "72b9e9e29986df0778ffa7c56e2f92fcfadfaa0f89bf167603877db4f38a789e"
+    },
+    {
+      "path": "city-kits/industrial/building-e.glb",
+      "bytes": 129400,
+      "sha256": "d61fed5e9502af9c698367ab69d5bc50b673375929e51c22af247dfb1db6cd16"
+    },
+    {
+      "path": "city-kits/industrial/building-f.glb",
+      "bytes": 134916,
+      "sha256": "05a91ab02f424ca4f4819c1749e014bc4404cdf2a75242190c066bb24b59cde7"
+    },
+    {
+      "path": "city-kits/industrial/building-g.glb",
+      "bytes": 106940,
+      "sha256": "d09d0d53e85989870f39087435f3c8fc788fe68e87589439fa6bf227c2e4a611"
+    },
+    {
+      "path": "city-kits/industrial/building-h.glb",
+      "bytes": 63644,
+      "sha256": "5a6a6c6824467972ba00b5a3c3cbb19da6e96673bc4e42daf1f09cfd4d2ed0e1"
+    },
+    {
+      "path": "city-kits/industrial/building-i.glb",
+      "bytes": 73848,
+      "sha256": "12d9be598becf2b6d3758d23aba6c573ca2701fca5e77870d2ee5645647765ca"
+    },
+    {
+      "path": "city-kits/industrial/building-j.glb",
+      "bytes": 80792,
+      "sha256": "58f135e706662a201bc0c660c2c680ec6bf2997233dd61fe03c28d4965b45bc9"
+    },
+    {
+      "path": "city-kits/industrial/building-k.glb",
+      "bytes": 65472,
+      "sha256": "ae0692f7a9fa20bb4ae6cc4deb56d5e1919b1ba2188a1f282295ab2be5e9645d"
+    },
+    {
+      "path": "city-kits/industrial/building-l.glb",
+      "bytes": 162424,
+      "sha256": "86f03eb0b0c5882c59de79b505ffba4377a9b4591588215aa880ab6362087066"
+    },
+    {
+      "path": "city-kits/industrial/building-m.glb",
+      "bytes": 138920,
+      "sha256": "526881cb1851120a60195f76bd4d8c1963653cdda66e4d1d53f085b3395fb8a9"
+    },
+    {
+      "path": "city-kits/industrial/building-n.glb",
+      "bytes": 109256,
+      "sha256": "56b895860fb841ecee3e4d13d0745c6cd838da231af79cd90fb8dc0e32a97a96"
+    },
+    {
+      "path": "city-kits/industrial/building-o.glb",
+      "bytes": 76552,
+      "sha256": "eec5728a268e122da91fa2cc4ed571a0b12e2cdd5c200828ab0d4f31ab1c8765"
+    },
+    {
+      "path": "city-kits/industrial/building-p.glb",
+      "bytes": 103760,
+      "sha256": "d3e701ba7bf548519731d9c68d5a47d09654bccef6f93be759eaafb55cdb2f78"
+    },
+    {
+      "path": "city-kits/industrial/building-q.glb",
+      "bytes": 181248,
+      "sha256": "19e65a2547db017af11dedc00a772e0421e580eb31815d8788ab11db232f89d2"
+    },
+    {
+      "path": "city-kits/industrial/building-r.glb",
+      "bytes": 173056,
+      "sha256": "3bf50032b629c97e249a9219851fd385347608bcb896c5bed06870e3957de5fe"
+    },
+    {
+      "path": "city-kits/industrial/building-s.glb",
+      "bytes": 81192,
+      "sha256": "065fbcbeb5e79ab21d8cd71b69b925a41d842e6f61296078619e6682d4487a82"
+    },
+    {
+      "path": "city-kits/industrial/building-t.glb",
+      "bytes": 139896,
+      "sha256": "865f92dc0ca0ce147c2b784bfda0773698e80896c372146e2b53811f1758607f"
+    },
+    {
+      "path": "city-kits/suburban/Textures/colormap.png",
+      "bytes": 11784,
+      "sha256": "9b5de86078c25ef02351a80d35ff3c978693a1044565b73eedd9ae9b5b80665d"
+    },
+    {
+      "path": "city-kits/suburban/building-type-a.glb",
+      "bytes": 98604,
+      "sha256": "49f32e20b9dcd24b1c8f6d6488807b8c8cb684cbb595bfb0bb36ad903e470faa"
+    },
+    {
+      "path": "city-kits/suburban/building-type-b.glb",
+      "bytes": 146720,
+      "sha256": "a964a10c51bb334be677657fd8fa483531974dd15b4243575990192818e2300e"
+    },
+    {
+      "path": "city-kits/suburban/building-type-c.glb",
+      "bytes": 99592,
+      "sha256": "86a69f30f1a09461283e158514945ae5cc9d56357b0ddc83a9a3f0eecd113591"
+    },
+    {
+      "path": "city-kits/suburban/building-type-d.glb",
+      "bytes": 147368,
+      "sha256": "a41cd28265b2b224e700373c3a8356562619699998b7fa4d70ed41de629a6731"
+    },
+    {
+      "path": "city-kits/suburban/building-type-e.glb",
+      "bytes": 145512,
+      "sha256": "9ec43994c8c332b1ae5b058d8b9646255831fd91047c1a35b1fc1ecae4c082fc"
+    },
+    {
+      "path": "city-kits/suburban/building-type-f.glb",
+      "bytes": 138536,
+      "sha256": "6f778f50d7f03c86f9a018e428cf8ffdd9e918df09954c0651d1c9559584a22b"
+    },
+    {
+      "path": "city-kits/suburban/building-type-g.glb",
+      "bytes": 93596,
+      "sha256": "f497a7bc3a8e6b6273ba99f090042d1cfb3141da57d3c51998c57a479a0ece11"
+    },
+    {
+      "path": "city-kits/suburban/building-type-h.glb",
+      "bytes": 65364,
+      "sha256": "b8b8eb7a50f85fa20b4862723e133157f553d69a0daad39b850ddbd2099ebb84"
+    },
+    {
+      "path": "city-kits/suburban/building-type-i.glb",
+      "bytes": 69772,
+      "sha256": "798bb0f1eb644b64a19584e6765da23750f04a86c3703704ce56bc63e5512b39"
+    },
+    {
+      "path": "city-kits/suburban/building-type-j.glb",
+      "bytes": 99512,
+      "sha256": "fbdce9cb6bb6cf60a861bab36a896403aff604afbf2cb2b86676ae6f49fa2de3"
+    },
+    {
+      "path": "city-kits/suburban/building-type-k.glb",
+      "bytes": 89152,
+      "sha256": "c1b819a526bbcf9663bc40c98e22337cded7fff7c50c14679132d5d98d75f583"
+    },
+    {
+      "path": "city-kits/suburban/building-type-l.glb",
+      "bytes": 109232,
+      "sha256": "5f03bf2e65a3a795afc18f7e56a5da891908d59d937e660be8478b66905d2cee"
+    },
+    {
+      "path": "city-kits/suburban/building-type-m.glb",
+      "bytes": 96996,
+      "sha256": "36d31f4e45498f6229805b6a7a1577ef00230daeea4c6a4469481e9d5a0fdb7c"
+    },
+    {
+      "path": "city-kits/suburban/building-type-n.glb",
+      "bytes": 139464,
+      "sha256": "f2a29ececcca4a27bbef187caba0e7bb0e35de7a0de9742a8b8440ce6874c48c"
+    },
+    {
+      "path": "city-kits/suburban/building-type-o.glb",
+      "bytes": 114424,
+      "sha256": "aa256fa55613bb4c5fbdf379123454e4f98cde4d07a68bc826bb143d287ae0c1"
+    },
+    {
+      "path": "city-kits/suburban/building-type-p.glb",
+      "bytes": 109260,
+      "sha256": "561b2eff15bd2bfe2799a8a049cafc70a1c7bfb6e35f3b2a4d95c8f4f376458c"
+    },
+    {
+      "path": "city-kits/suburban/building-type-q.glb",
+      "bytes": 98632,
+      "sha256": "9b56037cab0de804e308766cc5e69b95b3576ffb444084c9016a0748cbcaca04"
+    },
+    {
+      "path": "city-kits/suburban/building-type-r.glb",
+      "bytes": 88544,
+      "sha256": "9b76ee3b9061b680ca14fd8cc838d1d5ca91b959e02833254f15d9236b8b20b7"
+    },
+    {
+      "path": "city-kits/suburban/building-type-s.glb",
+      "bytes": 103172,
+      "sha256": "56dfd278f10bea2546cb0946f48659dde5876bc9ce100ea1fbe37c0cc94bf9e6"
+    },
+    {
+      "path": "city-kits/suburban/building-type-t.glb",
+      "bytes": 167512,
+      "sha256": "3b729b473fc995a632ebc4d96cc8f18ef9d43bdc1a6c26010a02ec0b298c34e7"
+    },
+    {
+      "path": "city-kits/suburban/building-type-u.glb",
+      "bytes": 117912,
+      "sha256": "fb259246fc73bdce626eed8b7167d5e97bd63651890551661ec4507311eba279"
+    },
+    {
+      "path": "simplepoly-vehicles/catalog.json",
+      "bytes": 11280,
+      "sha256": "c344fae43f8b1a5ea8d1251d395c0b66a3008af2964e71af3fb39d4c68d1f2b6"
+    },
+    {
+      "path": "simplepoly-vehicles/city/ambulance.glb",
+      "bytes": 52908,
+      "sha256": "182cf426b124b7cb65e4b6e58666a462c26232b9f87c4bc40c86d600e9ea0272"
+    },
+    {
+      "path": "simplepoly-vehicles/city/bus.glb",
+      "bytes": 57716,
+      "sha256": "bc2c69c3c2857d0f2cdf7f6d6b52650b7bbb94f18ee88f567adb2db9761ab10b"
+    },
+    {
+      "path": "simplepoly-vehicles/city/car.glb",
+      "bytes": 71332,
+      "sha256": "2c858a45bf9919184e955259d2d54cc528056f156dbf5a8b659ab70f13352b3b"
+    },
+    {
+      "path": "simplepoly-vehicles/city/container.glb",
+      "bytes": 54112,
+      "sha256": "bd28b4396b6c1f2d9509ad055a25e723a5b1079e1fad548fe3d868f2c609d171"
+    },
+    {
+      "path": "simplepoly-vehicles/city/pick-up-truck.glb",
+      "bytes": 52948,
+      "sha256": "18e648ad13ca0a6fa1920d3ae5507d0141ad8c1f89bea381cf6236b2db1e1467"
+    },
+    {
+      "path": "simplepoly-vehicles/city/police-car.glb",
+      "bytes": 75204,
+      "sha256": "1f99a6157cd8b8c4dc1d2ee635284e0573ead24e0cdde983e23080420e93097d"
+    },
+    {
+      "path": "simplepoly-vehicles/city/suv.glb",
+      "bytes": 49532,
+      "sha256": "33117649c9dc1dee4682be2aad63af38292865cd1a387860c7475ed61723a08d"
+    },
+    {
+      "path": "simplepoly-vehicles/city/taxi.glb",
+      "bytes": 75688,
+      "sha256": "97db3c742feec35c45b08cb22c3ff77292d9dfee8e925befdede1b85272f9622"
+    },
+    {
+      "path": "simplepoly-vehicles/city/truck.glb",
+      "bytes": 54164,
+      "sha256": "7a51b841f0e6c8b757bedb443f52553f107c911345f6ff665ea2a5266921f6b6"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/ambulance.glb",
+      "bytes": 52976,
+      "sha256": "f763bf0dbd1b14d723e9868070e9ac5b835dfb0de00ed4286c6f136cc68e4f5f"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/bus.glb",
+      "bytes": 60716,
+      "sha256": "89c0c83a8297ecffdd41b64a49194d0c6d1245d3625d94973879d70baeccb994"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/car.glb",
+      "bytes": 83080,
+      "sha256": "bd6a40dc4051b091ff1c465df2c35466ffbc63a92632d2bf43bb7f2e794b4757"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/fire-truck.glb",
+      "bytes": 98592,
+      "sha256": "a21de6d127fd2d306384f56a204c8efa476e11b6596fb3123a6bd0d653b723be"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/muscle-car.glb",
+      "bytes": 167856,
+      "sha256": "3761facf8a0a7b8a369ce1422e054f727cbc0a308560927a8d5a2448c3941588"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/pick-up-truck.glb",
+      "bytes": 82176,
+      "sha256": "845ba45e9948652cb1b93221bee5feae6113e756130cc35017943c4ec7ff84a0"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/police-car.glb",
+      "bytes": 78088,
+      "sha256": "578f13d11d7c2c67a12cd3ac04e148bcfcd2fc914631237e41575a0a1cf07b06"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/school-bus.glb",
+      "bytes": 65776,
+      "sha256": "97c1f10db378b94e8e479e65af2cb7814da6ab43d8eb272dc1fd3231d3544a90"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/taxi.glb",
+      "bytes": 90836,
+      "sha256": "7402c8b481903b1fa7dde2dcd4b13d26b9728e5b965f1ed25ab73873d4e033ed"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/truck-container.glb",
+      "bytes": 121108,
+      "sha256": "0fe6a787c7e9b64943b07873002729a64dbd0a7563c1b00eb4eb0f87e45d1fcf"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/truck-empty.glb",
+      "bytes": 118912,
+      "sha256": "46c3fdab604678e9aeb929847b0afc4caf2fa57ccbfe79e0c7c744f9cfe61ba9"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/truck-log.glb",
+      "bytes": 145528,
+      "sha256": "3f3e596bdc4d19b285a8ff83ae32fb85a7ac6c4855a72e0199c8b4f449890e7a"
+    },
+    {
+      "path": "simplepoly-vehicles/urban/truck-tanker.glb",
+      "bytes": 121956,
+      "sha256": "fbca9bdf8def4c52a53cdd9f3e9384fd8cf76c3c09d6ed23f5995c3ef88abb52"
+    },
+    {
+      "path": "simplepoly/catalog.json",
+      "bytes": 51741,
+      "sha256": "05ef0ff7be779a5a51631e392d0a0a2ff2697b178403f8815820ef7908382815"
+    },
+    {
+      "path": "simplepoly/city/building-auto-service.glb",
+      "bytes": 23652,
+      "sha256": "548f57cdb91fdcd2f4a24db7a053b380743c86d8b4027df76259baf182db9d76"
+    },
+    {
+      "path": "simplepoly/city/building-bakery.glb",
+      "bytes": 34004,
+      "sha256": "b576c0c1a8ee3ade2058d5011e6760488c7b887749ddcf8bff0659db40161426"
+    },
+    {
+      "path": "simplepoly/city/building-bar.glb",
+      "bytes": 19584,
+      "sha256": "3106e9e85cfb11cf971cd9cdefa3668040e9301004041e70935696efd0f22f0e"
+    },
+    {
+      "path": "simplepoly/city/building-books-shop.glb",
+      "bytes": 35068,
+      "sha256": "f35f2f7501c9e23a8276c5b7b48553de30ef2fce42a784f2457904f1abf7959a"
+    },
+    {
+      "path": "simplepoly/city/building-chicken-shop.glb",
+      "bytes": 25668,
+      "sha256": "1a9e58aaab40923904c2fd84f34a2dce3de725c9d2f7031dde6f7a070a485018"
+    },
+    {
+      "path": "simplepoly/city/building-clothing.glb",
+      "bytes": 51432,
+      "sha256": "7da8a8667e3ef8bebb6e687e122c9a199025f9170d10dcd9e1a7a8ee27683f60"
+    },
+    {
+      "path": "simplepoly/city/building-coffee-shop.glb",
+      "bytes": 30968,
+      "sha256": "e8da5564d52cc0d44e7cb7429e53a5301371ec88f222f3a80501749ff113b5f9"
+    },
+    {
+      "path": "simplepoly/city/building-drug-store.glb",
+      "bytes": 16656,
+      "sha256": "e640e18b18b8a1c4f1228844200740d67728752ad79216b908b3fb2771fe24df"
+    },
+    {
+      "path": "simplepoly/city/building-factory.glb",
+      "bytes": 52752,
+      "sha256": "b9643026e86af24e9b3c95f3eabfd900510b434bf824751f3306de09aa20a438"
+    },
+    {
+      "path": "simplepoly/city/building-fast-food.glb",
+      "bytes": 25224,
+      "sha256": "6e3f97198a156b4d2425e2d156c85c291441d25c33109e74edeeed0a14b1faa2"
+    },
+    {
+      "path": "simplepoly/city/building-fruits-shop.glb",
+      "bytes": 42288,
+      "sha256": "886e14fad08dda8f91cd835c8252f9ec862a85f3dcf1ab0698882a7fa6a21bea"
+    },
+    {
+      "path": "simplepoly/city/building-gas-station.glb",
+      "bytes": 87544,
+      "sha256": "dd57c7cefd6f38bcd5acb3ca930b2f1c737d7218d688f0e281c13f73ad4deb66"
+    },
+    {
+      "path": "simplepoly/city/building-gift-shop.glb",
+      "bytes": 16468,
+      "sha256": "6e8bd9805fd11fb0e22fda322b9d344e060989cdd3a650bdff6534f0b6765d26"
+    },
+    {
+      "path": "simplepoly/city/building-house-01-color01.glb",
+      "bytes": 62660,
+      "sha256": "5c889c4a5dbcc5cab73923f3485e917e924405691976cc1affc6fe5e150faf2a"
+    },
+    {
+      "path": "simplepoly/city/building-house-02-color01.glb",
+      "bytes": 56660,
+      "sha256": "9a43bd65385f8971daaca2923e765df87fd05b2ed379b66ca2a3abc12f64f2dc"
+    },
+    {
+      "path": "simplepoly/city/building-house-03-color01.glb",
+      "bytes": 114212,
+      "sha256": "67a0870be9d881f4ed5e430b929714e854da2c2c1dd12896d96c147154676fd1"
+    },
+    {
+      "path": "simplepoly/city/building-house-04-color01.glb",
+      "bytes": 29640,
+      "sha256": "49b2d70bdbf8092aa593a7b2e65962273c668968978ade66559e1590e263a51f"
+    },
+    {
+      "path": "simplepoly/city/building-music-store.glb",
+      "bytes": 23144,
+      "sha256": "beabd10297f9d02d278f37a06403383c7c6f942cee8c57e08837b6dd67c334e2"
+    },
+    {
+      "path": "simplepoly/city/building-pizza.glb",
+      "bytes": 28396,
+      "sha256": "a8b231ec5e21c9fa10d9a2551336fe9ddc4bb2ab208604281a46b3d78528159e"
+    },
+    {
+      "path": "simplepoly/city/building-residential-color01.glb",
+      "bytes": 87836,
+      "sha256": "4b35ad7c89e9214aeb21b173b9f4bd1afc9ec0fb42d186d468b7f06744ee5775"
+    },
+    {
+      "path": "simplepoly/city/building-restaurant.glb",
+      "bytes": 23244,
+      "sha256": "51cd5cbb415df15a0353fde21006dd221c0c4fbee830fdcccff61e632e7557e7"
+    },
+    {
+      "path": "simplepoly/city/building-shoes-shop.glb",
+      "bytes": 33084,
+      "sha256": "820add67d1572e9947c1464722eb376f44130e832a4aa8b0187a34c11e6f7353"
+    },
+    {
+      "path": "simplepoly/city/building-sky-big-color01.glb",
+      "bytes": 31804,
+      "sha256": "e6b0755409078b1e6924af5bb817442a5c2f0780352a9afbf10f5c847964076a"
+    },
+    {
+      "path": "simplepoly/city/building-sky-small-color01.glb",
+      "bytes": 23716,
+      "sha256": "7706da819355c7494e348cdaa2cf70877d932594329b6713b6f48ed073642f44"
+    },
+    {
+      "path": "simplepoly/city/building-stadium.glb",
+      "bytes": 455944,
+      "sha256": "2051291bfe95da3ed369a62994ae7e1a18136e47413f7602faf10f9bf9beecd2"
+    },
+    {
+      "path": "simplepoly/city/building-super-market.glb",
+      "bytes": 45252,
+      "sha256": "eae4bf1b68cc8f9676e826bbd50ddc1091dd4d615b930e088be9fc811e8d5b0d"
+    },
+    {
+      "path": "simplepoly/urban/spb-bank.glb",
+      "bytes": 77708,
+      "sha256": "432eb8a4cc616d9fff2eb82f67b9e80763a924c8a2e57e2380db1be29572d457"
+    },
+    {
+      "path": "simplepoly/urban/spb-building01.glb",
+      "bytes": 127196,
+      "sha256": "d67f2201d15f618ef6b610f88640a67aed7db0c65efdb4142302ffe21b5fec57"
+    },
+    {
+      "path": "simplepoly/urban/spb-building02.glb",
+      "bytes": 77068,
+      "sha256": "ed67bbba350b799c40cac94fd208e7219a9c6706965431e7c3355185ab594f92"
+    },
+    {
+      "path": "simplepoly/urban/spb-building03.glb",
+      "bytes": 74508,
+      "sha256": "945dc3d5428a80928f378d03aae3a7d77e66b4246561201e3c7f0e4e28875ec4"
+    },
+    {
+      "path": "simplepoly/urban/spb-church.glb",
+      "bytes": 107632,
+      "sha256": "f2f1ec70da969bf474ba03d30d24e14fdc9012c8c94f8d8b03f59eb80f150ccf"
+    },
+    {
+      "path": "simplepoly/urban/spb-city-hall.glb",
+      "bytes": 172008,
+      "sha256": "05416897fa916005c9e8733df76ddab45cc917694704b5826748ef831f7b99ae"
+    },
+    {
+      "path": "simplepoly/urban/spb-court-house.glb",
+      "bytes": 108356,
+      "sha256": "d344e9a2d7b61b56c5a36d7cdb347e5ace51e88b5569e885113357f8ce1d377a"
+    },
+    {
+      "path": "simplepoly/urban/spb-fire-station.glb",
+      "bytes": 29044,
+      "sha256": "7ffb5f9b5228f665590504a9817659f442ed2b178dbf85b2dd143021e1a5bb68"
+    },
+    {
+      "path": "simplepoly/urban/spb-hospital.glb",
+      "bytes": 78416,
+      "sha256": "fdd5894b40db4e733bea23f64b14130ffa707e938f6079e8ce45d0ba216a88e2"
+    },
+    {
+      "path": "simplepoly/urban/spb-hotel.glb",
+      "bytes": 143844,
+      "sha256": "1bdf90f6732cd9d8eb4be6dd5c8c3133d29414175048798f83878e5ff52d4408"
+    },
+    {
+      "path": "simplepoly/urban/spb-mosque.glb",
+      "bytes": 486036,
+      "sha256": "abcefae884fc1b9e8cdd6f3d49eeeb9ae122b02a09bf94923a67f4c60bdf074c"
+    },
+    {
+      "path": "simplepoly/urban/spb-news.glb",
+      "bytes": 156920,
+      "sha256": "bcdefec976cf2ecd94647b7f3ef1f1b6032b3d2a02ba71626c40a4864a2bd254"
+    },
+    {
+      "path": "simplepoly/urban/spb-police-station.glb",
+      "bytes": 73684,
+      "sha256": "ae70cb3f89d71a04ee1adc8906c379ca60c2c6953442bb5165a7a6c960c4fa63"
+    },
+    {
+      "path": "simplepoly/urban/spb-school.glb",
+      "bytes": 173168,
+      "sha256": "8a6c1031df2cebb11fd8e00c45d21bfb3c12bc5ce86ba336e488934ab5e3001e"
+    },
+    {
+      "path": "simplepoly/urban/spb-shop.glb",
+      "bytes": 45256,
+      "sha256": "1fe0bd5b0bffe56b0f8ca3422746e7f5e7135c69d6bb335ebaec46abaae0ccf0"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-01.glb",
+      "bytes": 39508,
+      "sha256": "b29de3aba50ef032c0625d6b8e37732a7ab2a258df3089c4059847347d55fe17"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-02.glb",
+      "bytes": 30476,
+      "sha256": "c8d85872f3b0c12b22cf3158663bdc5614b7c214f83d8892cbf4e07d28b9444c"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-03.glb",
+      "bytes": 29512,
+      "sha256": "a0b7c27475683627bc2f32cc5c9ba97a195a9edc9e631b53f6434bfb4d00d398"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-04.glb",
+      "bytes": 102692,
+      "sha256": "70bcfc7db98d0be028df06beec2ecd7b0e9a742431d12793934dfb86fcdf7c28"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-05.glb",
+      "bytes": 68328,
+      "sha256": "9c10504e171f0ece09cff3bb5890740a96656ffe2228ed47f7b24c31dac8fb51"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-06.glb",
+      "bytes": 83216,
+      "sha256": "88a5961c4b402745144da32f0e530f7057bbbb662377776ac3d55e773b009eec"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-07.glb",
+      "bytes": 217528,
+      "sha256": "156340eab711ecdd3b23a8290906836bf0d2489a34da54a1bd22f775b47f9799"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-08.glb",
+      "bytes": 27380,
+      "sha256": "50ee4b75aa96ebbc5598884bc06d854418a3506a964f9667392ef0812ba58c60"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-09.glb",
+      "bytes": 64664,
+      "sha256": "4436ef3dee888a2dc9a43cc9bcceff50abf4dd1152512aa75290ab6b87cca82f"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-10.glb",
+      "bytes": 51568,
+      "sha256": "231f4a576d980851bdc794d6315661e6c9a63b010bea9eed34c77a31124191c7"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-11.glb",
+      "bytes": 51872,
+      "sha256": "d736824ebded72f00a4170297b9a38799daec4dfbc5717cc5f0e1779138b43eb"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-12.glb",
+      "bytes": 87584,
+      "sha256": "bcd453df694ac6caf40b997900a9cdea612cae1d3dc0af6db0adae2faacbf435"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-13.glb",
+      "bytes": 70232,
+      "sha256": "bd29a1c3f215536783601f5996216bacf062161b35bf945d1eafb5b5cb9d13dc"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-14.glb",
+      "bytes": 42276,
+      "sha256": "cdf1a9a385a902a614f1e36240b6f985054ed455abe09c6c77dedf77d4e42452"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-15.glb",
+      "bytes": 49468,
+      "sha256": "f7f9ddf4ff720cc4b1d114e9fccd06ee4b036182bb9df3be5ce06fb972813f0b"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-16.glb",
+      "bytes": 27460,
+      "sha256": "76928380ede098903985d905118542cc3888a9e2ea8aa0d327a86b9a4e3b8409"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-17.glb",
+      "bytes": 20508,
+      "sha256": "cd2d9f3aa7878dd4f7c239fe8cd2265109beb699bf8485de07df7f4fd236dbc7"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-apartment-01.glb",
+      "bytes": 147152,
+      "sha256": "bd5f4abfbf46028b904f1a9013858093c47594c319e7bc72f4ad06e92dc320a8"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-apartment-02.glb",
+      "bytes": 95220,
+      "sha256": "5cbe7823e40178bcb964a523afb5380b3bd0f8dd196e70b7a9928ff7c5c9d339"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-gas-station.glb",
+      "bytes": 73276,
+      "sha256": "26ded8248896a2682dcacf465893a338e9eaaf3a473135274c0dc8286cbcb249"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-shop-01.glb",
+      "bytes": 58200,
+      "sha256": "e3e254d428287b9ddbac50e2f78ccdaef98a50dc52038ab3fce3263af9b9d040"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-shop-02.glb",
+      "bytes": 28240,
+      "sha256": "643fcf65db0003ca8367d90db082bbf27e6ba1d0e32c813bcdacaacaf11eacd5"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-small-01.glb",
+      "bytes": 21624,
+      "sha256": "a40eb3e9a848dd3eaacadf78bc8e549c707e29b265a6608e9109912b12066232"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-small-02.glb",
+      "bytes": 20560,
+      "sha256": "ed63065b3b7393b879ce32cf1be5e38bb3de8801ed64a0fd9b892a07812ddca1"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-small-03.glb",
+      "bytes": 23544,
+      "sha256": "8dc2fac5fe902193dfab793f0b2c4f7251011d5beb4213f8b0afe1b32542b54b"
+    },
+    {
+      "path": "simplepoly/urban/spw-urban-bldg-stadium.glb",
+      "bytes": 402336,
+      "sha256": "7bc1b5d66090017f24305de0059f898df5d0b81f7efef0c05e501ba3e230e25a"
+    }
+  ]
+}

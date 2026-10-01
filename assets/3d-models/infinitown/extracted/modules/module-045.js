@@ -1,0 +1,1 @@
+45:[function(t,e,n){var r=THREE.PerspectiveCamera,i=t("7"),o=function(t){r.call(this),this.aspect=window.innerWidth/window.innerHeight,this.fov=50,this.near=1,this.far=1e3,this.updateProjectionMatrix(),this.controls=new i(this,t||document.body)};o.inherit(r,{update:function(){this.controls.update()}}),e.exports=o},{7:7}],

@@ -1,0 +1,114 @@
+{
+  "model": "stealth/space-bunny-alpha",
+  "rulesVersion": 16,
+  "seed": 63916,
+  "horizonTicks": 200,
+  "best": {
+    "id": "stealth-space-bunny-alpha_2026-10-01_114857334-21412",
+    "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_stealth-space-bunny-alpha_2026-10-01_114857334-21412.json",
+    "finalBalance": 692.6997
+  },
+  "runs": [
+    {
+      "rank": 1,
+      "id": "stealth-space-bunny-alpha_2026-10-01_114857334-21412",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_stealth-space-bunny-alpha_2026-10-01_114857334-21412.json",
+      "model": "stealth/space-bunny-alpha",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 692.6997,
+      "apiCalls": 234,
+      "fallbacks": 0,
+      "admittedVehicles": 150,
+      "incidents": 7,
+      "generatedAt": "2026-10-01T06:11:47.185Z",
+      "hasRawLog": true,
+      "problems": []
+    },
+    {
+      "rank": 2,
+      "id": "stealth-space-bunny-alpha_2026-10-01_140700887-54472",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_stealth-space-bunny-alpha_2026-10-01_140700887-54472.json",
+      "model": "stealth/space-bunny-alpha",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 638.0154,
+      "apiCalls": 191,
+      "fallbacks": 0,
+      "admittedVehicles": 128,
+      "incidents": 6,
+      "generatedAt": "2026-10-01T07:59:08.273Z",
+      "hasRawLog": true,
+      "problems": []
+    },
+    {
+      "rank": 3,
+      "id": "stealth-space-bunny-alpha_2026-10-01_114857344-4644",
+      "replay": "Z:\\works\\kcores.com\\repo\\silicon-conductor-bench\\logs\\replay_stealth-space-bunny-alpha_2026-10-01_114857344-4644.json",
+      "model": "stealth/space-bunny-alpha",
+      "rulesVersion": 16,
+      "seed": 63916,
+      "horizonTicks": 200,
+      "endTick": 261,
+      "finalBalance": 554.3727,
+      "apiCalls": 199,
+      "fallbacks": 0,
+      "admittedVehicles": 140,
+      "incidents": 8,
+      "generatedAt": "2026-10-01T06:07:00.252Z",
+      "hasRawLog": true,
+      "problems": []
+    }
+  ],
+  "balanceSpread": {
+    "count": 3,
+    "mean": 628.36,
+    "min": 554.37,
+    "max": 692.7,
+    "stdev": 56.88
+  },
+  "baselines": [
+    {
+      "name": "baseline-balanced",
+      "file": "report_baseline-balanced_2026-10-01_113043254-40212.json",
+      "generatedAt": "2026-10-01T03:30:48.809Z",
+      "finalBalance": 674.4877
+    },
+    {
+      "name": "baseline-balanced-bus",
+      "file": "report_baseline-balanced-bus_2026-10-01_113054221-67660.json",
+      "generatedAt": "2026-10-01T03:30:58.859Z",
+      "finalBalance": 659.6075
+    },
+    {
+      "name": "baseline-balanced-no-ped",
+      "file": "report_baseline-balanced-no-ped_2026-10-01_113049422-16528.json",
+      "generatedAt": "2026-10-01T03:30:53.582Z",
+      "finalBalance": 717.5856
+    },
+    {
+      "name": "baseline-longest-queue",
+      "file": "report_baseline-longest-queue_2026-10-01_113035482-51312.json",
+      "generatedAt": "2026-10-01T03:30:42.556Z",
+      "finalBalance": 633.9934
+    },
+    {
+      "name": "baseline-random",
+      "file": "report_baseline-random_2026-10-01_113029281-47212.json",
+      "generatedAt": "2026-10-01T03:30:34.784Z",
+      "finalBalance": 539.4876
+    },
+    {
+      "name": "baseline-search",
+      "file": "report_baseline-search_2026-10-01_113016663-21140.json",
+      "generatedAt": "2026-10-01T03:39:02.632Z",
+      "finalBalance": 788.3813
+    }
+  ],
+  "otherRulesVersions": [],
+  "warnings": []
+}

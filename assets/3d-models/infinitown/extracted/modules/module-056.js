@@ -1,0 +1,1 @@
+56:[function(t,e,n){var r=THREE.OrthographicCamera,i=(t("7"),function(t){r.call(this);var e=window.innerWidth/window.innerHeight;this.left=t/-2*e,this.right=t/2*e,this.top=t/2,this.bottom=t/-2,this.near=.01,this.far=500,this.updateProjectionMatrix()});i.inherit(r,{update:function(){}}),e.exports=i},{7:7}],

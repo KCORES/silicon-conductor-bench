@@ -1,0 +1,5179 @@
+{
+  "meta": {
+    "id": "step-5-preview_2026-10-01_152857185-51224",
+    "model": "step-5-preview",
+    "seed": 63916,
+    "rulesVersion": 16,
+    "schemaVersion": 7,
+    "endTick": 261,
+    "finalBalance": 601.99,
+    "generatedAt": "2026-10-01T21:35:35.570Z",
+    "files": [
+      "replay_step-5-preview_2026-10-01_152857185-51224.json",
+      "report_step-5-preview_2026-10-01_152857185-51224.json",
+      "api-log_step-5-preview_2026-10-01_152857185-51224.jsonl",
+      "raw-api-log_step-5-preview_2026-10-01_152857185-51224.jsonl"
+    ],
+    "hasReasoning": true
+  },
+  "context": {
+    "promptTokens": {
+      "count": 177,
+      "mean": 22753.6,
+      "p50": 24279,
+      "p95": 37112,
+      "max": 61966,
+      "min": 9262
+    },
+    "completionTokens": {
+      "count": 177,
+      "mean": 6588.7,
+      "p50": 5316,
+      "p95": 16384,
+      "max": 16384,
+      "min": 74
+    },
+    "reasoningTokens": {
+      "count": 177,
+      "mean": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "min": 0
+    },
+    "requestChars": {
+      "system": {
+        "count": 178,
+        "mean": 7732.8,
+        "p50": 7722,
+        "p95": 7786,
+        "max": 7786,
+        "min": 7722
+      },
+      "user": {
+        "count": 178,
+        "mean": 15156,
+        "p50": 15480,
+        "p95": 17228,
+        "max": 19997,
+        "min": 6728
+      },
+      "tool": {
+        "count": 178,
+        "mean": 1879.8,
+        "p50": 245,
+        "p95": 8355,
+        "max": 13397,
+        "min": 0
+      },
+      "assistant": {
+        "count": 178,
+        "mean": 596.8,
+        "p50": 327,
+        "p95": 1933,
+        "max": 10808,
+        "min": 0
+      },
+      "messages": {
+        "count": 178,
+        "mean": 4.9,
+        "p50": 4,
+        "p95": 11,
+        "max": 16,
+        "min": 2
+      }
+    },
+    "roundsPerCycle": {
+      "count": 61,
+      "mean": 2.9,
+      "p50": 3,
+      "p95": 5,
+      "max": 6,
+      "min": 1,
+      "maxAllowed": 8,
+      "cyclesAtMax": 0
+    },
+    "grounding": {
+      "total": 396,
+      "visible": 396,
+      "knownElsewhere": 0,
+      "neverSeen": 0,
+      "nonCanonical": 0,
+      "byKind": {
+        "lane": {
+          "total": 206,
+          "visible": 206,
+          "knownElsewhere": 0,
+          "neverSeen": 0,
+          "nonCanonical": 0
+        },
+        "vehicle": {
+          "total": 78,
+          "visible": 78,
+          "knownElsewhere": 0,
+          "neverSeen": 0,
+          "nonCanonical": 0
+        },
+        "crosswalk": {
+          "total": 67,
+          "visible": 67,
+          "knownElsewhere": 0,
+          "neverSeen": 0,
+          "nonCanonical": 0
+        },
+        "incident": {
+          "total": 45,
+          "visible": 45,
+          "knownElsewhere": 0,
+          "neverSeen": 0,
+          "nonCanonical": 0
+        }
+      },
+      "neverSeenSamples": [],
+      "visibleRate": 1,
+      "neverSeenRate": 0
+    },
+    "repeatedFailures": {
+      "count": 0,
+      "byTool": {}
+    },
+    "commits": {
+      "verified": 16,
+      "unverified": 4,
+      "hold": 31,
+      "verifiedRateAmongReleases": 0.8
+    },
+    "workingMemory": {
+      "calls": 1,
+      "actions": {
+        "SAVE_PLAN": 1
+      },
+      "cyclesWithPlanVisible": 0
+    }
+  },
+  "attention": {
+    "concepts": {
+      "stoplineCandidates": {
+        "present": 61,
+        "mentionedWhenPresent": 58,
+        "mentionedTotal": 58,
+        "occurrences": 509,
+        "keys": [
+          "stoplineCandidates"
+        ],
+        "attentionRate": 0.951
+      },
+      "laneMatrices": {
+        "present": 0,
+        "mentionedWhenPresent": 0,
+        "mentionedTotal": 60,
+        "occurrences": 1637,
+        "keys": [
+          "lanes"
+        ],
+        "attentionRate": null
+      },
+      "exits": {
+        "present": 0,
+        "mentionedWhenPresent": 0,
+        "mentionedTotal": 58,
+        "occurrences": 4179,
+        "keys": [
+          "exits"
+        ],
+        "attentionRate": null
+      },
+      "crosswalks": {
+        "present": 61,
+        "mentionedWhenPresent": 60,
+        "mentionedTotal": 60,
+        "occurrences": 6125,
+        "keys": [
+          "crosswalks"
+        ],
+        "attentionRate": 0.984
+      },
+      "reservedUntil": {
+        "present": 0,
+        "mentionedWhenPresent": 0,
+        "mentionedTotal": 60,
+        "occurrences": 1992,
+        "keys": [
+          "reservedUntil"
+        ],
+        "attentionRate": null
+      },
+      "incidentBlocked": {
+        "present": 0,
+        "mentionedWhenPresent": 0,
+        "mentionedTotal": 36,
+        "occurrences": 348,
+        "keys": [
+          "incidentBlocked"
+        ],
+        "attentionRate": null
+      },
+      "candidateConflicts": {
+        "present": 61,
+        "mentionedWhenPresent": 60,
+        "mentionedTotal": 60,
+        "occurrences": 2211,
+        "keys": [
+          "candidateConflicts"
+        ],
+        "attentionRate": 0.984
+      },
+      "pedestrianAlerts": {
+        "present": 49,
+        "mentionedWhenPresent": 48,
+        "mentionedTotal": 60,
+        "occurrences": 8371,
+        "keys": [
+          "pedestrianAlerts"
+        ],
+        "attentionRate": 0.98
+      },
+      "driverAlerts": {
+        "present": 52,
+        "mentionedWhenPresent": 48,
+        "mentionedTotal": 56,
+        "occurrences": 1287,
+        "keys": [
+          "driverAlerts"
+        ],
+        "attentionRate": 0.923
+      },
+      "emergency": {
+        "present": 61,
+        "mentionedWhenPresent": 57,
+        "mentionedTotal": 57,
+        "occurrences": 1676,
+        "keys": [
+          "emergencyAlerts",
+          "emergencyNotices"
+        ],
+        "attentionRate": 0.934
+      },
+      "stalledVehicles": {
+        "present": 26,
+        "mentionedWhenPresent": 26,
+        "mentionedTotal": 50,
+        "occurrences": 987,
+        "keys": [
+          "stalledVehicles"
+        ],
+        "attentionRate": 1
+      },
+      "dischargingLanes": {
+        "present": 22,
+        "mentionedWhenPresent": 21,
+        "mentionedTotal": 47,
+        "occurrences": 454,
+        "keys": [
+          "dischargingLanes"
+        ],
+        "attentionRate": 0.955
+      },
+      "activeVehicleMotions": {
+        "present": 56,
+        "mentionedWhenPresent": 54,
+        "mentionedTotal": 55,
+        "occurrences": 239,
+        "keys": [
+          "activeVehicleMotions"
+        ],
+        "attentionRate": 0.964
+      },
+      "laneGuidance": {
+        "present": 61,
+        "mentionedWhenPresent": 44,
+        "mentionedTotal": 44,
+        "occurrences": 218,
+        "keys": [
+          "laneGuidanceOpportunities",
+          "activeLaneGuidancePermits"
+        ],
+        "attentionRate": 0.721
+      },
+      "holds": {
+        "present": 48,
+        "mentionedWhenPresent": 39,
+        "mentionedTotal": 40,
+        "occurrences": 264,
+        "keys": [
+          "exitHolds",
+          "crosswalkHolds",
+          "activeLaneHolds"
+        ],
+        "attentionRate": 0.813
+      },
+      "revokedAdmissions": {
+        "present": 20,
+        "mentionedWhenPresent": 18,
+        "mentionedTotal": 34,
+        "occurrences": 375,
+        "keys": [
+          "revokedAdmissions"
+        ],
+        "attentionRate": 0.9
+      },
+      "timeBudget": {
+        "present": 61,
+        "mentionedWhenPresent": 58,
+        "mentionedTotal": 58,
+        "occurrences": 311,
+        "keys": [
+          "ticksRemaining",
+          "endTick"
+        ],
+        "attentionRate": 0.951
+      },
+      "workingMemory": {
+        "present": 0,
+        "mentionedWhenPresent": 0,
+        "mentionedTotal": 18,
+        "occurrences": 39,
+        "keys": [
+          "workingMemoryTop"
+        ],
+        "attentionRate": null
+      },
+      "lastSettlement": {
+        "present": 60,
+        "mentionedWhenPresent": 51,
+        "mentionedTotal": 52,
+        "occurrences": 212,
+        "keys": [
+          "@lastSettlement"
+        ],
+        "attentionRate": 0.85
+      },
+      "recentCycles": {
+        "present": 60,
+        "mentionedWhenPresent": 53,
+        "mentionedTotal": 53,
+        "occurrences": 304,
+        "keys": [
+          "@recentCycles"
+        ],
+        "attentionRate": 0.883
+      }
+    },
+    "interruptResponse": {
+      "rules": {
+        "ACCIDENT_INTERRUPT": "同周期调用 inspect_incident / order_accident_clearance / set_lane_detour",
+        "PEDESTRIAN_PATIENCE": "同周期任一试算或提交带 pedestrian_phases",
+        "other": "推理文本提到了中断对象 ID"
+      },
+      "byKind": {
+        "VEHICLE_RED_LIGHT": {
+          "count": 2,
+          "responded": 2,
+          "rate": 1
+        },
+        "PEDESTRIAN_PATIENCE": {
+          "count": 28,
+          "responded": 10,
+          "rate": 0.357
+        },
+        "ACCIDENT_INTERRUPT": {
+          "count": 11,
+          "responded": 9,
+          "rate": 0.818
+        },
+        "PEDESTRIAN_JAYWALK": {
+          "count": 18,
+          "responded": 9,
+          "rate": 0.5
+        },
+        "VEHICLE_TAILGATE": {
+          "count": 1,
+          "responded": 1,
+          "rate": 1
+        }
+      }
+    },
+    "reasoningChars": {
+      "count": 177,
+      "mean": 22854,
+      "p50": 19681,
+      "p95": 58100,
+      "max": 61647,
+      "min": 0
+    }
+  },
+  "tools": {
+    "totalCalls": 201,
+    "okCalls": 147,
+    "successRate": 0.731,
+    "failureCategories": {
+      "RESOURCE_CONFLICT": 27,
+      "DRY_RUN_QUOTA_EXHAUSTED": 12,
+      "PLANNING_HORIZON_EXCEEDED": 8,
+      "LANE_HEAD_NOT_READY": 3,
+      "SCHEMA_ERROR": 3,
+      "UNKNOWN_ID": 1
+    },
+    "byTool": {
+      "dry_run_admit": {
+        "calls": 86,
+        "ok": 35,
+        "categories": {
+          "OK": 35,
+          "RESOURCE_CONFLICT": 27,
+          "LANE_HEAD_NOT_READY": 3,
+          "DRY_RUN_QUOTA_EXHAUSTED": 12,
+          "SCHEMA_ERROR": 1,
+          "PLANNING_HORIZON_EXCEEDED": 8
+        },
+        "successRate": 0.407
+      },
+      "commit_schedule": {
+        "calls": 52,
+        "ok": 51,
+        "categories": {
+          "OK": 51,
+          "SCHEMA_ERROR": 1
+        },
+        "successRate": 0.981
+      },
+      "reroute_queue_around_stall": {
+        "calls": 1,
+        "ok": 1,
+        "categories": {
+          "OK": 1
+        },
+        "successRate": 1
+      },
+      "dispatch_tow_truck": {
+        "calls": 7,
+        "ok": 7,
+        "categories": {
+          "OK": 7
+        },
+        "successRate": 1
+      },
+      "inspect_incident": {
+        "calls": 24,
+        "ok": 24,
+        "categories": {
+          "OK": 24
+        },
+        "successRate": 1
+      },
+      "order_accident_clearance": {
+        "calls": 21,
+        "ok": 21,
+        "categories": {
+          "OK": 21
+        },
+        "successRate": 1
+      },
+      "inspect_crosswalk": {
+        "calls": 2,
+        "ok": 2,
+        "categories": {
+          "OK": 2
+        },
+        "successRate": 1
+      },
+      "manage_working_memory": {
+        "calls": 1,
+        "ok": 0,
+        "categories": {
+          "SCHEMA_ERROR": 1
+        },
+        "successRate": 0
+      },
+      "inspect_lane_queue": {
+        "calls": 6,
+        "ok": 6,
+        "categories": {
+          "OK": 6
+        },
+        "successRate": 1
+      },
+      "deprecated": {
+        "calls": 1,
+        "ok": 0,
+        "categories": {
+          "UNKNOWN_ID": 1
+        },
+        "successRate": 0
+      }
+    },
+    "errorSamples": {
+      "RESOURCE_CONFLICT": [
+        {
+          "cycle": 9,
+          "tick": 119,
+          "tool": "dry_run_admit",
+          "detail": "CROSSWALK:WEST:CELL:1:0 vs V00042",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_E_R1_RIGHT\",\"top_n\":3}],\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:WEST\",\"directions\":[\"A_TO_B\"]}]}"
+        },
+        {
+          "cycle": 13,
+          "tick": 142,
+          "tool": "dry_run_admit",
+          "detail": "CROSSWALK:NORTH:CELL:0:0 vs V00017",
+          "args": "{\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:EAST\",\"directions\":[\"B_TO_A\"]},{\"crosswalk_id\":\"CROSSWALK:NORTH\",\"directions\":[\"A_TO_B\"]},{\"crosswalk_id\":\"CROSSWALK:WEST\",\"directions\":[\"A_TO_B\"]}]}"
+        },
+        {
+          "cycle": 13,
+          "tick": 142,
+          "tool": "dry_run_admit",
+          "detail": "CROSSWALK:WEST:CELL:0:0 vs V00017",
+          "args": "{\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:EAST\",\"directions\":[\"B_TO_A\"]},{\"crosswalk_id\":\"CROSSWALK:WEST\",\"directions\":[\"A_TO_B\"]}]}"
+        }
+      ],
+      "LANE_HEAD_NOT_READY": [
+        {
+          "cycle": 11,
+          "tick": 139,
+          "tool": "dry_run_admit",
+          "detail": "Lane head is not ready: IN_N_R1_RIGHT",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_N_S1_STRAIGHT\",\"top_n\":3},{\"lane_id\":\"IN_N_S2_STRAIGHT\",\"top_n\":3},{\"lane_id\":\"IN_E_R1_RIGHT\",\"top_n\":2},{\"lane_id\":\"IN_W_R1_RIGHT\",\"top_n\":2},{\"lane_id\":\"IN_N_R1_RIGHT\",\"top_n\":1}]}"
+        },
+        {
+          "cycle": 24,
+          "tick": 181,
+          "tool": "dry_run_admit",
+          "detail": "Lane head is not ready: IN_S_S2_STRAIGHT",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_S_R1_RIGHT\",\"top_n\":2},{\"lane_id\":\"IN_S_S2_STRAIGHT\",\"top_n\":2}],\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:SOUTH\",\"directions\":[\"A_TO_B\"]},{\"crosswalk_id\":\"CROSSWALK:NORTH\",\"directio"
+        },
+        {
+          "cycle": 47,
+          "tick": 233,
+          "tool": "dry_run_admit",
+          "detail": "Lane head is not ready: IN_W_L1_LEFT",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_W_L1_LEFT\",\"top_n\":8,\"speed_profile\":\"CRUISE\"},{\"lane_id\":\"IN_W_S1_STRAIGHT\",\"top_n\":8,\"speed_profile\":\"CRUISE\"}]}"
+        }
+      ],
+      "DRY_RUN_QUOTA_EXHAUSTED": [
+        {
+          "cycle": 13,
+          "tick": 142,
+          "tool": "dry_run_admit",
+          "detail": "",
+          "args": "{\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:EAST\",\"directions\":[\"B_TO_A\"]}]}"
+        },
+        {
+          "cycle": 16,
+          "tick": 149,
+          "tool": "dry_run_admit",
+          "detail": "",
+          "args": "{\"candidate_vehicle_ids\":[\"V00079\",\"V00148\",\"V00028\",\"V00084\"]}"
+        },
+        {
+          "cycle": 20,
+          "tick": 162,
+          "tool": "dry_run_admit",
+          "detail": "",
+          "args": "{\"pedestrian_phases\":[{\"crosswalk_id\":\"CROSSWALK:SOUTH\",\"directions\":[\"A_TO_B\"]}]}"
+        }
+      ],
+      "SCHEMA_ERROR": [
+        {
+          "cycle": 24,
+          "tick": 181,
+          "tool": "dry_run_admit",
+          "detail": "[ { \"code\": \"invalid_type\", \"expected\": \"array\", \"received\": \"string\", \"path\": [ \"pedestrian_phases\" ], \"message\": \"Expected array, received string\" } ]",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_S_R1_RIGHT\",\"top_n\":3}],\"pedestrian_phases\":\"[{\\\"crosswalk_id\\\": \\\"CROSSWALK:SOUTH\\\", \\\"directions\\\": [\\\"A_TO_B\\\"]}\"}"
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "tool": "commit_schedule",
+          "detail": "[ { \"code\": \"invalid_type\", \"expected\": \"number\", \"received\": \"undefined\", \"path\": [ \"lane_batches\", 0, \"top_n\" ], \"message\": \"Required\" }, { \"code\": \"invalid_t",
+          "args": "{\"admit_vehicle_ids\":[],\"lane_batches\":[{\"lane_id\":\"IN_E_L1_LEFT\"},{\"lane_id\":\"IN_E_R1_RIGHT\"},{\"lane_id\":\"IN_E_S1_STRAIGHT\"},{\"lane_id\":\"IN_E_S2_STRAIGHT\"}],\"pedestrian_phases\":[],\"vehicle_speed_profiles\":[],\"sleep_tick"
+        },
+        {
+          "cycle": 32,
+          "tick": 204,
+          "tool": "manage_working_memory",
+          "detail": "[ { \"code\": \"too_big\", \"maximum\": 160, \"type\": \"string\", \"inclusive\": true, \"exact\": false, \"message\": \"String must contain at most 160 character(s)\", \"path\": [",
+          "args": "{\"action\":\"SAVE_PLAN\",\"plan_data\":{\"intended_duration\":55,\"phase_name\":\"PED_RESET_WINDOW\",\"resume_condition\":\"at tick 207: release EAST B_TO_A + NORTH A_TO_B/B_TO_A ped phases before patience expires; then sleep until S_"
+        }
+      ],
+      "PLANNING_HORIZON_EXCEEDED": [
+        {
+          "cycle": 28,
+          "tick": 197,
+          "tool": "dry_run_admit",
+          "detail": "Admission planning horizon exceeded for V00171",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_E_L1_LEFT\",\"top_n\":8},{\"lane_id\":\"IN_E_R1_RIGHT\",\"top_n\":8},{\"lane_id\":\"IN_E_S1_STRAIGHT\",\"top_n\":8},{\"lane_id\":\"IN_E_S2_STRAIGHT\",\"top_n\":8}]}"
+        },
+        {
+          "cycle": 30,
+          "tick": 200,
+          "tool": "dry_run_admit",
+          "detail": "Admission planning horizon exceeded for V00112",
+          "args": "{\"candidate_vehicle_ids\":[\"V00204\"],\"lane_batches\":[{\"lane_id\":\"IN_S_L1_LEFT\",\"top_n\":4}]}"
+        },
+        {
+          "cycle": 41,
+          "tick": 220,
+          "tool": "dry_run_admit",
+          "detail": "Admission planning horizon exceeded for V00168",
+          "args": "{\"lane_batches\":[{\"lane_id\":\"IN_W_L1_LEFT\",\"top_n\":8},{\"lane_id\":\"IN_E_R1_RIGHT\",\"top_n\":8}]}"
+        }
+      ],
+      "UNKNOWN_ID": [
+        {
+          "cycle": 55,
+          "tick": 246,
+          "tool": "deprecated",
+          "detail": "Unknown tool: deprecated",
+          "args": "{\"name\":\"dry_run_admit</dry_run\"}"
+        }
+      ]
+    },
+    "callsPerResponse": {
+      "0": 25,
+      "1": 119,
+      "2": 22,
+      "3": 7,
+      "4": 2,
+      "5": 2
+    },
+    "finishReasons": {
+      "tool_calls": 152,
+      "length": 21,
+      "stop": 4
+    },
+    "apiErrors": {
+      "count": 1,
+      "messages": {
+        "Request timed out.": 1
+      }
+    },
+    "fallbackCycles": [
+      3,
+      6,
+      12,
+      30,
+      35,
+      39,
+      42,
+      47,
+      52,
+      60
+    ],
+    "availableTools": [
+      "dry_run_admit",
+      "inspect_crosswalk",
+      "inspect_lane_queue",
+      "manage_working_memory",
+      "inspect_incident",
+      "order_accident_clearance",
+      "set_lane_detour",
+      "dispatch_emergency_convoy",
+      "reroute_queue_around_stall",
+      "guide_inbound_lane_change",
+      "dispatch_tow_truck",
+      "commit_schedule"
+    ],
+    "unusedTools": [
+      "set_lane_detour",
+      "dispatch_emergency_convoy",
+      "guide_inbound_lane_change"
+    ]
+  },
+  "agent": {
+    "cycles": 61,
+    "flowPatterns": {
+      "DC": 11,
+      "(none)": 8,
+      "DDC": 8,
+      "DDDC": 6,
+      "C": 5,
+      "TTTDDC": 3,
+      "DTC": 1,
+      "TDTDDC": 1,
+      "TDTC": 1,
+      "TTTDC": 1,
+      "TTC": 1,
+      "TTDTC": 1,
+      "TDDDDC": 1,
+      "CDC": 1,
+      "DDD": 1,
+      "DDDTC": 1,
+      "TDTDC": 1,
+      "TTDTTC": 1,
+      "TTDDTTTTTC": 1,
+      "TTTTTTTC": 1,
+      "D": 1,
+      "DTTDC": 1,
+      "TTTTDDDC": 1,
+      "DTTTTDTTDC": 1,
+      "TDTTDTTC": 1,
+      "TTDC": 1
+    },
+    "dryRunBeforeCommitRate": 0.863,
+    "commitMix": {
+      "verified": 16,
+      "unverified": 4,
+      "hold": 31,
+      "reckless": 0
+    },
+    "admittedPerCycle": {
+      "count": 61,
+      "mean": 1.9,
+      "p50": 0,
+      "p95": 8,
+      "max": 14,
+      "min": 0
+    },
+    "admittedTotal": 116,
+    "laneBatches": {
+      "commitsUsingBatches": 15,
+      "okCommits": 51,
+      "topNSum": {
+        "count": 51,
+        "mean": 2,
+        "p50": 0,
+        "p95": 10,
+        "max": 14,
+        "min": 0
+      }
+    },
+    "speedProfiles": {
+      "CRUISE": 44,
+      "BURST": 1
+    },
+    "sleepTicks": {
+      "count": 52,
+      "mean": 7.8,
+      "p50": 9,
+      "p95": 10,
+      "max": 10,
+      "min": 1,
+      "distribution": {
+        "1": 1,
+        "2": 1,
+        "3": 3,
+        "4": 5,
+        "5": 3,
+        "6": 2,
+        "8": 10,
+        "9": 2,
+        "10": 25
+      }
+    },
+    "toolDiversity": {
+      "dry_run_admit": 86,
+      "commit_schedule": 52,
+      "inspect_incident": 24,
+      "order_accident_clearance": 21,
+      "dispatch_tow_truck": 7,
+      "inspect_lane_queue": 6,
+      "inspect_crosswalk": 2,
+      "reroute_queue_around_stall": 1,
+      "manage_working_memory": 1,
+      "deprecated": 1
+    },
+    "overhead": {
+      "apiCalls": 178,
+      "nonTerminalToolCalls": 149,
+      "decisionTaxPaid": 3.56,
+      "toolTaxPaid": 0.2235
+    },
+    "scoreboard": [
+      {
+        "name": "step-5-preview",
+        "finalBalance": 601.99,
+        "admittedVehicles": 116,
+        "unservedLiability": 208.2,
+        "pedestrianReward": 0,
+        "hazardBleed": 61.92,
+        "upstreamBleed": 85.1,
+        "emergencyBleed": 0.45,
+        "stallChainBleed": 1.7,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 8.4,
+        "pedestrianDelay": 1.04,
+        "pedestrianJaywalk": 9.8,
+        "pedestrianStrike": 25,
+        "schoolBusPenalties": 10,
+        "incidents": 7
+      },
+      {
+        "name": "baseline-balanced",
+        "finalBalance": 674.49,
+        "admittedVehicles": 84,
+        "unservedLiability": 219.6,
+        "pedestrianReward": 0,
+        "hazardBleed": 21.3,
+        "upstreamBleed": 58.85,
+        "emergencyBleed": 0.31,
+        "stallChainBleed": 0,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 8.4,
+        "pedestrianDelay": 0.73,
+        "pedestrianJaywalk": 5.5,
+        "pedestrianStrike": 25,
+        "schoolBusPenalties": 0,
+        "incidents": 6
+      },
+      {
+        "name": "baseline-balanced-bus",
+        "finalBalance": 659.61,
+        "admittedVehicles": 87,
+        "unservedLiability": 208.1,
+        "pedestrianReward": 0,
+        "hazardBleed": 90.26,
+        "upstreamBleed": 53.27,
+        "emergencyBleed": 0.19,
+        "stallChainBleed": 0.01,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 6,
+        "pedestrianDelay": 0.74,
+        "pedestrianJaywalk": 4.9,
+        "pedestrianStrike": 5,
+        "schoolBusPenalties": 0,
+        "incidents": 4
+      },
+      {
+        "name": "baseline-balanced-no-ped",
+        "finalBalance": 717.59,
+        "admittedVehicles": 132,
+        "unservedLiability": 187.4,
+        "pedestrianReward": 0,
+        "hazardBleed": 74.39,
+        "upstreamBleed": 47.7,
+        "emergencyBleed": 0.36,
+        "stallChainBleed": 0,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 10.8,
+        "pedestrianDelay": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalties": 10,
+        "incidents": 4
+      },
+      {
+        "name": "baseline-longest-queue",
+        "finalBalance": 633.99,
+        "admittedVehicles": 183,
+        "unservedLiability": 195.7,
+        "pedestrianReward": 0,
+        "hazardBleed": 76.09,
+        "upstreamBleed": 44.92,
+        "emergencyBleed": 0.3,
+        "stallChainBleed": 0,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 10.8,
+        "pedestrianDelay": 1.1,
+        "pedestrianJaywalk": 11.6,
+        "pedestrianStrike": 50,
+        "schoolBusPenalties": 10,
+        "incidents": 10
+      },
+      {
+        "name": "baseline-random",
+        "finalBalance": 539.49,
+        "admittedVehicles": 114,
+        "unservedLiability": 207.6,
+        "pedestrianReward": 0,
+        "hazardBleed": 139.2,
+        "upstreamBleed": 73.82,
+        "emergencyBleed": 0.44,
+        "stallChainBleed": 0.01,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 7.2,
+        "pedestrianDelay": 1.06,
+        "pedestrianJaywalk": 11,
+        "pedestrianStrike": 35,
+        "schoolBusPenalties": 0,
+        "incidents": 7
+      },
+      {
+        "name": "baseline-search",
+        "finalBalance": 788.38,
+        "admittedVehicles": 122,
+        "unservedLiability": 185.4,
+        "pedestrianReward": 0,
+        "hazardBleed": 3.69,
+        "upstreamBleed": 45.85,
+        "emergencyBleed": 0.35,
+        "stallChainBleed": 0,
+        "exitLockBleed": 0,
+        "secondaryPenalties": 0,
+        "towingCosts": 8.4,
+        "pedestrianDelay": 0.78,
+        "pedestrianJaywalk": 6.7,
+        "pedestrianStrike": 10,
+        "schoolBusPenalties": 0,
+        "incidents": 2
+      }
+    ],
+    "baselineFiles": [
+      "report_baseline-balanced_2026-10-01_113043254-40212.json",
+      "report_baseline-balanced-bus_2026-10-01_113054221-67660.json",
+      "report_baseline-balanced-no-ped_2026-10-01_113049422-16528.json",
+      "report_baseline-longest-queue_2026-10-01_113035482-51312.json",
+      "report_baseline-random_2026-10-01_113029281-47212.json",
+      "report_baseline-search_2026-10-01_113016663-21140.json"
+    ]
+  },
+  "reasoning": {
+    "corrections": {
+      "failures": 39,
+      "retried": 21,
+      "retriedChanged": 21,
+      "retriedSucceeded": 9,
+      "thenVerifiedCommit": 3,
+      "thenHold": 29,
+      "retrySuccessRate": 0.429
+    },
+    "crosswalkClaims": {
+      "claims": 148,
+      "correct": 96,
+      "wrong": 52,
+      "byCycleHalf": {
+        "first": {
+          "claims": 21,
+          "wrong": 7
+        },
+        "second": {
+          "claims": 127,
+          "wrong": 45
+        }
+      },
+      "wrongSamples": [
+        {
+          "cycle": 21,
+          "claim": "E_R1_RIGHT - does its route cross WEST",
+          "actual": "CROSSWALK:EAST+CROSSWALK:NORTH"
+        },
+        {
+          "cycle": 21,
+          "claim": "S_R1_RIGHT - crosses WEST",
+          "actual": "CROSSWALK:SOUTH+CROSSWALK:EAST"
+        },
+        {
+          "cycle": 21,
+          "claim": "S_R1_RIGHT right turn may cross WEST",
+          "actual": "CROSSWALK:SOUTH+CROSSWALK:EAST"
+        },
+        {
+          "cycle": 21,
+          "claim": "E_R1_RIGHT (from East, right turn) exits south — crosses SOUTH",
+          "actual": "CROSSWALK:EAST+CROSSWALK:NORTH"
+        },
+        {
+          "cycle": 21,
+          "claim": "S_R1_RIGHT exits west — crosses WEST",
+          "actual": "CROSSWALK:SOUTH+CROSSWALK:EAST"
+        },
+        {
+          "cycle": 23,
+          "claim": "S_R1_RIGHT cross NORTH",
+          "actual": "CROSSWALK:SOUTH+CROSSWALK:EAST"
+        },
+        {
+          "cycle": 23,
+          "claim": "S_R1_RIGHT cross WEST",
+          "actual": "CROSSWALK:SOUTH+CROSSWALK:EAST"
+        },
+        {
+          "cycle": 32,
+          "claim": "W_L1_LEFT from west heads south → crosses SOUTH",
+          "actual": "CROSSWALK:WEST+CROSSWALK:NORTH"
+        }
+      ],
+      "accuracy": 0.649
+    },
+    "contradictions": {
+      "count": 16,
+      "samples": [
+        {
+          "cycle": 9,
+          "round": 1,
+          "tick": 119,
+          "claim": "n E_R1_RIGHT. So there's already a vehicle on that route crossing. But V00104's route is E_R1_RIGHT, and V00106 wants E_R1_RIGHT too. It's a right turn though, should be fine if V00104 is already crossing. Let me think about whether admitting V00106 is worth it. V00106 has 2 passengers, reward 0.2. Cost of API call 0.02 + commit. Ti",
+          "result": "CROSSWALK:WEST:CELL:1:0 vs V00042"
+        },
+        {
+          "cycle": 13,
+          "round": 1,
+          "tick": 142,
+          "claim": "- WEST A_TO_B: 1 waiting patience 28. Reward 0.04. But we must check: does releasing pedestrians conflict with vehicle admissions? Since no vehicles this tick, no conflict. But do pedestrians conflict with in-transit vehicles? The dry_run_admit would tell us via ok/warnings. Actually, there's a subtlety: pedestrian phases and veh",
+          "result": "CROSSWALK:NORTH:CELL:0:0 vs V00017"
+        },
+        {
+          "cycle": 14,
+          "round": 1,
+          "tick": 145,
+          "claim": "bout what to do. The options: 1. Admit the bus V00084 on S_R1_RIGHT. Since S_R1_RIGHT is not blocked, and it's a right turn... Let me check candidateConflicts: no conflicts listed with V00084. So a right turn from S_R1 doesn't conflict with other stopline heads. Good. 2. Emergency convoy for V00043 in IN_W_S1_STRAIGHT. V00043 is a",
+          "result": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 16,
+          "round": 1,
+          "tick": 149,
+          "claim": "ng my possible candidates (V00079, V00148, V00028, V00084, V00132): - V00079 conflicts with V00132 (both in candidates list). So can't admit both. - V00132 has no conflict with V00148, V00028, V00084. - V00079 has no conflict with V00148, V00028, V00084. Wait, candidateConflicts scope is STOPLINE_HEADS_SAME_TICK: only compares ca",
+          "result": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 16,
+          "round": 2,
+          "tick": 149,
+          "claim": "but CRUISE 1/tick - reservation table covers future cells too. If V00074 is on that cell at 149 and my vehicles would traverse that cell at tick 149+something, no conflict... but dry-run says conflict at tick 149. So my plan requests that cell at tick 149. That means pedestrian phase peds would step into that cell at tick 149 (ri",
+          "result": "CROSSWALK:WEST:CELL:6:0 vs INCIDENT"
+        },
+        {
+          "cycle": 20,
+          "round": 1,
+          "tick": 162,
+          "claim": "Avoids jaywalk risk 0.7. Yes, worth it. But do west-bound vehicles exist that would cross? We're not admitting west vehicles anyway (all severed). So ped phase is safe. WEST B_TO_A has waiting=1, min 37. NORTH A_TO_B waiting=2 min 24. NORTH B_TO_A waiting=1 min 46. SOUTH A_TO_B waiting=1 min 43. The crosswalk directions: each",
+          "result": "CROSSWALK:WEST:CELL:6:0 vs INCIDENT"
+        }
+      ]
+    },
+    "selfCorrectionMarkers": {
+      "perResponse": {
+        "count": 177,
+        "mean": 20.8,
+        "p50": 12,
+        "p95": 67,
+        "max": 104,
+        "min": 0
+      },
+      "total": 3677
+    },
+    "misconceptions": {
+      "letterCounting": {
+        "occurrences": 14,
+        "samples": [
+          "t outside candidate list because... whatever. Actually hmm, why is N_L1_LEFT not in stoplineCandidates if V00056 is the head at distance 5? Maybe stopline candidates are only listed for lanes with... Let me recount stoplineCandidates: E: L1(V00008), R1(V00011), S1(V00024) — E_S2 missing (lanePressure shows E_S2 not even? E lanes: L1, R1, S1 listed; S2 occupancy 0.3279 but no candidate — maybe queue empty head f",
+          " sleep 10 → 104. Cycle D at 104: dry-run W lanes (OUT_EAST free at 102), S_L1 (free 102), etc. That's 4 cycles = 8 API calls but only 5 rounds. Too many. Need compression. Compression: Round budget — let me recount. The user message included observation referencing cycles 2 and 3 already executed. The \"8 rounds\" likely includes all rounds so far. If we've used 3 rounds (cycle1 initial? Hmm cycles are 1-indexed;",
+          "ers (-0.1 each) — that's bad: W_S1 59 pax × 0.1 = 5.9, etc. Hmm, that's a problem. Wait, but \"rounds of API\" — maybe it means tool calls rounds, and I've done 1 call round so far (the parallel pair). Let me recount: user message 1 (observation). My message 2: dry_run + reroute (round 2?). The history shows cycles 2, 3 already done before this observation. So rounds used: cycle 1 (round 1), cycle 2 (round 2), cy"
+        ]
+      },
+      "idFormat": {
+        "occurrences": 0,
+        "samples": []
+      }
+    }
+  },
+  "game": {
+    "pedestrians": {
+      "phaseAttempts": 38,
+      "phaseOk": 5,
+      "phaseOutcomes": {
+        "RESOURCE_CONFLICT": 23,
+        "DRY_RUN_QUOTA_EXHAUSTED": 8,
+        "OK": 5,
+        "LANE_HEAD_NOT_READY": 1,
+        "SCHEMA_ERROR": 1
+      },
+      "phaseConflicts": [
+        {
+          "cycle": 9,
+          "tick": 119,
+          "at": 4,
+          "detail": "CROSSWALK:WEST:CELL:1:0 vs V00042"
+        },
+        {
+          "cycle": 13,
+          "tick": 142,
+          "at": 0,
+          "detail": "CROSSWALK:NORTH:CELL:0:0 vs V00017"
+        },
+        {
+          "cycle": 13,
+          "tick": 142,
+          "at": 3,
+          "detail": "CROSSWALK:WEST:CELL:0:0 vs V00017"
+        },
+        {
+          "cycle": 14,
+          "tick": 145,
+          "at": 1,
+          "detail": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 14,
+          "tick": 145,
+          "at": 1,
+          "detail": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 15,
+          "tick": 146,
+          "at": 0,
+          "detail": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 15,
+          "tick": 146,
+          "at": 0,
+          "detail": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 16,
+          "tick": 149,
+          "at": 0,
+          "detail": "CROSSWALK:EAST:CELL:7:0 vs V00074"
+        },
+        {
+          "cycle": 16,
+          "tick": 149,
+          "at": 0,
+          "detail": "CROSSWALK:WEST:CELL:6:0 vs INCIDENT"
+        },
+        {
+          "cycle": 20,
+          "tick": 162,
+          "at": 0,
+          "detail": "CROSSWALK:WEST:CELL:6:0 vs INCIDENT"
+        }
+      ],
+      "grants": 2,
+      "grantedPedestrians": 3,
+      "jaywalkEvents": 18,
+      "jaywalkers": 18,
+      "injured": 5,
+      "reward": 0,
+      "penalties": {
+        "delay": 1.04,
+        "jaywalk": 9.8,
+        "strike": 25
+      },
+      "timeline": [
+        {
+          "tick": 151,
+          "kind": "PED_GRANT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 2
+        },
+        {
+          "tick": 170,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 184,
+          "kind": "PED_GRANT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 186,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 199,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 200,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 208,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 210,
+          "kind": "PED_COLLISION",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 211,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 211,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 211,
+          "kind": "PED_COLLISION",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 225,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 228,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 234,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 237,
+          "kind": "PED_COLLISION",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 240,
+          "kind": "PED_COLLISION",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 241,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 241,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 244,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 244,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrians": 1
+        },
+        {
+          "tick": 246,
+          "kind": "PED_COLLISION",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 249,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 249,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 257,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        },
+        {
+          "tick": 260,
+          "kind": "PED_JAYWALK",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrians": 1
+        }
+      ],
+      "patienceRiskAdmissions": [
+        {
+          "cycle": 17,
+          "tick": 150,
+          "vehicleId": "V00084",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:11:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 17,
+          "tick": 150,
+          "vehicleId": "V00148",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:11:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 17,
+          "tick": 150,
+          "vehicleId": "V00028",
+          "routeId": "N_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:3:0:CROSSWALK:WEST",
+          "patienceRemaining": 20,
+          "laterStruck": false
+        },
+        {
+          "cycle": 21,
+          "tick": 170,
+          "vehicleId": "V00159",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 23,
+          "tick": 176,
+          "vehicleId": "V00110",
+          "routeId": "S_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 23,
+          "tick": 176,
+          "vehicleId": "V00117",
+          "routeId": "S_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 23,
+          "tick": 176,
+          "vehicleId": "V00126",
+          "routeId": "S_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 23,
+          "tick": 176,
+          "vehicleId": "V00131",
+          "routeId": "S_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 23,
+          "tick": 176,
+          "vehicleId": "V00226",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00181",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00181",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00238",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00238",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:38:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00238",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00244",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:20:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00244",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:38:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00244",
+          "routeId": "S_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00169",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:38:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 25,
+          "tick": 184,
+          "vehicleId": "V00194",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:38:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00079",
+          "routeId": "E_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00098",
+          "routeId": "E_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00105",
+          "routeId": "E_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00192",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00192",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00192",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:50:0:CROSSWALK:NORTH",
+          "patienceRemaining": 14,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:50:0:CROSSWALK:NORTH",
+          "patienceRemaining": 14,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:50:0:CROSSWALK:NORTH",
+          "patienceRemaining": 14,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00088",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00088",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00088",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00115",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00115",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00115",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00141",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00141",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00141",
+          "routeId": "E_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00111",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00111",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00111",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:44:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:45:0:CROSSWALK:EAST",
+          "patienceRemaining": 14,
+          "laterStruck": true
+        },
+        {
+          "cycle": 28,
+          "tick": 197,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+          "patienceRemaining": 3,
+          "laterStruck": true
+        },
+        {
+          "cycle": 37,
+          "tick": 212,
+          "vehicleId": "V00021",
+          "routeId": "W_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:61:0:CROSSWALK:EAST",
+          "patienceRemaining": 13,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00037",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00037",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00043",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00043",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00051",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00051",
+          "routeId": "W_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00031",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00031",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00031",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00031",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00058",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00058",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00058",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00058",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00065",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00065",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00065",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00065",
+          "routeId": "W_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00109",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00109",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00109",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00109",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00143",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00143",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00143",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00143",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00151",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00151",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00151",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00151",
+          "routeId": "N_L1_LEFT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00204",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:80:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 9,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00204",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:86:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 9,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00204",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00230",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:80:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 9,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00230",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:86:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 9,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00230",
+          "routeId": "S_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00201",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00212",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:62:0:CROSSWALK:NORTH",
+          "patienceRemaining": 2,
+          "laterStruck": true
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00212",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:82:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00212",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:89:0:CROSSWALK:NORTH",
+          "patienceRemaining": 12,
+          "laterStruck": false
+        },
+        {
+          "cycle": 46,
+          "tick": 232,
+          "vehicleId": "V00212",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 17,
+          "laterStruck": false
+        },
+        {
+          "cycle": 50,
+          "tick": 238,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 22,
+          "laterStruck": false
+        },
+        {
+          "cycle": 50,
+          "tick": 238,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 50,
+          "tick": 238,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 50,
+          "tick": 238,
+          "vehicleId": "V00116",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00125",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00191",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00200",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00219",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00224",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00232",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00236",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 21,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 13,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 56,
+          "tick": 247,
+          "vehicleId": "V00248",
+          "routeId": "E_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:92:0:CROSSWALK:EAST",
+          "patienceRemaining": 2,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:115:0:CROSSWALK:EAST",
+          "patienceRemaining": 19,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:EAST",
+          "pedestrianId": "PED:91:0:CROSSWALK:EAST",
+          "patienceRemaining": 11,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00210",
+          "routeId": "E_R1_RIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:98:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00057",
+          "routeId": "N_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00057",
+          "routeId": "N_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:98:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00062",
+          "routeId": "N_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00062",
+          "routeId": "N_S1_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:98:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00025",
+          "routeId": "N_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00025",
+          "routeId": "N_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:98:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00038",
+          "routeId": "N_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00038",
+          "routeId": "N_S2_STRAIGHT",
+          "crosswalk": "CROSSWALK:NORTH",
+          "pedestrianId": "PED:98:0:CROSSWALK:NORTH",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:101:0:CROSSWALK:WEST",
+          "patienceRemaining": 16,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:106:0:CROSSWALK:WEST",
+          "patienceRemaining": 8,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:113:0:CROSSWALK:WEST",
+          "patienceRemaining": 14,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:119:0:CROSSWALK:WEST",
+          "patienceRemaining": 24,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:WEST",
+          "pedestrianId": "PED:87:0:CROSSWALK:WEST",
+          "patienceRemaining": 5,
+          "laterStruck": false
+        },
+        {
+          "cycle": 58,
+          "tick": 252,
+          "vehicleId": "V00129",
+          "routeId": "W_R1_RIGHT",
+          "crosswalk": "CROSSWALK:SOUTH",
+          "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+          "patienceRemaining": 10,
+          "laterStruck": false
+        }
+      ]
+    },
+    "incidents": [
+      {
+        "id": "INC0001",
+        "triggerTick": 149,
+        "collisionType": "PILEUP",
+        "vehicles": 7,
+        "pedestrians": 0,
+        "firstReactionTick": 149,
+        "clearanceOrderTick": 149,
+        "clearanceOrders": 5,
+        "closeTick": 197,
+        "admittedWhileOpenThenJoined": [
+          "V00028@150"
+        ],
+        "selfEntered": [
+          "V00030"
+        ]
+      },
+      {
+        "id": "INC0002",
+        "triggerTick": 210,
+        "collisionType": "ANGLE_COLLISION",
+        "vehicles": 1,
+        "pedestrians": 1,
+        "firstReactionTick": 211,
+        "clearanceOrderTick": 211,
+        "clearanceOrders": 4,
+        "closeTick": 227,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": []
+      },
+      {
+        "id": "INC0003",
+        "triggerTick": 211,
+        "collisionType": "ANGLE_COLLISION",
+        "vehicles": 2,
+        "pedestrians": 1,
+        "firstReactionTick": 212,
+        "clearanceOrderTick": 212,
+        "clearanceOrders": 4,
+        "closeTick": 228,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": []
+      },
+      {
+        "id": "INC0004",
+        "triggerTick": 222,
+        "collisionType": "SCRAPE",
+        "vehicles": 2,
+        "pedestrians": 0,
+        "firstReactionTick": 223,
+        "clearanceOrderTick": 223,
+        "clearanceOrders": 2,
+        "closeTick": 228,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": [
+          "V00118"
+        ]
+      },
+      {
+        "id": "INC0005",
+        "triggerTick": 237,
+        "collisionType": "ANGLE_COLLISION",
+        "vehicles": 1,
+        "pedestrians": 1,
+        "firstReactionTick": 238,
+        "clearanceOrderTick": 238,
+        "clearanceOrders": 3,
+        "closeTick": 252,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": []
+      },
+      {
+        "id": "INC0006",
+        "triggerTick": 240,
+        "collisionType": "ANGLE_COLLISION",
+        "vehicles": 1,
+        "pedestrians": 1,
+        "firstReactionTick": 242,
+        "clearanceOrderTick": 242,
+        "clearanceOrders": 2,
+        "closeTick": 258,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": []
+      },
+      {
+        "id": "INC0007",
+        "triggerTick": 246,
+        "collisionType": "ANGLE_COLLISION",
+        "vehicles": 1,
+        "pedestrians": 1,
+        "firstReactionTick": 247,
+        "clearanceOrderTick": 247,
+        "clearanceOrders": 1,
+        "closeTick": 261,
+        "admittedWhileOpenThenJoined": [],
+        "selfEntered": []
+      }
+    ],
+    "aggression": {
+      "totals": {
+        "redLight": 2,
+        "tailgate": 1,
+        "cutIn": 0
+      },
+      "events": [
+        {
+          "cycle": 12,
+          "kind": "VEHICLE_RED_LIGHT",
+          "vehicleId": "V00017",
+          "alertedCycles": 2,
+          "lastAlert": {
+            "vehicleId": "V00017",
+            "laneId": "IN_N_R1_RIGHT",
+            "distanceToStopline": 2,
+            "temperament": "AGGRESSIVE",
+            "patienceRemaining": 0
+          }
+        },
+        {
+          "cycle": 15,
+          "kind": "VEHICLE_RED_LIGHT",
+          "vehicleId": "V00030",
+          "alertedCycles": 4,
+          "lastAlert": {
+            "vehicleId": "V00030",
+            "laneId": "IN_W_S1_STRAIGHT",
+            "distanceToStopline": 0,
+            "temperament": "AGGRESSIVE",
+            "patienceRemaining": 0
+          },
+          "joinedIncident": "INC0001"
+        },
+        {
+          "cycle": 38,
+          "kind": "VEHICLE_TAILGATE",
+          "vehicleId": "V00118",
+          "alertedCycles": 6,
+          "lastAlert": {
+            "vehicleId": "V00118",
+            "laneId": "IN_E_L1_LEFT",
+            "distanceToStopline": 7,
+            "temperament": "AGGRESSIVE",
+            "patienceRemaining": 0
+          },
+          "joinedIncident": "INC0004"
+        }
+      ]
+    },
+    "emergency": {
+      "bleed": 0.449,
+      "vehicles": [
+        {
+          "vehicleId": "V00034",
+          "firstAlertTick": 71,
+          "maxStationary": 35,
+          "admitTick": 116,
+          "waitTicks": 45
+        },
+        {
+          "vehicleId": "V00036",
+          "firstAlertTick": 71,
+          "maxStationary": 22,
+          "admitTick": 102,
+          "waitTicks": 31
+        },
+        {
+          "vehicleId": "V00050",
+          "firstAlertTick": 71,
+          "maxStationary": 44,
+          "admitTick": 148,
+          "waitTicks": 77
+        },
+        {
+          "vehicleId": "V00056",
+          "firstAlertTick": 81,
+          "maxStationary": 6,
+          "admitTick": 92,
+          "waitTicks": 11
+        },
+        {
+          "vehicleId": "V00043",
+          "firstAlertTick": 111,
+          "maxStationary": 82,
+          "waitTicks": null
+        },
+        {
+          "vehicleId": "V00212",
+          "firstAlertTick": 181,
+          "maxStationary": 31,
+          "waitTicks": null
+        },
+        {
+          "vehicleId": "V00137",
+          "firstAlertTick": 186,
+          "maxStationary": 68,
+          "waitTicks": null
+        }
+      ]
+    },
+    "stalls": {
+      "towingCosts": 8.4,
+      "stallChainBleed": 1.696,
+      "items": [
+        {
+          "vehicleId": "V00006",
+          "laneId": "IN_N_R1_RIGHT",
+          "stallTick": 64,
+          "towTick": 119,
+          "towLatency": 55
+        },
+        {
+          "vehicleId": "V00014",
+          "laneId": "IN_S_R1_RIGHT",
+          "stallTick": 64,
+          "towTick": 119,
+          "towLatency": 55,
+          "rerouteTick": 82
+        },
+        {
+          "vehicleId": "V00068",
+          "laneId": "IN_N_L1_LEFT",
+          "stallTick": 95,
+          "towTick": 119,
+          "towLatency": 24
+        },
+        {
+          "vehicleId": "V00089",
+          "laneId": "IN_S_S1_STRAIGHT",
+          "stallTick": 146,
+          "towTick": 151,
+          "towLatency": 5
+        },
+        {
+          "vehicleId": "V00122",
+          "laneId": "IN_W_R1_RIGHT",
+          "stallTick": 215,
+          "towTick": 220,
+          "towLatency": 5
+        },
+        {
+          "vehicleId": "V00029",
+          "laneId": "IN_W_S2_STRAIGHT",
+          "stallTick": 216,
+          "towTick": 220,
+          "towLatency": 4
+        },
+        {
+          "vehicleId": "V00124",
+          "laneId": "IN_E_L1_LEFT",
+          "stallTick": 219,
+          "towTick": 220,
+          "towLatency": 1
+        }
+      ]
+    }
+  },
+  "incidents": [
+    {
+      "id": "INC0001",
+      "triggerTick": 149,
+      "closeTick": 197,
+      "status": "CLOSED",
+      "collisionType": "PILEUP",
+      "severity": "CRITICAL",
+      "vehicleIds": [
+        "V00030",
+        "V00032",
+        "V00010",
+        "V00016",
+        "V00090",
+        "V00050",
+        "V00028"
+      ],
+      "pedestrianIds": [],
+      "admittedBy": [
+        {
+          "vehicleId": "V00030",
+          "tick": 146,
+          "routeId": "W_S1_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00032",
+          "cycle": 11,
+          "tick": 139,
+          "routeId": "N_S1_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00010",
+          "cycle": 11,
+          "tick": 139,
+          "routeId": "N_S2_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00016",
+          "cycle": 11,
+          "tick": 144,
+          "routeId": "N_S2_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00090",
+          "cycle": 11,
+          "tick": 143,
+          "routeId": "W_R1_RIGHT"
+        },
+        {
+          "vehicleId": "V00050",
+          "cycle": 11,
+          "tick": 148,
+          "routeId": "N_S1_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00028",
+          "cycle": 17,
+          "tick": 150,
+          "routeId": "N_R1_RIGHT"
+        }
+      ],
+      "finalSeverity": "CRITICAL",
+      "lockedAtTrigger": 73,
+      "lockedCells": 105,
+      "openTicks": 48,
+      "schoolBus": true,
+      "hazmat": false,
+      "weight": 15120,
+      "hazardShare": 47.751,
+      "estimatedCost": 57.751
+    },
+    {
+      "id": "INC0002",
+      "triggerTick": 210,
+      "closeTick": 227,
+      "status": "CLOSED",
+      "collisionType": "ANGLE_COLLISION",
+      "severity": "SERIOUS",
+      "vehicleIds": [
+        "V00194"
+      ],
+      "pedestrianIds": [
+        "PED:45:0:CROSSWALK:EAST"
+      ],
+      "admittedBy": [
+        {
+          "vehicleId": "V00194",
+          "cycle": 25,
+          "tick": 188,
+          "routeId": "S_R1_RIGHT"
+        }
+      ],
+      "finalSeverity": "SERIOUS",
+      "lockedAtTrigger": 20,
+      "lockedCells": 20,
+      "openTicks": 17,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 680,
+      "hazardShare": 2.148,
+      "estimatedCost": 7.148
+    },
+    {
+      "id": "INC0003",
+      "triggerTick": 211,
+      "closeTick": 228,
+      "status": "CLOSED",
+      "collisionType": "ANGLE_COLLISION",
+      "severity": "SERIOUS",
+      "vehicleIds": [
+        "V00088",
+        "V00111"
+      ],
+      "pedestrianIds": [
+        "PED:45:1:CROSSWALK:WEST"
+      ],
+      "admittedBy": [
+        {
+          "vehicleId": "V00088",
+          "cycle": 28,
+          "tick": 197,
+          "routeId": "E_S1_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00111",
+          "cycle": 28,
+          "tick": 197,
+          "routeId": "E_S2_STRAIGHT"
+        }
+      ],
+      "finalSeverity": "SERIOUS",
+      "lockedAtTrigger": 30,
+      "lockedCells": 35,
+      "openTicks": 17,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 1190,
+      "hazardShare": 3.758,
+      "estimatedCost": 8.758
+    },
+    {
+      "id": "INC0004",
+      "triggerTick": 222,
+      "closeTick": 228,
+      "status": "CLOSED",
+      "collisionType": "SCRAPE",
+      "severity": "MINOR",
+      "vehicleIds": [
+        "V00021",
+        "V00118"
+      ],
+      "pedestrianIds": [],
+      "admittedBy": [
+        {
+          "vehicleId": "V00021",
+          "cycle": 37,
+          "tick": 212,
+          "routeId": "W_S2_STRAIGHT"
+        },
+        {
+          "vehicleId": "V00118",
+          "tick": 216,
+          "routeId": "E_L1_LEFT"
+        }
+      ],
+      "finalSeverity": "MINOR",
+      "lockedAtTrigger": 83,
+      "lockedCells": 83,
+      "openTicks": 6,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 498,
+      "hazardShare": 1.573,
+      "estimatedCost": 1.573
+    },
+    {
+      "id": "INC0005",
+      "triggerTick": 237,
+      "closeTick": 252,
+      "status": "CLOSED",
+      "collisionType": "ANGLE_COLLISION",
+      "severity": "SERIOUS",
+      "vehicleIds": [
+        "V00201"
+      ],
+      "pedestrianIds": [
+        "PED:62:0:CROSSWALK:NORTH"
+      ],
+      "admittedBy": [
+        {
+          "vehicleId": "V00201",
+          "cycle": 46,
+          "tick": 232,
+          "routeId": "E_R1_RIGHT"
+        }
+      ],
+      "finalSeverity": "SERIOUS",
+      "lockedAtTrigger": 22,
+      "lockedCells": 22,
+      "openTicks": 15,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 660,
+      "hazardShare": 2.084,
+      "estimatedCost": 7.084
+    },
+    {
+      "id": "INC0006",
+      "triggerTick": 240,
+      "closeTick": 258,
+      "status": "CLOSED",
+      "collisionType": "ANGLE_COLLISION",
+      "severity": "SERIOUS",
+      "vehicleIds": [
+        "V00204"
+      ],
+      "pedestrianIds": [
+        "PED:86:0:CROSSWALK:SOUTH"
+      ],
+      "admittedBy": [
+        {
+          "vehicleId": "V00204",
+          "cycle": 46,
+          "tick": 232,
+          "routeId": "S_R1_RIGHT"
+        }
+      ],
+      "finalSeverity": "SERIOUS",
+      "lockedAtTrigger": 28,
+      "lockedCells": 28,
+      "openTicks": 18,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 1008,
+      "hazardShare": 3.183,
+      "estimatedCost": 8.183
+    },
+    {
+      "id": "INC0007",
+      "triggerTick": 246,
+      "closeTick": 261,
+      "status": "CLOSED",
+      "collisionType": "ANGLE_COLLISION",
+      "severity": "SERIOUS",
+      "vehicleIds": [
+        "V00109"
+      ],
+      "pedestrianIds": [
+        "PED:61:0:CROSSWALK:EAST"
+      ],
+      "admittedBy": [
+        {
+          "vehicleId": "V00109",
+          "cycle": 46,
+          "tick": 232,
+          "routeId": "N_L1_LEFT"
+        }
+      ],
+      "finalSeverity": "SERIOUS",
+      "lockedAtTrigger": 15,
+      "lockedCells": 15,
+      "openTicks": 15,
+      "schoolBus": false,
+      "hazmat": false,
+      "weight": 450,
+      "hazardShare": 1.421,
+      "estimatedCost": 6.421
+    }
+  ],
+  "cycles": {
+    "rows": [
+      {
+        "cycle": 1,
+        "tick": 61,
+        "interrupt": null,
+        "admitted": 6,
+        "cleanAdmits": 6,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.11,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 6
+      },
+      {
+        "cycle": 2,
+        "tick": 71,
+        "interrupt": null,
+        "admitted": 4,
+        "cleanAdmits": 4,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.333,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 4
+      },
+      {
+        "cycle": 3,
+        "tick": 81,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.082,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 4,
+        "tick": 82,
+        "interrupt": null,
+        "admitted": 4,
+        "cleanAdmits": 4,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.618,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 6
+      },
+      {
+        "cycle": 5,
+        "tick": 92,
+        "interrupt": null,
+        "admitted": 6,
+        "cleanAdmits": 6,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.029,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 6
+      },
+      {
+        "cycle": 6,
+        "tick": 102,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.142,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 7,
+        "tick": 103,
+        "interrupt": null,
+        "admitted": 7,
+        "cleanAdmits": 7,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.155,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": 7
+      },
+      {
+        "cycle": 8,
+        "tick": 111,
+        "interrupt": null,
+        "admitted": 8,
+        "cleanAdmits": 8,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.716,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": 8
+      },
+      {
+        "cycle": 9,
+        "tick": 119,
+        "interrupt": null,
+        "admitted": 3,
+        "cleanAdmits": 3,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -6.329,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 9
+      },
+      {
+        "cycle": 10,
+        "tick": 129,
+        "interrupt": null,
+        "admitted": 7,
+        "cleanAdmits": 7,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.424,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 7
+      },
+      {
+        "cycle": 11,
+        "tick": 139,
+        "interrupt": null,
+        "admitted": 10,
+        "cleanAdmits": 5,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [
+          "INC0001"
+        ],
+        "blame": 48.13,
+        "financialDelta": -0.66,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -43.13
+      },
+      {
+        "cycle": 12,
+        "tick": 141,
+        "interrupt": "VEHICLE_RED_LIGHT vehicle=V00017 route=N_R1_RIGHT",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.271,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 13,
+        "tick": 142,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:11:0:CROSSWALK:EAST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": 2.841,
+        "sleepTicks": 3,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 14,
+        "tick": 145,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.399,
+        "sleepTicks": 4,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 15,
+        "tick": 146,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:3:0:CROSSWALK:WEST remaining=24; VEHICLE_RED_LIGHT vehicle=V00030 route=W_S1_STRAIGHT",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.041,
+        "sleepTicks": 4,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 16,
+        "tick": 149,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0001 locked=CROSSWALK:WEST:CELL:6:0,CROSSWALK:WEST:CELL:6:1,PAIR:N_S1_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_L1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_L1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_R1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:11,PAIR:N_S1_STRAIGHT:6|E_L1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:6|E_L1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:6|E_S2_STRAIGHT:10,PAIR:N_S1_STRAIGHT:6|E_S2_STRAIGHT:11,PAIR:N_S1_STRAIGHT:6|W_L1_LEFT:5,PAIR:N_S1_STRAIGHT:6|W_L1_LEFT:6,PAIR:N_S1_STRAIGHT:7|N_R1_GUIDED_STRAIGHT:7,PAIR:N_S1_STRAIGHT:7|N_R1_GUIDED_STRAIGHT:8,PAIR:N_S1_STRAIGHT:7|S_L1_LEFT:8,PAIR:N_S1_STRAIGHT:7|S_L1_LEFT:9,PAIR:N_S1_STRAIGHT:7|S_S2_GUIDED_LEFT:10,PAIR:N_S1_STRAIGHT:7|S_S2_GUIDED_LEFT:11,PAIR:N_S1_STRAIGHT:7|W_L1_GUIDED_STRAIGHT:4,PAIR:N_S1_STRAIGHT:7|W_L1_GUIDED_STRAIGHT:5,PAIR:N_S1_STRAIGHT:7|W_L1_LEFT:5,PAIR:N_S1_STRAIGHT:7|W_L1_LEFT:6,PAIR:N_S1_STRAIGHT:7|W_S2_GUIDED_LEFT:5,PAIR:N_S1_STRAIGHT:7|W_S2_GUIDED_LEFT:6,PAIR:N_S1_STRAIGHT:8|N_R1_GUIDED_STRAIGHT:7,PAIR:N_S1_STRAIGHT:8|N_R1_GUIDED_STRAIGHT:8,PAIR:N_S1_STRAIGHT:8|N_R1_GUIDED_STRAIGHT:9,PAIR:N_S1_STRAIGHT:8|S_L1_LEFT:8,PAIR:N_S1_STRAIGHT:8|S_L1_LEFT:9,PAIR:N_S1_STRAIGHT:8|S_S2_GUIDED_LEFT:10,PAIR:N_S1_STRAIGHT:8|S_S2_GUIDED_LEFT:11,PAIR:N_S1_STRAIGHT:8|W_L1_GUIDED_STRAIGHT:4,PAIR:N_S1_STRAIGHT:8|W_L1_GUIDED_STRAIGHT:5,PAIR:N_S1_STRAIGHT:8|W_S2_GUIDED_LEFT:5,PAIR:N_S1_STRAIGHT:8|W_S2_GUIDED_LEFT:6,PAIR:N_S1_STRAIGHT:8|W_S2_STRAIGHT:4,PAIR:N_S1_STRAIGHT:8|W_S2_STRAIGHT:5,PAIR:W_S1_STRAIGHT:1|W_S1_GUIDED_RIGHT:1,PAIR:W_S1_STRAIGHT:1|W_S1_GUIDED_RIGHT:2,PAIR:W_S1_STRAIGHT:2|W_S1_GUIDED_RIGHT:1,PAIR:W_S1_STRAIGHT:2|W_S1_GUIDED_RIGHT:2,PAIR:W_S1_STRAIGHT:2|W_S1_GUIDED_RIGHT:3,PAIR:W_S1_STRAIGHT:3|W_S1_GUIDED_RIGHT:2,PAIR:W_S1_STRAIGHT:3|W_S1_GUIDED_RIGHT:3,SPACE:-2:-1,SPACE:-2:-2,SPACE:-2:-3,SPACE:-2:0,SPACE:-2:1,SPACE:-3:-1,SPACE:-3:-2,SPACE:-3:-3,SPACE:-3:0,SPACE:-3:1,SPACE:-4:-1,SPACE:-4:-2,SPACE:-4:0,SPACE:-4:1,SPACE:-4:2,SPACE:-4:3,SPACE:-5:1,SPACE:-5:2,SPACE:-5:3,SPACE:-6:2,SPACE:-6:3 vehicles=V00030,V00032",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.385,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 17,
+        "tick": 150,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0001 secondary=true",
+        "admitted": 3,
+        "cleanAdmits": 2,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 3,
+        "blamedIncidents": [
+          "INC0001"
+        ],
+        "blame": 9.63,
+        "financialDelta": -11.432,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -7.63
+      },
+      {
+        "cycle": 18,
+        "tick": 151,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0001 secondary=true",
+        "admitted": 3,
+        "cleanAdmits": 3,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.424,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 5
+      },
+      {
+        "cycle": 19,
+        "tick": 152,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0001 secondary=true",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -14.417,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 20,
+        "tick": 162,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:20:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -10.98,
+        "sleepTicks": 8,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 21,
+        "tick": 170,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:3:0:CROSSWALK:WEST",
+        "admitted": 2,
+        "cleanAdmits": 2,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 1,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.607,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": 2
+      },
+      {
+        "cycle": 22,
+        "tick": 175,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:44:0:CROSSWALK:WEST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.67,
+        "sleepTicks": 8,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 23,
+        "tick": 176,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:45:1:CROSSWALK:WEST remaining=24",
+        "admitted": 5,
+        "cleanAdmits": 5,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 5,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -8.137,
+        "sleepTicks": 10,
+        "commitKind": "unverified",
+        "value": 5
+      },
+      {
+        "cycle": 24,
+        "tick": 181,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:38:0:CROSSWALK:SOUTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.685,
+        "sleepTicks": 6,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 25,
+        "tick": 184,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:43:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 5,
+        "cleanAdmits": 4,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 10,
+        "blamedIncidents": [
+          "INC0002"
+        ],
+        "blame": 7.15,
+        "financialDelta": -3.992,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": -3.15
+      },
+      {
+        "cycle": 26,
+        "tick": 186,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:20:0:CROSSWALK:NORTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.501,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 27,
+        "tick": 187,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:45:0:CROSSWALK:EAST remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:50:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.455,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 28,
+        "tick": 197,
+        "interrupt": null,
+        "admitted": 12,
+        "cleanAdmits": 9,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 30,
+        "blamedIncidents": [
+          "INC0003"
+        ],
+        "blame": 8.76,
+        "financialDelta": -1.78,
+        "sleepTicks": 8,
+        "commitKind": "unverified",
+        "value": 0.24
+      },
+      {
+        "cycle": 29,
+        "tick": 199,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:44:0:CROSSWALK:WEST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.192,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 30,
+        "tick": 200,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:45:1:CROSSWALK:WEST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.79,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 31,
+        "tick": 201,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:61:0:CROSSWALK:EAST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.322,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 32,
+        "tick": 204,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:68:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.31,
+        "sleepTicks": 3,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 33,
+        "tick": 207,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.467,
+        "sleepTicks": 8,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 34,
+        "tick": 208,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:43:0:CROSSWALK:NORTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -0.708,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 35,
+        "tick": 210,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:62:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -7.117,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 36,
+        "tick": 211,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:45:0:CROSSWALK:EAST; PEDESTRIAN_JAYWALK pedestrian=PED:50:0:CROSSWALK:NORTH; ACCIDENT_INTERRUPT incident=INC0002 locked=CROSSWALK:EAST:CELL:7:0,CROSSWALK:EAST:CELL:7:1,PAIR:S_R1_RIGHT:7|S_S1_GUIDED_RIGHT:7,PAIR:S_R1_RIGHT:7|S_S1_GUIDED_RIGHT:8,PAIR:S_R1_RIGHT:7|S_S1_GUIDED_RIGHT:9,PAIR:S_R1_RIGHT:8|S_S1_GUIDED_RIGHT:8,PAIR:S_R1_RIGHT:8|S_S1_GUIDED_RIGHT:9,SPACE:3:3,SPACE:3:4,SPACE:4:3,SPACE:4:4,SPACE:5:3,SPACE:5:4,SPACE:6:2,SPACE:6:3,SPACE:6:4,SPACE:7:2,SPACE:7:3,SPACE:7:4,SPACE:8:3 vehicles=V00194 pedestrians=PED:45:0:CROSSWALK:EAST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -5.931,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 37,
+        "tick": 212,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0003 locked=CROSSWALK:WEST:CELL:1:0,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:10,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:9,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:10,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:12,PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:4,PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:5,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:12,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:13,PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:4,PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:5,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:11,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S2_STRAIGHT:5|E_S1_STRAIGHT:10,SPACE:-2:-3,SPACE:-3:-3,SPACE:-3:-4,SPACE:-4:-2,SPACE:-4:-3,SPACE:-4:-4,SPACE:-5:-2,SPACE:-5:-3,SPACE:-5:-4,SPACE:-6:-3 vehicles=V00088 pedestrians=PED:45:1:CROSSWALK:WEST; ACCIDENT_INTERRUPT incident=INC0003 secondary=true",
+        "admitted": 2,
+        "cleanAdmits": 1,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 1,
+        "blamedIncidents": [
+          "INC0004"
+        ],
+        "blame": 1.57,
+        "financialDelta": -4.292,
+        "sleepTicks": 10,
+        "commitKind": "unverified",
+        "value": -0.57
+      },
+      {
+        "cycle": 38,
+        "tick": 216,
+        "interrupt": "VEHICLE_TAILGATE vehicle=V00118 route=E_L1_LEFT",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.195,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 39,
+        "tick": 217,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:80:0:CROSSWALK:SOUTH remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:86:0:CROSSWALK:SOUTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.252,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 40,
+        "tick": 218,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.651,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 41,
+        "tick": 220,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:82:0:CROSSWALK:NORTH remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:89:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -6.454,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 6
+      },
+      {
+        "cycle": 42,
+        "tick": 222,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0004 locked=PAIR:E_L1_LEFT:4|E_L1_GUIDED_STRAIGHT:3,PAIR:E_L1_LEFT:4|E_L1_GUIDED_STRAIGHT:4,PAIR:E_L1_LEFT:4|E_S2_GUIDED_LEFT:4,PAIR:E_L1_LEFT:4|E_S2_GUIDED_LEFT:5,PAIR:E_L1_LEFT:4|N_S2_GUIDED_LEFT:13,PAIR:E_L1_LEFT:4|N_S2_GUIDED_LEFT:14,PAIR:E_L1_LEFT:5|N_S2_GUIDED_LEFT:12,PAIR:E_L1_LEFT:5|N_S2_GUIDED_LEFT:13,PAIR:E_L1_LEFT:5|N_S2_GUIDED_LEFT:14,PAIR:E_L1_LEFT:5|S_R1_GUIDED_STRAIGHT:7,PAIR:E_L1_LEFT:5|S_R1_GUIDED_STRAIGHT:8,PAIR:E_L1_LEFT:6|E_S2_GUIDED_LEFT:7,PAIR:E_L1_LEFT:6|E_S2_GUIDED_LEFT:8,PAIR:E_L1_LEFT:6|N_S2_GUIDED_LEFT:12,PAIR:E_L1_LEFT:6|N_S2_GUIDED_LEFT:13,PAIR:E_L1_LEFT:6|S_R1_GUIDED_STRAIGHT:7,PAIR:E_L1_LEFT:6|S_R1_GUIDED_STRAIGHT:8,PAIR:E_L1_LEFT:8|W_S2_STRAIGHT:8,PAIR:E_L1_LEFT:9|W_S2_STRAIGHT:8,PAIR:N_L1_LEFT:10|E_L1_LEFT:4,PAIR:N_L1_LEFT:10|E_L1_LEFT:5,PAIR:N_L1_LEFT:11|E_L1_LEFT:4,PAIR:N_L1_LEFT:11|E_L1_LEFT:5,PAIR:N_S1_STRAIGHT:8|W_S2_STRAIGHT:5,PAIR:N_S1_STRAIGHT:9|W_S2_STRAIGHT:5,PAIR:N_S2_STRAIGHT:8|W_S2_STRAIGHT:5,PAIR:N_S2_STRAIGHT:8|W_S2_STRAIGHT:6,PAIR:N_S2_STRAIGHT:9|W_S2_STRAIGHT:5,PAIR:N_S2_STRAIGHT:9|W_S2_STRAIGHT:6,PAIR:S_L1_LEFT:6|W_S2_STRAIGHT:5,PAIR:S_L1_LEFT:6|W_S2_STRAIGHT:6,PAIR:S_L1_LEFT:7|W_S2_STRAIGHT:5,PAIR:S_L1_LEFT:7|W_S2_STRAIGHT:6,PAIR:S_S1_STRAIGHT:7|E_L1_LEFT:6,PAIR:S_S1_STRAIGHT:8|E_L1_LEFT:6,PAIR:S_S2_STRAIGHT:6|W_S2_STRAIGHT:8,PAIR:S_S2_STRAIGHT:7|W_S2_STRAIGHT:8,PAIR:W_S2_STRAIGHT:5|N_L1_GUIDED_STRAIGHT:8,PAIR:W_S2_STRAIGHT:5|N_L1_GUIDED_STRAIGHT:9,PAIR:W_S2_STRAIGHT:5|N_R1_GUIDED_STRAIGHT:8,PAIR:W_S2_STRAIGHT:5|N_R1_GUIDED_STRAIGHT:9,PAIR:W_S2_STRAIGHT:5|S_S2_GUIDED_LEFT:8,PAIR:W_S2_STRAIGHT:5|S_S2_GUIDED_LEFT:9,PAIR:W_S2_STRAIGHT:6|N_L1_GUIDED_STRAIGHT:8,PAIR:W_S2_STRAIGHT:6|N_L1_GUIDED_STRAIGHT:9,PAIR:W_S2_STRAIGHT:6|S_S2_GUIDED_LEFT:7,PAIR:W_S2_STRAIGHT:6|S_S2_GUIDED_LEFT:8,PAIR:W_S2_STRAIGHT:6|S_S2_GUIDED_LEFT:9,PAIR:W_S2_STRAIGHT:7|E_S2_GUIDED_LEFT:10,PAIR:W_S2_STRAIGHT:7|E_S2_GUIDED_LEFT:11,PAIR:W_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:6,PAIR:W_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:7,PAIR:W_S2_STRAIGHT:7|S_S2_GUIDED_LEFT:7,PAIR:W_S2_STRAIGHT:7|S_S2_GUIDED_LEFT:8,PAIR:W_S2_STRAIGHT:7|W_L1_GUIDED_STRAIGHT:7,PAIR:W_S2_STRAIGHT:7|W_L1_GUIDED_STRAIGHT:8,PAIR:W_S2_STRAIGHT:8|E_S2_GUIDED_LEFT:10,PAIR:W_S2_STRAIGHT:8|E_S2_GUIDED_LEFT:11,PAIR:W_S2_STRAIGHT:8|E_S2_GUIDED_LEFT:9,PAIR:W_S2_STRAIGHT:8|S_L1_GUIDED_STRAIGHT:6,PAIR:W_S2_STRAIGHT:8|S_L1_GUIDED_STRAIGHT:7,PAIR:W_S2_STRAIGHT:8|W_L1_GUIDED_STRAIGHT:7,PAIR:W_S2_STRAIGHT:8|W_L1_GUIDED_STRAIGHT:8,PAIR:W_S2_STRAIGHT:8|W_L1_GUIDED_STRAIGHT:9,SPACE:-1:0,SPACE:-1:1,SPACE:-1:2,SPACE:-2:0,SPACE:-2:1,SPACE:-2:2,SPACE:0:0,SPACE:0:1,SPACE:0:2,SPACE:1:0,SPACE:1:1,SPACE:1:2,SPACE:2:-1,SPACE:2:0,SPACE:3:-1,SPACE:3:-2,SPACE:3:0,SPACE:4:-1,SPACE:4:0 vehicles=V00021,V00118",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.323,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 43,
+        "tick": 223,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.883,
+        "sleepTicks": 5,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 44,
+        "tick": 225,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:81:0:CROSSWALK:WEST remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:92:0:CROSSWALK:EAST remaining=24; PEDESTRIAN_JAYWALK pedestrian=PED:61:0:CROSSWALK:EAST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -4.87,
+        "sleepTicks": 4,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 45,
+        "tick": 228,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:68:0:CROSSWALK:NORTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -4.679,
+        "sleepTicks": 4,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 46,
+        "tick": 232,
+        "interrupt": null,
+        "admitted": 14,
+        "cleanAdmits": 11,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 48,
+        "blamedIncidents": [
+          "INC0005",
+          "INC0006",
+          "INC0007"
+        ],
+        "blame": 21.69,
+        "financialDelta": -1.491,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -10.69
+      },
+      {
+        "cycle": 47,
+        "tick": 233,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:87:0:CROSSWALK:WEST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.049,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 48,
+        "tick": 234,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:62:0:CROSSWALK:NORTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": 1.289,
+        "sleepTicks": 8,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 49,
+        "tick": 236,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:106:0:CROSSWALK:WEST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -8.084,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 50,
+        "tick": 238,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:95:0:CROSSWALK:SOUTH remaining=24; ACCIDENT_INTERRUPT incident=INC0005 locked=CROSSWALK:NORTH:CELL:7:0,PAIR:E_R1_RIGHT:3|E_R1_GUIDED_STRAIGHT:2,PAIR:E_R1_RIGHT:3|E_R1_GUIDED_STRAIGHT:3,PAIR:E_R1_RIGHT:3|E_R1_GUIDED_STRAIGHT:4,PAIR:E_R1_RIGHT:3|E_S1_GUIDED_RIGHT:3,PAIR:E_R1_RIGHT:3|E_S1_GUIDED_RIGHT:4,PAIR:E_R1_RIGHT:3|E_S1_GUIDED_RIGHT:5,PAIR:E_R1_RIGHT:4|E_R1_GUIDED_STRAIGHT:3,PAIR:E_R1_RIGHT:4|E_R1_GUIDED_STRAIGHT:4,PAIR:E_R1_RIGHT:4|E_S1_GUIDED_RIGHT:4,PAIR:E_R1_RIGHT:4|E_S1_GUIDED_RIGHT:5,PAIR:E_R1_RIGHT:4|E_S1_GUIDED_RIGHT:6,PAIR:E_R1_RIGHT:5|E_S1_GUIDED_RIGHT:5,PAIR:E_R1_RIGHT:5|E_S1_GUIDED_RIGHT:6,PAIR:E_R1_RIGHT:5|E_S1_GUIDED_RIGHT:7,SPACE:3:-4,SPACE:3:-5,SPACE:3:-6,SPACE:4:-3,SPACE:4:-4,SPACE:4:-5,SPACE:5:-4 vehicles=V00201 pedestrians=PED:62:0:CROSSWALK:NORTH",
+        "admitted": 1,
+        "cleanAdmits": 1,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 4,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.513,
+        "sleepTicks": 8,
+        "commitKind": "unverified",
+        "value": 1
+      },
+      {
+        "cycle": 51,
+        "tick": 239,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:91:0:CROSSWALK:EAST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -8.758,
+        "sleepTicks": 10,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 52,
+        "tick": 241,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:80:0:CROSSWALK:SOUTH; PEDESTRIAN_JAYWALK pedestrian=PED:86:0:CROSSWALK:SOUTH; ACCIDENT_INTERRUPT incident=INC0006 locked=CROSSWALK:SOUTH:CELL:7:0,CROSSWALK:SOUTH:CELL:7:1,PAIR:S_R1_RIGHT:0|S_R1_GUIDED_STRAIGHT:0,PAIR:S_R1_RIGHT:1|S_R1_GUIDED_STRAIGHT:1,PAIR:S_R1_RIGHT:1|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:1,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:3,PAIR:S_R1_RIGHT:2|S_S1_GUIDED_RIGHT:3,PAIR:S_R1_RIGHT:2|S_S1_GUIDED_RIGHT:4,PAIR:S_R1_RIGHT:3|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:3|S_R1_GUIDED_STRAIGHT:3,PAIR:S_R1_RIGHT:3|S_S1_GUIDED_RIGHT:3,PAIR:S_R1_RIGHT:3|S_S1_GUIDED_RIGHT:4,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:5,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:6,SPACE:1:6,SPACE:1:7,SPACE:2:5,SPACE:2:6,SPACE:2:7,SPACE:2:8,SPACE:3:4,SPACE:3:5,SPACE:3:6,SPACE:3:7,SPACE:4:4,SPACE:4:5 vehicles=V00204 pedestrians=PED:86:0:CROSSWALK:SOUTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.675,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 53,
+        "tick": 242,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:113:0:CROSSWALK:WEST remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -4.083,
+        "sleepTicks": 5,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 54,
+        "tick": 244,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:98:0:CROSSWALK:NORTH remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:101:0:CROSSWALK:WEST remaining=24; PEDESTRIAN_JAYWALK pedestrian=PED:82:0:CROSSWALK:NORTH; PEDESTRIAN_JAYWALK pedestrian=PED:89:0:CROSSWALK:NORTH",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.583,
+        "sleepTicks": 2,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 55,
+        "tick": 246,
+        "interrupt": null,
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -6.934,
+        "sleepTicks": 6,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 56,
+        "tick": 247,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:115:0:CROSSWALK:EAST remaining=24; ACCIDENT_INTERRUPT incident=INC0007 locked=CROSSWALK:EAST:CELL:4:0,CROSSWALK:EAST:CELL:4:1,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:14,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:15,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:16,PAIR:N_L1_LEFT:13|N_S2_GUIDED_LEFT:15,PAIR:N_L1_LEFT:13|N_S2_GUIDED_LEFT:16,SPACE:5:0,SPACE:5:1,SPACE:6:0,SPACE:6:1,SPACE:7:-1,SPACE:7:0,SPACE:7:1,SPACE:8:0 vehicles=V00109 pedestrians=PED:61:0:CROSSWALK:EAST",
+        "admitted": 8,
+        "cleanAdmits": 8,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 64,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -4.983,
+        "sleepTicks": 5,
+        "commitKind": "verified",
+        "value": 8
+      },
+      {
+        "cycle": 57,
+        "tick": 249,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:81:0:CROSSWALK:WEST; PEDESTRIAN_JAYWALK pedestrian=PED:92:0:CROSSWALK:EAST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -5.534,
+        "sleepTicks": 3,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 58,
+        "tick": 252,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:119:0:CROSSWALK:WEST remaining=24",
+        "admitted": 6,
+        "cleanAdmits": 6,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 17,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -9.073,
+        "sleepTicks": 9,
+        "commitKind": "verified",
+        "value": 6
+      },
+      {
+        "cycle": 59,
+        "tick": 257,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:87:0:CROSSWALK:WEST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.451,
+        "sleepTicks": 4,
+        "commitKind": "hold",
+        "value": 0
+      },
+      {
+        "cycle": 60,
+        "tick": 259,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:111:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -2.414,
+        "sleepTicks": 1,
+        "commitKind": "fallback",
+        "value": 0
+      },
+      {
+        "cycle": 61,
+        "tick": 260,
+        "interrupt": "PEDESTRIAN_JAYWALK pedestrian=PED:106:0:CROSSWALK:WEST",
+        "admitted": 0,
+        "cleanAdmits": 0,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.705,
+        "sleepTicks": 1,
+        "commitKind": "hold",
+        "value": 0
+      }
+    ],
+    "best": [
+      {
+        "cycle": 9,
+        "tick": 119,
+        "interrupt": null,
+        "admitted": 3,
+        "cleanAdmits": 3,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -6.329,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 9,
+        "summary": "Admit E_R1 top3 (V00106 now, V00113@124, V00120@129, +0.4). Towed V00006/V00014/V00068 (stall chain relief, lanes free@137). Major axes still RESERVATION-blocked until 132-138; sleep 10 to approach S_S1(132) unblock for next wave.",
+        "context": {
+          "balance": 994.82,
+          "stoplineCandidates": 8,
+          "blockedRoutes": 7,
+          "pedestrianAlerts": [],
+          "driverAlerts": [],
+          "emergencyAlerts": [
+            "V00043",
+            "V00050"
+          ],
+          "stalled": [
+            "V00006",
+            "V00014",
+            "V00068"
+          ]
+        },
+        "toolSequence": [
+          "r1 dispatch_tow_truck -> ok",
+          "r1 dispatch_tow_truck -> ok",
+          "r1 dispatch_tow_truck -> ok",
+          "r1 dry_run_admit -> RESOURCE_CONFLICT (CROSSWALK:WEST:CELL:1:0 vs V00042)",
+          "r2 dry_run_admit -> ok",
+          "r3 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze this situation carefully. Current state: - Tick 119, endTick 261, 142 ticks remaining - Balance: 994.8156 - No working memory plan active blockedRoutes: All major routes are blocked by RESERVATION until ticks 132-138. This means I cannot admit vehicles on these routes yet: - N_S1_STRAIGHT blocked until 137 - N_S2_STRAIGHT blocked until 136 - S_S1_STRAIGHT blocked until 132 - S_S2_STRAIGHT blocked until 134 - W_L1_LEFT blocked until 138 - W_S1_STRAIGHT blocked until 134 - W_S2_STRA …… _n\":3}] - sleep_ticks: 10 - tactical_summary: \"Admit E_R1 top3 (V00106 now, V00113@124, V00120@129, +0.4); tow dispatched for V00006/V00014/V00068 (chain stall relief, lanes free@137); all major axes resume-blocked by RESERVATION until 132-138, sleep 10 to approach S_S1 (132) unblock for next wave.\"",
+        "outcome": []
+      },
+      {
+        "cycle": 8,
+        "tick": 111,
+        "interrupt": null,
+        "admitted": 8,
+        "cleanAdmits": 8,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.716,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": 8,
+        "summary": "Verified turn-only batch: S_L1 top4 (frees emergency V00034), W_R1 top2, E_R1 top1, E_L1 top1; conflicting/blocked heads (N/S straights, W_L1, W straights) deferred to their reservation windows; exits EAST/WEST stay locked so W/E straights not added; sleep 8 to clear staggered entries.\"",
+        "context": {
+          "balance": 996.53,
+          "stoplineCandidates": 11,
+          "blockedRoutes": 5,
+          "pedestrianAlerts": [],
+          "driverAlerts": [],
+          "emergencyAlerts": [
+            "V00034",
+            "V00043",
+            "V00050"
+          ],
+          "stalled": [
+            "V00006",
+            "V00014",
+            "V00068"
+          ]
+        },
+        "toolSequence": [
+          "r1 dry_run_admit -> ok",
+          "r2 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze the current state carefully. Current tick: 111, end tick 261, so 150 ticks remaining. Balance: 996.5314. Key observations: 1. **Discharging lanes**: IN_E_S1_STRAIGHT (1 vehicle, next enter 116, clear 133), IN_E_S2_STRAIGHT (1 vehicle, next enter 116, clear 134). V00048 and V00086 are SCHEDULED_ENTERING at tick 116. Don't re-admit these. 2. **Active crossings**: V00013 (W_S2), V00020 (N_S1), V00023 (W_S1), V00024 (E_S1), V00036 (W_R1), V00042 (E_S1), V00048 (E_S1 scheduled), V00069 …… ste the attempt. Better to stick with a single safe batch rather than gamble on a joint plan. I'll settle on an 8-tick sleep and commit now, since the reward figures from the dry-run (8 vehicles cleared, reward 2.50) are what actually matter for the commit regardless of those aggregated cost fields.",
+        "outcome": []
+      },
+      {
+        "cycle": 56,
+        "tick": 247,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:115:0:CROSSWALK:EAST remaining=24; ACCIDENT_INTERRUPT incident=INC0007 locked=CROSSWALK:EAST:CELL:4:0,CROSSWALK:EAST:CELL:4:1,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:14,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:15,PAIR:N_L1_LEFT:12|N_S2_GUIDED_LEFT:16,PAIR:N_L1_LEFT:13|N_S2_GUIDED_LEFT:15,PAIR:N_L1_LEFT:13|N_S2_GUIDED_LEFT:16,SPACE:5:0,SPACE:5:1,SPACE:6:0,SPACE:6:1,SPACE:7:-1,SPACE:7:0,SPACE:7:1,SPACE:8:0 vehicles=V00109 pedestrians=PED:61:0:CROSSWALK:EAST",
+        "admitted": 8,
+        "cleanAdmits": 8,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 64,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -4.983,
+        "sleepTicks": 5,
+        "commitKind": "verified",
+        "value": 8,
+        "summary": "INC0007 evacuation started (V00109->OUT_EAST_2); E_S2 westbound straight is the only open non-jaywalker lane (crosses WEST, jaywalks blocked t249). Admitted 8 BURST, sleeping 5 to t252 for INC0005 clear.",
+        "context": {
+          "balance": 830.75,
+          "stoplineCandidates": 15,
+          "blockedRoutes": 17,
+          "pedestrianAlerts": [
+            "W:P21",
+            "W:P13",
+            "W:P19",
+            "E:P24",
+            "N:J0",
+            "N:J0",
+            "S:J0",
+            "W:P2",
+            "N:J0",
+            "W:P10",
+            "N:J0",
+            "E:P16",
+            "E:P2",
+            "S:P15",
+            "N:P21"
+          ],
+          "driverAlerts": [
+            "V00025:0",
+            "V00041:0",
+            "V00045:0",
+            "V00126:0",
+            "V00143:0",
+            "V00072:0",
+            "V00141:0",
+            "V00047:0"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00137",
+            "V00212"
+          ],
+          "stalled": []
+        },
+        "toolSequence": [
+          "r1 inspect_incident -> ok",
+          "r2 order_accident_clearance -> ok",
+          "r2 dry_run_admit -> ok",
+          "r3 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze the current situation carefully. Current tick: 247, endTick: 261, ticksRemaining: 14 Balance: 830.7521 Key observations: 1. ACCIDENT_INTERRUPT incident=INC0007 locked several routes (blockKind=INCIDENT, blockedUntilTick=261 - which is the end tick, so these won't clear this game). 2. Multiple routes blocked by incidents: - INC0007: E_L1_GUIDED_STRAIGHT, E_L1_LEFT, N_L1_LEFT, N_S2_GUIDED_LEFT, W_L1_GUIDED_STRAIGHT, W_S2_STRAIGHT (blockedUntilTick=261) - these won't clear before gam …… es; if dry-run at t252 says no warnings, vehicles entering t252 conflicts? OK. I'm going in circles. Execute: commit E_S2 batch + sleep 5. Wait, but is the commit's plan EXACT match with dry-run: lane_batches: [{IN_E_S2_STRAIGHT, top_n 8, speed_profile BURST}]. Yes. sleep_ticks: 5. tactical_summary.",
+        "outcome": []
+      },
+      {
+        "cycle": 7,
+        "tick": 103,
+        "interrupt": null,
+        "admitted": 7,
+        "cleanAdmits": 7,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -1.155,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": 7,
+        "summary": "Verified E-axis batch: E_R1 top1 + E_S1 top3 + E_S2 top3 (no conflicts, no jaywalker warnings, reward 12.5); sleep 8 to let staggered entries clear the junction.",
+        "context": {
+          "balance": 997.69,
+          "stoplineCandidates": 10,
+          "blockedRoutes": 5,
+          "pedestrianAlerts": [],
+          "driverAlerts": [],
+          "emergencyAlerts": [
+            "V00034",
+            "V00050"
+          ],
+          "stalled": [
+            "V00006",
+            "V00014",
+            "V00068"
+          ]
+        },
+        "toolSequence": [
+          "r1 dry_run_admit -> ok",
+          "r2 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze the current situation. Current tick 103, endTick 261, ticks remaining 158. Balance 997.686. Key things to consider: 1. blockedRoutes: RESERVATION block until ticks 116, 112, 114, 117, 116. These are E_L1_LEFT, N_S2_STRAIGHT, S_L1_LEFT, S_S1_STRAIGHT, S_S2_STRAIGHT. 2. dischargingLanes: W_S1 and W_S2 have vehicles scheduled entering at 104/105. 3. activeVehicleMotions: V00009, V00012 CROSSING; V00013, V00023 SCHEDULED_ENTERING; V00020 N_S1 CROSSING; V00033, V00036 W_R1 CROSSING; V0 …… eduled up to 116, estimated clear up to 136. A sleep of 8-10 is reasonable. Let's commit with sleep_ticks 8 (wake at ~111) so I can next handle S_L1 at 114 and N_S2 at 112. Actually sleep 8 -> tick 111. Then next cycle: N_S2 blocked until 112 still active at 111; sleep 1 there. Let's choose sleep 8.",
+        "outcome": []
+      },
+      {
+        "cycle": 10,
+        "tick": 129,
+        "interrupt": null,
+        "admitted": 7,
+        "cleanAdmits": 7,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [],
+        "blame": 0,
+        "financialDelta": -3.424,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": 7,
+        "summary": "NS-axis south wave: S_S1 top4 + S_S2 top3 verified (reward 0.9), south exits free; staggered entry to ~tick144, clears by~160. Sleep 10 to tick139 so N_S1/S2(136/137), W_S1/S2(134/135), W_L1(138) reservations expire, tow completions@137 land, exit holds(132) cleared; next cycle run NS-axis north str",
+        "context": {
+          "balance": 988.49,
+          "stoplineCandidates": 11,
+          "blockedRoutes": 5,
+          "pedestrianAlerts": [],
+          "driverAlerts": [
+            "V00017:5",
+            "V00063:10"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00050"
+          ],
+          "stalled": [
+            "V00006",
+            "V00014",
+            "V00068"
+          ]
+        },
+        "toolSequence": [
+          "r1 dry_run_admit -> ok",
+          "r2 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me carefully analyze this observation. Current tick 129, endTick 261, ticksRemaining 132. Balance 988.4871. We need to maximize final balance. Let me look at the current state. Stopline candidates: - V00079 passenger 1, IN_E_L1_LEFT, waiting 31 - V00088 truck 1, IN_E_S1_STRAIGHT, waiting 28 - V00111 passenger 2, IN_E_S2_STRAIGHT, waiting 15 - V00032 truck 3, IN_N_S1_STRAIGHT, waiting 57 - V00010 passenger 1, IN_N_S2_STRAIGHT, waiting 67 - V00039 passenger 1, IN_S_S1_STRAIGHT, waiting 52 - V0 …… 134/139/144/138/143. Sleeping 10 to 139 lands mid-batch. Fine. If I sleep less, I'd be at 134-138 with still blocked N/W. Sleep 10 to 139 is the best alignment. Do sleep 10. Commit identical: lane_batches [S_S1 top4, S_S2 top3], no others. reward we don't pass. tactical_summary short. Let me commit.",
+        "outcome": []
+      }
+    ],
+    "worst": [
+      {
+        "cycle": 11,
+        "tick": 139,
+        "interrupt": null,
+        "admitted": 10,
+        "cleanAdmits": 5,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 0,
+        "blamedIncidents": [
+          "INC0001"
+        ],
+        "blame": 48.13,
+        "financialDelta": -0.66,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -43.13,
+        "summary": "NS north wave + E/W right: N_S1 top3 (clears V00032@patience6, admits emergency V00050 stopping 0.0015/t), N_S2 top3 (drains 9 upstream), E_R1 top2, W_R1 top2. Verified reward 10.9. Staggered entries 139-153. Sleep 10 to tick149; W_S1@151 W_S2@152 E_S@155/156 unblock next, then W waves.",
+        "context": {
+          "balance": 985.06,
+          "stoplineCandidates": 11,
+          "blockedRoutes": 5,
+          "pedestrianAlerts": [],
+          "driverAlerts": [
+            "V00017:0",
+            "V00063:0",
+            "V00097:3",
+            "V00030:6",
+            "V00095:10",
+            "V00107:12"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00050"
+          ],
+          "stalled": []
+        },
+        "toolSequence": [
+          "r2 dry_run_admit -> LANE_HEAD_NOT_READY (Lane head is not ready: IN_N_R1_RIGHT)",
+          "r3 dry_run_admit -> ok",
+          "r4 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze the current situation carefully. Current state: - Tick 139, end tick 261, 122 ticks remaining - Balance: 985.0636 - Recent cycles show we've been running NS-axis south waves and waiting for reservations to expire Key observations: 1. **Discharging lanes**: IN_S_S1_STRAIGHT and IN_S_S2_STRAIGHT have active vehicles still crossing (SCHEDULED_ENTERING at ticks 143, 144). They'll clear by ~160. Don't re-admit these. 2. **Blocked routes (RESERVATION)**: - E_L1_LEFT: blocked until 153 - …… s not avoidable. Given no strong reason for a specific length, 10 maximizes sleep efficiency (fewer cycles). But wait, is there benefit to reacting at 147 vs 149? At 147 nothing new unblocks (W_S1@151). So no. Sleep 10. Hmm, actually one more: should I sleep 12? Not allowed. 10 it is. Let me commit.",
+        "outcome": [
+          "INC0001 PILEUP tick=149 vehicles=7 pedestrians=0 estCost=57.751"
+        ]
+      },
+      {
+        "cycle": 46,
+        "tick": 232,
+        "interrupt": null,
+        "admitted": 14,
+        "cleanAdmits": 11,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 48,
+        "blamedIncidents": [
+          "INC0005",
+          "INC0006",
+          "INC0007"
+        ],
+        "blame": 21.69,
+        "financialDelta": -1.491,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -10.69,
+        "summary": "Dry-run verified: discharge W straight+left, N left, S right, E right in parallel (14 vehicles, includes all 3 emergency vehicles). Jaywalker warnings present on E_R1/N_L1/S_R1 entries but no same-tick head conflicts and route through junction; benefit outweighs one-time 5-penalty risk. Later moves ",
+        "context": {
+          "balance": 867.63,
+          "stoplineCandidates": 13,
+          "blockedRoutes": 2,
+          "pedestrianAlerts": [
+            "N:J0",
+            "N:J0",
+            "E:J0",
+            "N:P2",
+            "N:J0",
+            "S:P9",
+            "W:P17",
+            "N:P12",
+            "S:P9",
+            "N:P12",
+            "E:P17"
+          ],
+          "driverAlerts": [
+            "V00025:0",
+            "V00031:0",
+            "V00041:0",
+            "V00109:0",
+            "V00116:0",
+            "V00126:0",
+            "V00093:0",
+            "V00045:0"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00137",
+            "V00212"
+          ],
+          "stalled": [
+            "V00029",
+            "V00122",
+            "V00124"
+          ]
+        },
+        "toolSequence": [
+          "r2 dry_run_admit -> PLANNING_HORIZON_EXCEEDED (Admission planning horizon exceeded for V00174)",
+          "r3 dry_run_admit -> ok",
+          "r4 dry_run_admit -> DRY_RUN_QUOTA_EXHAUSTED",
+          "r5 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze this situation carefully. Current tick: 232, end tick 261, 29 ticks remaining. Balance: 867.6328. Key observations: 1. **blockedRoutes**: E_S1_STRAIGHT and N_S1_STRAIGHT are blocked with RESERVATION until tick 232 (which is now). So they may be available now. 2. **stalledVehicles**: Three stalled vehicles: - V00029 in IN_W_S2_STRAIGHT, tow en route, completion at 238 (6 ticks) - V00122 in IN_W_R1_RIGHT, tow en route, completion at 238 - V00124 in IN_E_L1_LEFT, tow en route, comple ……  = 5+5+2+2+2 = 16 vehicles. This includes the tailgaters and fewer pointless deep entries. Hmm, but E_R1 top 2 excludes V00212 (emergency, stationary 29 → burning 0.0015/tick). The emergency is valuable to move. E_R1 top 3 includes V00212 (entry 242, clear 252). Keep E_R1 top 3. Total 17. Let's try.",
+        "outcome": [
+          "INC0005 ANGLE_COLLISION tick=237 vehicles=1 pedestrians=1 estCost=7.084",
+          "INC0006 ANGLE_COLLISION tick=240 vehicles=1 pedestrians=1 estCost=8.183",
+          "INC0007 ANGLE_COLLISION tick=246 vehicles=1 pedestrians=1 estCost=6.421"
+        ]
+      },
+      {
+        "cycle": 17,
+        "tick": 150,
+        "interrupt": "ACCIDENT_INTERRUPT incident=INC0001 secondary=true",
+        "admitted": 3,
+        "cleanAdmits": 2,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 3,
+        "blamedIncidents": [
+          "INC0001"
+        ],
+        "blame": 9.63,
+        "financialDelta": -11.432,
+        "sleepTicks": 10,
+        "commitKind": "verified",
+        "value": -7.63,
+        "summary": "INC0001 critical pileup still OPEN (est. clear ~185), holding most routes. Committed verified wave: bus V00084 (S_R1 right) + right-turns V00148/V00028 (all unblocked, dry-run ok, reward 4.2, no jaywalker/tailgate warning). Ordered accident evac toward free OUT_SOUTH_2. Sleep 10 to advance evac and ",
+        "context": {
+          "balance": 984.15,
+          "stoplineCandidates": 13,
+          "blockedRoutes": 20,
+          "pedestrianAlerts": [
+            "E:P16",
+            "W:P20"
+          ],
+          "driverAlerts": [
+            "V00063:0",
+            "V00095:0",
+            "V00097:0",
+            "V00107:5",
+            "V00178:9",
+            "V00114:12",
+            "V00165:12"
+          ],
+          "emergencyAlerts": [
+            "V00043"
+          ],
+          "stalled": [
+            "V00089"
+          ]
+        },
+        "toolSequence": [
+          "r1 inspect_incident -> ok",
+          "r1 dry_run_admit -> ok",
+          "r2 order_accident_clearance -> ok",
+          "r2 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze this situation carefully. Current state: - Tick 150, endTick 261, so 111 ticks remaining - Balance: 984.1507 - interruptReason: ACCIDENT_INTERRUPT incident=INC0001 secondary=true - There's a big incident blocking many routes until tick 185 (INC0001) - blockedRoutes: many routes are blocked with INCIDENT until tick 185 The blocked routes include: - E_L1_GUIDED_STRAIGHT, E_R1_GUIDED_STRAIGHT, E_S1_STRAIGHT, E_S2_GUIDED_LEFT, E_S2_STRAIGHT - N_L1_GUIDED_STRAIGHT, N_R1_GUIDED_STRAIGHT …… arallel: - order_accident_clearance(INC0001, OUT_SOUTH_2) - commit_schedule(admit_vehicle_ids=[\"V00084\",\"V00148\",\"V00028\"], sleep_ticks=10, tactical_summary=\"...\") Tactical summary: mention incident evac + admit bus/right turns + sleep to 160 for exit frees and incident progression. Let me write it.",
+        "outcome": [
+          "INC0001 PILEUP tick=149 vehicles=7 pedestrians=0 estCost=57.751"
+        ]
+      },
+      {
+        "cycle": 28,
+        "tick": 197,
+        "interrupt": null,
+        "admitted": 12,
+        "cleanAdmits": 9,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 30,
+        "blamedIncidents": [
+          "INC0003"
+        ],
+        "blame": 8.76,
+        "financialDelta": -1.78,
+        "sleepTicks": 8,
+        "commitKind": "unverified",
+        "value": 0.24,
+        "summary": "INC0001 cleared; East axis released. Verified plan = 3 vehicles per E lane (12 total); legally admits V00111 (aggressive, patience 0) and followers to avoid red-light runs, draining large E queues. top_n=8 exceeded admission horizon. Sleep 8 to advance crossing; next phase West to free emergency V00",
+        "context": {
+          "balance": 920.85,
+          "stoplineCandidates": 13,
+          "blockedRoutes": 4,
+          "pedestrianAlerts": [
+            "N:J0",
+            "W:J0",
+            "N:P11",
+            "W:P2",
+            "E:P14",
+            "W:P3",
+            "N:P14"
+          ],
+          "driverAlerts": [
+            "V00025:0",
+            "V00111:0",
+            "V00126:0",
+            "V00041:0",
+            "V00038:0",
+            "V00062:0",
+            "V00105:0",
+            "V00045:0"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00137",
+            "V00212"
+          ],
+          "stalled": []
+        },
+        "toolSequence": [
+          "r1 commit_schedule -> SCHEMA_ERROR ([ { \"code\": \"invalid_type\", \"expected\": \"number\", \"received\": \"undefined\", \"path)",
+          "r2 dry_run_admit -> PLANNING_HORIZON_EXCEEDED (Admission planning horizon exceeded for V00171)",
+          "r3 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze this observation carefully. Current state: - Tick 197 of 261, 64 ticks remaining - Balance 920.8501 - Recent cycles show INC0001 pileup blocked all routes until ~197, now at tick 197 the RESERVATION blocks are clearing Let me look at what's changed: - blockedRoutes now shows RESERVATION blocks (not INCIDENT): - N_S2_STRAIGHT: blockedUntilTick 197 (now current, so cleared) - S_L1_LEFT: blockedUntilTick 203 - S_R1_RIGHT: blockedUntilTick 212 - W_S1_STRAIGHT: blockedUntilTick 197 (cl …… next phase W. Let me commit now with top_n=3. Also, I should double-check: does commit_schedule allow omitting speed_profile and ped phases and candidate ids? Yes. Provide lane_batches with top_n=3, admit_vehicle_ids=[], pedestrian_phases=[], vehicle_speed_profiles=[], sleep_ticks, summary. Proceed.",
+        "outcome": [
+          "INC0003 ANGLE_COLLISION tick=211 vehicles=2 pedestrians=1 estCost=8.758"
+        ]
+      },
+      {
+        "cycle": 25,
+        "tick": 184,
+        "interrupt": "PEDESTRIAN_PATIENCE pedestrian=PED:43:0:CROSSWALK:NORTH remaining=24",
+        "admitted": 5,
+        "cleanAdmits": 4,
+        "pedestriansGranted": 0,
+        "patienceRiskAdmits": 10,
+        "blamedIncidents": [
+          "INC0002"
+        ],
+        "blame": 7.15,
+        "financialDelta": -3.992,
+        "sleepTicks": 8,
+        "commitKind": "verified",
+        "value": -3.15,
+        "summary": "S free phase drained (S_R1+S_S2 top2) + E_R1 head + SOUTH ped. INC0001 evac ongoing to ~197; reassess freed routes after clearance.",
+        "context": {
+          "balance": 928.8,
+          "stoplineCandidates": 12,
+          "blockedRoutes": 24,
+          "pedestrianAlerts": [
+            "N:P2",
+            "W:J0",
+            "S:P21",
+            "N:P24",
+            "W:P15",
+            "W:P16"
+          ],
+          "driverAlerts": [
+            "V00025:0",
+            "V00111:0",
+            "V00041:0",
+            "V00105:0",
+            "V00118:0",
+            "V00112:0",
+            "V00063:0",
+            "V00080:0"
+          ],
+          "emergencyAlerts": [
+            "V00043",
+            "V00212"
+          ],
+          "stalled": []
+        },
+        "toolSequence": [
+          "r1 dry_run_admit -> ok",
+          "r2 commit_schedule -> ok"
+        ],
+        "reasoning": "Let me analyze the situation carefully. Current state: - Balance: 928.7982 - currentTick: 184, endTick: 261, ticksRemaining: 77 - There's a major incident INC0001 blocking many routes. It's a critical pileup OPEN, evac in progress, est clearance ~197 +16 ticks. Key observation from recent cycles: - Cycle 23 admitted S_S1 top4 + S_S2 head at tick 176 (sleep 10) - Cycle 24: empty commit, sleep 6, dry-run quota used. Notices: V00212 ENTERED_HORIZON, V00319 OUTSIDE_HORIZON. - INC0001 blocks all rout …… e vehicles flow. If I sleep 8 → tick 192. At 192 exit holds clear and V00212 stationaryTicks would be ~14 → emergency starts costing 0.0015/t. I might want to handle V00212 near then. But V00212 blocked by V00181 which now clears ~194. So after ~194 the path clears for emergency. Let me sleep 8 now.",
+        "outcome": [
+          "INC0002 ANGLE_COLLISION tick=210 vehicles=1 pedestrians=1 estCost=7.148"
+        ]
+      }
+    ],
+    "highlights": [
+      {
+        "tick": 82,
+        "cycle": 4,
+        "kind": "STALL_REROUTE",
+        "detail": "V00074 around V00014"
+      },
+      {
+        "tick": 111,
+        "cycle": 8,
+        "kind": "LARGE_VERIFIED_RELEASE",
+        "detail": "8 vehicles, blame=0"
+      },
+      {
+        "tick": 119,
+        "cycle": 9,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00006"
+      },
+      {
+        "tick": 119,
+        "cycle": 9,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00014"
+      },
+      {
+        "tick": 119,
+        "cycle": 9,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00068"
+      },
+      {
+        "tick": 139,
+        "cycle": 11,
+        "kind": "LARGE_VERIFIED_RELEASE",
+        "detail": "10 vehicles, blame=48.13"
+      },
+      {
+        "tick": 151,
+        "cycle": 18,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00089"
+      },
+      {
+        "tick": 151,
+        "cycle": 18,
+        "kind": "PED_GRANT",
+        "detail": "CROSSWALK:EAST B_TO_A x2"
+      },
+      {
+        "tick": 184,
+        "cycle": 25,
+        "kind": "PED_GRANT",
+        "detail": "CROSSWALK:SOUTH A_TO_B x1"
+      },
+      {
+        "tick": 220,
+        "cycle": 41,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00029"
+      },
+      {
+        "tick": 220,
+        "cycle": 41,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00124"
+      },
+      {
+        "tick": 220,
+        "cycle": 41,
+        "kind": "TOW_DISPATCH",
+        "detail": "V00122"
+      },
+      {
+        "tick": 232,
+        "cycle": 46,
+        "kind": "LARGE_VERIFIED_RELEASE",
+        "detail": "14 vehicles, blame=21.69"
+      }
+    ]
+  }
+}

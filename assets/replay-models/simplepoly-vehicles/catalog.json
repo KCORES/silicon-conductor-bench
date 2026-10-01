@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "vehicles": [
+    {
+      "id": "simplepoly-city:Ambulance",
+      "kit": "simplepoly-city",
+      "modelId": "Ambulance",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/ambulance.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Ambulance.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Ambulance.png",
+      "signature": "32924:1456982244000:10928:1456549548000"
+    },
+    {
+      "id": "simplepoly-city:Bus",
+      "kit": "simplepoly-city",
+      "modelId": "Bus",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/bus.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Bus.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Bus_1.png",
+      "signature": "34988:1456982330000:6948:1456549476000"
+    },
+    {
+      "id": "simplepoly-city:Car",
+      "kit": "simplepoly-city",
+      "modelId": "Car",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/car.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Car.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Car_1.png",
+      "signature": "37564:1456982406000:7324:1456911804000"
+    },
+    {
+      "id": "simplepoly-city:Container",
+      "kit": "simplepoly-city",
+      "modelId": "Container",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/container.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Container.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Container_1.png",
+      "signature": "39068:1456983262000:8835:1456548592000"
+    },
+    {
+      "id": "simplepoly-city:Pick up Truck",
+      "kit": "simplepoly-city",
+      "modelId": "Pick up Truck",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/pick-up-truck.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Pick up Truck.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Pick up Truck_1.png",
+      "signature": "36268:1456983050000:6673:1456549060000"
+    },
+    {
+      "id": "simplepoly-city:Police Car",
+      "kit": "simplepoly-city",
+      "modelId": "Police Car",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/police-car.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Police Car.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Police Car.png",
+      "signature": "37772:1456982474000:9965:1456549378000"
+    },
+    {
+      "id": "simplepoly-city:SUV",
+      "kit": "simplepoly-city",
+      "modelId": "SUV",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/suv.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/SUV.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/SUV_1.png",
+      "signature": "34268:1456982896000:6890:1456549238000"
+    },
+    {
+      "id": "simplepoly-city:Taxi",
+      "kit": "simplepoly-city",
+      "modelId": "Taxi",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/taxi.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Taxi.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Taxi.png",
+      "signature": "38668:1456983102000:10251:1456548982000"
+    },
+    {
+      "id": "simplepoly-city:Truck",
+      "kit": "simplepoly-city",
+      "modelId": "Truck",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/city/truck.glb",
+      "sourcePath": "assets/3d-models/SimplePoly City.FBX/Models/Vehicles/Vehicle with Separated Wheels/Truck.fbx",
+      "texturePath": "assets/3d-models/SimplePoly City.FBX/Textures/Vehicle/Truck_1.png",
+      "signature": "38428:1456983370000:7999:1456548368000"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Ambulance",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Ambulance",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/ambulance.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Ambulance.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Ambulance.png",
+      "signature": "33116:1474108952877:12653:1474105008858"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Bus",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Bus",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/bus.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Bus.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Bus_Color01.png",
+      "signature": "35836:1474110219827:6850:1474109676585"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Car",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Car",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/car.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Car.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Car_Color01.png",
+      "signature": "38812:1474113722080:8695:1474112960348"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Fire Truck",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Fire Truck",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/fire-truck.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Fire Truck.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Fire Truck.png",
+      "signature": "44220:1474114202114:7706:1474114053330"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Muscle Car",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Muscle Car",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/muscle-car.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Muscle Car.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Muscle Car_Color01.png",
+      "signature": "49324:1474115335558:17986:1474114624418"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Pick Up Truck",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Pick Up Truck",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/pick-up-truck.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Pick Up Truck.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Pick Up Truck_Color01.png",
+      "signature": "39052:1474116202531:9420:1474115612905"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Police Car",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Police Car",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/police-car.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Police Car.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Police Car.png",
+      "signature": "37244:1474118402227:10547:1474117755934"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_School Bus",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_School Bus",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/school-bus.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_School Bus.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_School Bus.png",
+      "signature": "36572:1474110333735:9659:1474109269220"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Taxi",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Taxi",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/taxi.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Taxi.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Taxi.png",
+      "signature": "39196:1474119219122:13019:1474118927516"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Truck Container",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Truck Container",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/truck-container.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Truck Container.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Truck Container_Color01.png",
+      "signature": "63788:1474133496556:7175:1474131740452"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Truck Empty",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Truck Empty",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/truck-empty.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Truck Empty.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Truck Empty_Color01.png",
+      "signature": "60972:1474125383520:6916:1474124731385"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Truck Log",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Truck Log",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/truck-log.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Truck Log.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Truck Log_Color01.png",
+      "signature": "69164:1474170128134:7028:1474167792477"
+    },
+    {
+      "id": "simplepoly-urban:SPW_Vehicle_Land_Truck Tanker",
+      "kit": "simplepoly-urban",
+      "modelId": "SPW_Vehicle_Land_Truck Tanker",
+      "assetPath": "/assets/replay-models/simplepoly-vehicles/urban/truck-tanker.glb",
+      "sourcePath": "assets/3d-models/SimplePoly Urban.FBX/Models/Urban/Vehicles/Land/Separated Wheels/SPW_Vehicle_Land_Truck Tanker.fbx",
+      "texturePath": "assets/3d-models/SimplePoly Urban.FBX/Textures/Urban/SPW_Vehicle_Land_Truck Tanker_Color01.png",
+      "signature": "61932:1474129352706:7314:1474128557302"
+    }
+  ]
+}

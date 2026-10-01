@@ -1,0 +1,1 @@
+2:[function(t,e,n){var r=function(){this.frames=0,this.fps=0,this.lastTime=0};r.prototype={update:function(t,e){var t=1e3*t.elapsed;this.frames++,t>this.lastTime+1e3&&(this.fps=Math.round(1e3*this.frames/(t-this.lastTime)),e(this.fps),this.lastTime=t,this.frames=0)}},e.exports=r},{}],
