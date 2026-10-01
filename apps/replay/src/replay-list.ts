@@ -4,6 +4,10 @@ import {
   type RunSortDirection,
   type RunSortKey,
 } from "@replay/run-catalog.js";
+import {
+  REPLAY_SCHEMA_VERSION,
+  SIMULATION_RULES_VERSION,
+} from "@replay/types.js";
 
 export interface ReplayListCallbacks {
   onPick(replayFile: string): void;
@@ -200,7 +204,7 @@ function rowHtml(run: RunCatalogEntry): string {
 const SORT_COLUMNS: readonly { key: RunSortKey; label: string }[] = [
   { key: "model", label: "模型名称" },
   { key: "file", label: "原始文件" },
-  { key: "schema", label: "Schema" },
+  { key: "schema", label: "Versions" },
   { key: "score", label: "得分" },
   { key: "tokens", label: "总计 token" },
   { key: "api", label: "API 调用" },
@@ -231,12 +235,26 @@ function option(value: string, label: string, selected: string): string {
 
 function formatVersions(
   schemaVersion: number | null,
-  animationVersion: number | null,
+  rulesVersion: number | null,
 ): string {
-  const schema = schemaVersion === null ? "—" : `v${schemaVersion}`;
-  const animation =
-    animationVersion === null ? "—" : `v${animationVersion}`;
-  return `${schema}<small>动画 ${animation}</small>`;
+  return `<span class="version-badges">${versionBadge("schema", "SCHEMA", schemaVersion, REPLAY_SCHEMA_VERSION)}${versionBadge("rules", "SIMULATION RULES", rulesVersion, SIMULATION_RULES_VERSION)}</span>`;
+}
+
+function versionBadge(
+  kind: string,
+  label: string,
+  version: number | null,
+  current: number,
+): string {
+  const value = version === null ? "—" : `v${version}`;
+  const currentClass = version === current ? " is-current" : "";
+  const title =
+    version === current
+      ? `适配当前程序 ${label} v${current}`
+      : version === null
+        ? `缺少 ${label}，当前程序为 v${current}`
+        : `${label} v${version}，当前程序为 v${current}`;
+  return `<span class="version-badge version-badge-${kind}${currentClass}" title="${escapeHtml(title)}"><span class="version-badge-label">${label}</span><strong>${value}</strong></span>`;
 }
 
 function formatScore(value: number | null): string {
