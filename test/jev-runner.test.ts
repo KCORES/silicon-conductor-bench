@@ -143,7 +143,10 @@ describe("Jev client", () => {
           urgent: { type: "noul", instructions: "Is this urgent?" },
         },
       }),
-    ).rejects.toBeInstanceOf(JevApiError);
+    ).rejects.toMatchObject({
+      status: 422,
+      body: "nope",
+    });
   });
 });
 

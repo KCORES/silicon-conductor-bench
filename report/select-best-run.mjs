@@ -1,14 +1,15 @@
 // Pick the valid run of one model to evaluate: among complete runs that share the
 // same rules version, seed and horizon, the one with the highest final balance.
 //
-//   node report/select-best-run.mjs --model <name|file-slug> [--logs logs] [--rules N] [--expected 3]
+//   node report/select-best-run.mjs --model <name|file-slug> [--logs logs] [--rules N] [--expected 3] [--since YYYY-MM-DD]
 //
+// --since drops runs whose id date is earlier, e.g. to replace an older batch with a rerun.
 // Prints a summary and writes report/out/<slug>_rules-<N>_runs.json.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 function parseArgs(argv) {
-  const options = { logs: "logs", out: "report/out", expected: 3, rules: undefined, model: undefined };
+  const options = { logs: "logs", out: "report/out", expected: 3, rules: undefined, model: undefined, since: undefined };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     const next = () => argv[++index];
@@ -17,6 +18,7 @@ function parseArgs(argv) {
     else if (arg === "--out") options.out = next();
     else if (arg === "--rules") options.rules = Number(next());
     else if (arg === "--expected") options.expected = Number(next());
+    else if (arg === "--since") options.since = next();
   }
   if (options.model === undefined) {
     throw new Error("Usage: node report/select-best-run.mjs --model <name|file-slug> [--rules N] [--expected 3]");
@@ -26,12 +28,13 @@ function parseArgs(argv) {
 
 const slugOf = (model) => model.replace(/[^A-Za-z0-9._-]+/g, "-");
 
-function loadRuns(directory, model) {
+function loadRuns(directory, model, since) {
   const wanted = new Set([model, slugOf(model)]);
   const runs = [];
   for (const name of readdirSync(directory)) {
     const match = /^report_(.+)_(\d{4}-\d{2}-\d{2}_\d{9}-\d+)\.json$/.exec(name);
     if (match === null) continue;
+    if (since !== undefined && match[2].slice(0, 10) < since) continue;
     let report;
     try {
       report = JSON.parse(readFileSync(join(directory, name), "utf8"));
@@ -106,7 +109,7 @@ function spread(values) {
 function main() {
   const options = parseArgs(process.argv.slice(2));
   const directory = resolve(options.logs);
-  const runs = loadRuns(directory, options.model);
+  const runs = loadRuns(directory, options.model, options.since);
   if (runs.length === 0) {
     throw new Error(`No reports found for model "${options.model}" in ${directory}`);
   }

@@ -64,8 +64,24 @@ export type BenchProgress =
       readonly apiLog: string;
     }
   | { readonly kind: "cycle"; readonly cycle: number; readonly cycleCount: number; readonly balance: string }
+  | { readonly kind: "activity"; readonly activity: string }
+  | { readonly kind: "error"; readonly message: string }
+  | {
+      readonly kind: "live";
+      readonly ttftSeconds: number | null;
+      readonly inputTokens: number | null;
+      readonly prefillPerSec: number | null;
+      readonly decodePerSec: number | null;
+      readonly outputTokens: number | null;
+    }
   | { readonly kind: "report"; readonly path: string }
   | null;
+
+export function truncateLastError(text: string, limit?: number): string;
+
+export function decodeSparkline(rates: readonly number[], width?: number): string;
+
+export function applyBenchProgress<T extends object>(slot: T, progress: BenchProgress): T;
 
 export function parseBenchProgress(line: string): BenchProgress;
 
@@ -84,6 +100,19 @@ export interface CampaignTaskSnapshot {
   readonly completedAtMs: number;
   readonly cycleCount: number;
   readonly balance: string | null;
+  readonly inputTokens?: number;
+  readonly outputTokens?: number;
+  readonly lastInputTokens?: number | null;
+  readonly lastOutputTokens?: number | null;
+  readonly liveInputTokens?: number | null;
+  readonly liveOutputTokens?: number | null;
+  readonly hasThroughput?: boolean;
+  readonly ttftSeconds?: number | null;
+  readonly prefillPerSec?: number | null;
+  readonly decodePerSec?: number | null;
+  readonly decodeWindows?: readonly number[];
+  readonly activity?: string;
+  readonly lastError?: string;
 }
 
 export interface CampaignSnapshot {

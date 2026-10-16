@@ -1,13 +1,18 @@
 import { z } from "zod";
+import { parseHttpErrorBody } from "../http-error-body.js";
 import type { TokenUsageInput } from "../metrics.js";
 
 export class JevApiError extends Error {
   readonly status: number | undefined;
+  readonly body?: unknown;
 
-  constructor(message: string, status?: number) {
+  constructor(message: string, status?: number, body?: unknown) {
     super(message);
     this.name = "JevApiError";
     this.status = status;
+    if (body !== undefined) {
+      this.body = body;
+    }
   }
 }
 
@@ -158,11 +163,13 @@ export class JevClient implements JevEvaluator {
         error instanceof Error ? error.message : String(error),
       );
     }
-    const body: unknown = await response.json().catch(() => undefined);
+    const text = await response.text();
+    const body = parseHttpErrorBody(text);
     if (!response.ok) {
       throw new JevApiError(
         `Jev request failed with HTTP ${response.status}`,
         response.status,
+        body,
       );
     }
     const parsed = evaluationSchema.safeParse(body);

@@ -26,6 +26,7 @@ import { WorkingMemoryStack } from "./working-memory.js";
 export const DRY_RUN_ADMIT = "dry_run_admit";
 export const INSPECT_LANE_QUEUE = "inspect_lane_queue";
 export const INSPECT_CROSSWALK = "inspect_crosswalk";
+export const INSPECT_GUIDANCE = "inspect_guidance";
 export const INSPECT_INCIDENT = "inspect_incident";
 export const INSPECT_JUNCTION = "inspect_junction";
 export const ORDER_ACCIDENT_CLEARANCE = "order_accident_clearance";
@@ -37,10 +38,37 @@ export const DISPATCH_TOW_TRUCK = "dispatch_tow_truck";
 export const MANAGE_WORKING_MEMORY = "manage_working_memory";
 export const COMMIT_SCHEDULE = "commit_schedule";
 
+const KNOWN_AGENT_TOOL_NAMES = new Set<string>([
+  DRY_RUN_ADMIT,
+  INSPECT_CROSSWALK,
+  INSPECT_LANE_QUEUE,
+  INSPECT_GUIDANCE,
+  MANAGE_WORKING_MEMORY,
+  INSPECT_INCIDENT,
+  INSPECT_JUNCTION,
+  ORDER_ACCIDENT_CLEARANCE,
+  SET_LANE_DETOUR,
+  DISPATCH_EMERGENCY_CONVOY,
+  REROUTE_QUEUE_AROUND_STALL,
+  GUIDE_INBOUND_LANE_CHANGE,
+  DISPATCH_TOW_TRUCK,
+  COMMIT_SCHEDULE,
+]);
+
+const CORE_AGENT_TOOL_NAMES = [
+  DRY_RUN_ADMIT,
+  INSPECT_CROSSWALK,
+  INSPECT_LANE_QUEUE,
+  MANAGE_WORKING_MEMORY,
+  INSPECT_JUNCTION,
+  COMMIT_SCHEDULE,
+] as const;
+
 export type AgentToolName =
   | typeof DRY_RUN_ADMIT
   | typeof INSPECT_LANE_QUEUE
   | typeof INSPECT_CROSSWALK
+  | typeof INSPECT_GUIDANCE
   | typeof INSPECT_INCIDENT
   | typeof INSPECT_JUNCTION
   | typeof ORDER_ACCIDENT_CLEARANCE
@@ -155,6 +183,10 @@ const inspectLaneSchema = z.object({
   lane_id: z.string().min(1),
   depth: z.number().int().min(1).max(10).default(3),
 });
+const inspectGuidanceSchema = z.object({
+  source_lane: z.string().min(1).optional(),
+  limit: z.number().int().min(1).max(16).default(16),
+});
 const inspectCrosswalkSchema = z.object({
   crosswalk_id: z.string().min(1),
   limit: z.number().int().min(1).max(16).default(8),
@@ -263,6 +295,8 @@ export interface AgentToolRuntimeOptions {
   readonly tollEmergency: number;
   readonly towDispatchCost?: number;
   readonly towClearanceTicks?: number;
+  /** When set, known tools outside this set return TOOL_NOT_AVAILABLE. */
+  readonly availableToolNames?: readonly string[];
 }
 
 export interface CommitExecution {
@@ -405,7 +439,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /** Inbound lane fields whose engine call only takes lane IDs. */
-const LANE_ID_FIELDS = ["lane_id", "target_lane"] as const;
+const LANE_ID_FIELDS = ["lane_id", "source_lane", "target_lane"] as const;
 
 const DRY_RUN_QUOTA_PER_CYCLE = 2;
 
@@ -413,8 +447,13 @@ export class AgentToolRuntime {
   private dryRunCallsInCycle = 0;
   private readonly laneAliases = new Map<string, string>();
   private readonly crosswalkAliases = new Map<string, string>();
+  private readonly availableTools: ReadonlySet<string> | undefined;
 
   constructor(private readonly options: AgentToolRuntimeOptions) {
+    this.availableTools =
+      options.availableToolNames === undefined
+        ? undefined
+        : new Set(options.availableToolNames);
     const network = options.engine.network;
     for (const trajectory of network.trajectories.values()) {
       this.laneAliases.set(trajectory.id, trajectory.inboundLaneId);
@@ -434,6 +473,23 @@ export class AgentToolRuntime {
     if (name !== COMMIT_SCHEDULE) {
       this.options.metrics.recordNonTerminalTool(name);
     }
+    if (
+      this.availableTools !== undefined &&
+      !this.availableTools.has(name) &&
+      KNOWN_AGENT_TOOL_NAMES.has(name)
+    ) {
+      return {
+        terminal: false,
+        output: {
+          error: {
+            tool_name: name,
+            code: "TOOL_NOT_AVAILABLE",
+            message: `Tool ${name} is not offered this cycle.`,
+          },
+          available_tools: [...this.availableTools],
+        },
+      };
+    }
     let input: unknown;
     try {
       input = this.resolveAliases(JSON.parse(rawArguments));
@@ -447,6 +503,8 @@ export class AgentToolRuntime {
           return this.dryRun(dryRunSchema.parse(input));
         case INSPECT_LANE_QUEUE:
           return this.inspectLane(inspectLaneSchema.parse(input));
+        case INSPECT_GUIDANCE:
+          return this.inspectGuidance(inspectGuidanceSchema.parse(input));
         case INSPECT_CROSSWALK:
           return this.inspectCrosswalk(inspectCrosswalkSchema.parse(input));
         case INSPECT_INCIDENT:
@@ -592,6 +650,27 @@ export class AgentToolRuntime {
           distance_to_stopline: vehicle.distanceToStopline,
           valid_guidance_target_lanes: vehicle.validGuidanceTargetLaneIds,
         })),
+      },
+    };
+  }
+
+  private inspectGuidance(
+    input: z.infer<typeof inspectGuidanceSchema>,
+  ): ToolExecutionResult {
+    const opportunities = this.options.engine.inspectLaneGuidance(
+      input.source_lane,
+      input.limit,
+    );
+    return {
+      terminal: false,
+      output: {
+        opportunities: opportunities.map((opportunity) => [
+          opportunity.sourceLaneId,
+          opportunity.targetLaneId,
+          opportunity.eligibleVehicleIds,
+          Number(opportunity.sourceOccupancy.toFixed(2)),
+          Number(opportunity.targetOccupancy.toFixed(2)),
+        ]),
       },
     };
   }
@@ -1421,9 +1500,31 @@ export const AGENT_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
     type: "function",
     function: {
+      name: INSPECT_GUIDANCE,
+      description:
+        "读取距停止线 12–24 格、可以诱导到相邻车道的车辆。opportunities 每行是 [源车道, 目标车道, [vehicleId...], 源车道占用, 目标车道占用]。可按 source_lane 过滤。不是终结动作，按非终结工具计费。guidanceEligible 为 0 或不出现时不要调用。",
+      parameters: {
+        type: "object",
+        properties: {
+          source_lane: { type: "string", description: LANE_ID_DESCRIPTION },
+          limit: {
+            type: "integer",
+            minimum: 1,
+            maximum: 16,
+            default: 16,
+          },
+        },
+        required: [],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: GUIDE_INBOUND_LANE_CHANGE,
       description:
-        "有副作用的主动诱导工具。在车辆距停止线 12–24 格时，把车辆原子地滑入同方向相邻物理车道（L1 左转借 S2、S2 直行借 L1、S1 直行借 R1、R1 右转借 S1），并自动保留原意图与授予借道轨迹许可；目标车道上已放行未入场车辆的许可会被作废。先用 laneGuidanceOpportunities 或 inspect_lane_queue 提供的 valid_guidance_target_lanes 选择车辆和目标。目标同槽位被占、太早或太晚时整笔不变。不是终结动作。",
+        "有副作用的主动诱导工具。在车辆距停止线 12–24 格时，把车辆原子地滑入同方向相邻物理车道（L1 左转借 S2、S2 直行借 L1、S1 直行借 R1、R1 右转借 S1），并自动保留原意图与授予借道轨迹许可；目标车道上已放行未入场车辆的许可会被作废。先用 inspect_guidance 或 inspect_lane_queue 提供的 valid_guidance_target_lanes 选择车辆和目标。目标同槽位被占、太早或太晚时整笔不变。不是终结动作。",
       parameters: {
         type: "object",
         properties: {
@@ -1486,3 +1587,52 @@ export const AGENT_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
     },
   },
 ];
+
+export interface AgentToolGateState {
+  readonly interruptReason?: string;
+  readonly blockedRoutes: readonly { readonly blockKind?: string }[];
+  readonly activeLaneHolds: readonly unknown[];
+  readonly stalledVehicles: readonly unknown[];
+  readonly emergencyAlerts: readonly unknown[];
+  readonly laneGuidanceOpportunities?: readonly {
+    readonly eligibleVehicleIds: readonly string[];
+  }[];
+}
+
+function toolName(tool: OpenAI.Chat.Completions.ChatCompletionTool): string | undefined {
+  return tool.type === "function" ? tool.function.name : undefined;
+}
+
+/** Tools offered for one decision cycle. The same list is reused for every API round. */
+export function selectAgentTools(
+  observation: AgentToolGateState,
+): OpenAI.Chat.Completions.ChatCompletionTool[] {
+  const enabled = new Set<string>(CORE_AGENT_TOOL_NAMES);
+  const guidanceEligible = (observation.laneGuidanceOpportunities ?? []).some(
+    (opportunity) => opportunity.eligibleVehicleIds.length > 0,
+  );
+  if (guidanceEligible) {
+    enabled.add(INSPECT_GUIDANCE);
+    enabled.add(GUIDE_INBOUND_LANE_CHANGE);
+  }
+  const accident =
+    (observation.interruptReason?.includes("ACCIDENT_INTERRUPT") ?? false) ||
+    observation.blockedRoutes.some((route) => route.blockKind === "INCIDENT") ||
+    observation.activeLaneHolds.length > 0;
+  if (accident) {
+    enabled.add(INSPECT_INCIDENT);
+    enabled.add(ORDER_ACCIDENT_CLEARANCE);
+    enabled.add(SET_LANE_DETOUR);
+  }
+  if (observation.stalledVehicles.length > 0) {
+    enabled.add(REROUTE_QUEUE_AROUND_STALL);
+    enabled.add(DISPATCH_TOW_TRUCK);
+  }
+  if (observation.emergencyAlerts.length > 0) {
+    enabled.add(DISPATCH_EMERGENCY_CONVOY);
+  }
+  return AGENT_TOOLS.filter((tool) => {
+    const name = toolName(tool);
+    return name !== undefined && enabled.has(name);
+  });
+}

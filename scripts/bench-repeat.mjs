@@ -278,8 +278,36 @@ function normalizeStatus(status) {
   return typeof status === "number" && status !== 0 ? status : 1;
 }
 
+function readProgressNumber(text, name) {
+  const match = new RegExp(`(?:^|\\s)${name}=([-0-9.]+)\\b`).exec(text);
+  if (match === null || match[1] === undefined) {
+    return null;
+  }
+  const value = Number(match[1]);
+  return Number.isFinite(value) ? value : null;
+}
+
 export function parseBenchProgress(line) {
   const text = line.trim();
+  const activity = /^\[bench\] activity=(\S+)$/.exec(text);
+  if (activity !== null && activity[1] !== undefined) {
+    return { kind: "activity", activity: activity[1] };
+  }
+  const error = /^\[bench\] error=(.*)$/.exec(text);
+  if (error !== null) {
+    return { kind: "error", message: error[1] ?? "" };
+  }
+  const live = /^\[bench\] live\b/.exec(text);
+  if (live !== null) {
+    return {
+      kind: "live",
+      ttftSeconds: readProgressNumber(text, "ttft"),
+      inputTokens: readProgressNumber(text, "in"),
+      prefillPerSec: readProgressNumber(text, "prefill/s"),
+      decodePerSec: readProgressNumber(text, "decode/s"),
+      outputTokens: readProgressNumber(text, "out"),
+    };
+  }
   const start = /^\[bench\] start model=(\S+) seed=(\S+) cycles=(\d+)\b/.exec(text);
   if (start !== null) {
     const apiLog = /\sapiLog=(.*)$/.exec(text);
@@ -299,6 +327,11 @@ export function parseBenchProgress(line) {
       cycle: Number(ticks?.[1] ?? cycle[1]),
       cycleCount: Number(ticks?.[2] ?? cycle[2]),
       balance: cycle[3],
+      inputTokens: readProgressNumber(text, "in"),
+      outputTokens: readProgressNumber(text, "out"),
+      ttftSeconds: readProgressNumber(text, "ttft"),
+      prefillPerSec: readProgressNumber(text, "prefill/s"),
+      decodePerSec: readProgressNumber(text, "decode/s"),
     };
   }
   const report = /^\[bench\] report=(.*)$/.exec(text);
@@ -306,6 +339,76 @@ export function parseBenchProgress(line) {
     return { kind: "report", path: report[1] ?? "" };
   }
   return null;
+}
+
+const DECODE_WINDOWS = 12;
+
+export function applyBenchProgress(slot, progress) {
+  if (progress === null || progress.kind === "report") {
+    return slot;
+  }
+  if (progress.kind === "start") {
+    slot.cycleCount = progress.cycles;
+    return slot;
+  }
+  if (progress.kind === "activity") {
+    slot.activity = progress.activity;
+    if (progress.activity === "request") {
+      slot.decodeWindows = [];
+      slot.decodePerSec = null;
+      slot.liveInputTokens = null;
+      slot.liveOutputTokens = null;
+    }
+    return slot;
+  }
+  if (progress.kind === "error") {
+    slot.lastError = progress.message.length > 0 ? progress.message : "-";
+    return slot;
+  }
+  if (progress.kind === "live") {
+    if (progress.ttftSeconds !== null) {
+      slot.ttftSeconds = progress.ttftSeconds;
+    }
+    if (progress.prefillPerSec !== null) {
+      slot.prefillPerSec = progress.prefillPerSec;
+    }
+    if (progress.inputTokens !== null) {
+      slot.liveInputTokens = progress.inputTokens;
+      slot.hasThroughput = true;
+    }
+    if (progress.outputTokens !== null) {
+      slot.liveOutputTokens = progress.outputTokens;
+      slot.hasThroughput = true;
+    }
+    if (progress.decodePerSec !== null) {
+      slot.decodePerSec = progress.decodePerSec;
+      if (!Array.isArray(slot.decodeWindows)) {
+        slot.decodeWindows = [];
+      }
+      slot.decodeWindows.push(progress.decodePerSec);
+      if (slot.decodeWindows.length > DECODE_WINDOWS) {
+        slot.decodeWindows.shift();
+      }
+    }
+    return slot;
+  }
+  slot.completedCycles = progress.cycle;
+  slot.cycleCount = progress.cycleCount;
+  slot.balance = progress.balance;
+  slot.completedAtMs = Date.now();
+  slot.liveInputTokens = null;
+  slot.liveOutputTokens = null;
+  if (progress.inputTokens !== null && progress.outputTokens !== null) {
+    slot.lastInputTokens = progress.inputTokens;
+    slot.lastOutputTokens = progress.outputTokens;
+    slot.inputTokens += progress.inputTokens;
+    slot.outputTokens += progress.outputTokens;
+    slot.hasThroughput = true;
+  }
+  slot.ttftSeconds = progress.ttftSeconds;
+  slot.prefillPerSec = progress.prefillPerSec;
+  slot.decodePerSec = progress.decodePerSec;
+  return slot;
 }
 
 export function progressBar(ratio, width) {
@@ -392,27 +495,162 @@ function mean(values) {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+const CAMPAIGN_COLUMNS = [
+  "MODEL",
+  "RUN",
+  "PROGRESS",
+  "CYCLES",
+  "BAL",
+  "ELAPSED",
+  "STATUS",
+  "IN tok",
+  "OUT tok",
+  "TTFT",
+  "PREFILL t/s",
+  "DECODE t/s",
+  "TREND",
+  "LAST ERROR",
+];
+const CAMPAIGN_LEFT_ALIGNED = new Set([0, 2, 6, 12, 13]);
+const LAST_ERROR_ASCII_WIDTH = 100;
+const SPARK_BARS = "▁▂▃▄▅▆▇█";
+const TREND_WIDTH = 12;
+
+/** One row of recent decode windows. Missing samples stay as dots. */
+export function decodeSparkline(rates, width = TREND_WIDTH) {
+  const size = Math.max(1, width);
+  const recent = (Array.isArray(rates) ? rates : []).slice(-size);
+  const peak = recent.reduce((max, value) => (value > max ? value : max), 0);
+  const cells = Array.from({ length: size }, () => ".");
+  const offset = size - recent.length;
+  for (let index = 0; index < recent.length; index += 1) {
+    const rate = recent[index] ?? 0;
+    if (!(rate > 0) || !(peak > 0)) {
+      cells[offset + index] = "▁";
+      continue;
+    }
+    const level = Math.round((rate / peak) * (SPARK_BARS.length - 1));
+    cells[offset + index] = SPARK_BARS[Math.min(SPARK_BARS.length - 1, Math.max(0, level))];
+  }
+  return cells.join("");
+}
+
+function asciiWidth(text) {
+  let width = 0;
+  for (const char of text) {
+    const code = char.codePointAt(0) ?? 0;
+    width += code <= 0x7f ? 1 : 2;
+  }
+  return width;
+}
+
+/** Keep at most 100 ASCII columns. A truncated value ends with `...` inside that budget. */
+export function truncateLastError(text, limit = LAST_ERROR_ASCII_WIDTH) {
+  const value = text.length === 0 ? "-" : text;
+  if (asciiWidth(value) <= limit) {
+    return value;
+  }
+  const budget = Math.max(0, limit - 3);
+  let width = 0;
+  let end = 0;
+  for (const char of value) {
+    const code = char.codePointAt(0) ?? 0;
+    const size = code <= 0x7f ? 1 : 2;
+    if (width + size > budget) {
+      break;
+    }
+    width += size;
+    end += char.length;
+  }
+  return `${value.slice(0, end)}...`;
+}
+
+export function renderAlignedTable(header, rows) {
+  const widths = header.map((label, index) => {
+    let size = String(label).length;
+    for (const row of rows) {
+      size = Math.max(size, String(row[index] ?? "").length);
+    }
+    return size;
+  });
+  const paint = (cells) => cells.map((cell, index) => {
+    const text = String(cell ?? "");
+    const width = widths[index] ?? text.length;
+    return CAMPAIGN_LEFT_ALIGNED.has(index) ? text.padEnd(width) : text.padStart(width);
+  }).join("  ");
+  return [paint(header), ...rows.map((row) => paint(row))];
+}
+
+function formatTokenPair(current, completed, live) {
+  const hasLive = typeof live === "number";
+  const hasCurrent = hasLive || typeof current === "number";
+  if (!hasCurrent && !(completed > 0)) {
+    return "-";
+  }
+  const thisCall = hasLive ? live : (typeof current === "number" ? current : null);
+  const total = (typeof completed === "number" ? completed : 0) + (hasLive ? live : 0);
+  return `${thisCall === null ? "-" : String(thisCall)}/${total}`;
+}
+
+function formatTokenCount(task) {
+  if (task.hasThroughput !== true && typeof task.liveInputTokens !== "number") {
+    return "-";
+  }
+  return formatTokenPair(task.lastInputTokens, task.inputTokens, task.liveInputTokens);
+}
+
+function formatOutputCount(task) {
+  if (task.hasThroughput !== true && typeof task.liveOutputTokens !== "number") {
+    return "-";
+  }
+  return formatTokenPair(task.lastOutputTokens, task.outputTokens, task.liveOutputTokens);
+}
+
+function formatTtft(seconds) {
+  return typeof seconds === "number" ? `${seconds.toFixed(2)}s` : "-";
+}
+
+function formatRate(value) {
+  return typeof value === "number" ? value.toFixed(1) : "-";
+}
+
+function campaignRow(task, nowMs) {
+  const cycleRatio = task.cycleCount > 0 ? task.completedCycles / task.cycleCount : 0;
+  const cycleLabel = task.cycleCount > 0 ? `${task.completedCycles}/${task.cycleCount}` : "starting";
+  const balance = task.balance === null || task.balance === undefined ? "-" : String(task.balance);
+  return [
+    task.label,
+    `${task.run}/${task.runs}`,
+    progressBar(cycleRatio, 12),
+    cycleLabel,
+    balance,
+    formatDurationHms(Math.max(0, nowMs - task.startedAtMs)),
+    typeof task.activity === "string" && task.activity.length > 0 ? task.activity : "-",
+    formatTokenCount(task),
+    formatOutputCount(task),
+    formatTtft(task.ttftSeconds),
+    formatRate(task.prefillPerSec),
+    formatRate(task.decodePerSec),
+    decodeSparkline(task.decodeWindows),
+    truncateLastError(typeof task.lastError === "string" ? task.lastError : "-"),
+  ];
+}
+
 export function renderCampaign(snapshot, nowMs, width = 100) {
   const estimate = campaignEstimate(snapshot, nowMs);
   const percent = Math.round(estimate.ratio * 100);
   const barWidth = Math.max(10, Math.min(32, width - 58));
   const finish = estimate.finishAtMs === null ? "calculating" : formatClock(estimate.finishAtMs);
   const failed = snapshot.failed ?? 0;
-  const header = fitLine(
+  const summary = fitLine(
     `runs ${snapshot.finished}/${snapshot.total} failed ${failed}  ${progressBar(estimate.ratio, barWidth)} ${String(percent).padStart(3)}%  elapsed ${formatDurationHms(estimate.elapsedMs)}  finish ${finish}`,
     width,
   );
-  const rows = snapshot.active.map((task) => {
-    const cycleRatio = task.cycleCount > 0 ? task.completedCycles / task.cycleCount : 0;
-    const cycleLabel = task.cycleCount > 0 ? `${task.completedCycles}/${task.cycleCount}` : "starting";
-    const balance = task.balance === null ? "" : `  bal ${task.balance}`;
-    const name = task.label.padEnd(28).slice(0, 28);
-    return fitLine(
-      `${name} ${String(task.run).padStart(3)}/${task.runs}  ${progressBar(cycleRatio, 12)} ${cycleLabel.padStart(7)}${balance}  ${formatDurationHms(Math.max(0, nowMs - task.startedAtMs))}`,
-      width,
-    );
-  });
-  return [header, ...rows].join("\n");
+  const table = renderAlignedTable(
+    CAMPAIGN_COLUMNS,
+    snapshot.active.map((task) => campaignRow(task, nowMs)),
+  );
+  return [summary, ...table].join("\n");
 }
 
 function fitLine(line, width) {
@@ -505,6 +743,19 @@ function createCampaignView(total, parallel) {
         completedAtMs: now,
         cycleCount: 0,
         balance: null,
+        inputTokens: 0,
+        outputTokens: 0,
+        lastInputTokens: null,
+        lastOutputTokens: null,
+        hasThroughput: false,
+        ttftSeconds: null,
+        prefillPerSec: null,
+        decodePerSec: null,
+        decodeWindows: [],
+        liveInputTokens: null,
+        liveOutputTokens: null,
+        activity: "starting",
+        lastError: "-",
       });
       note(`[bench-repeat] ${logLabel(task)} started`);
       paint();
@@ -515,14 +766,14 @@ function createCampaignView(total, parallel) {
       if (slot === undefined || progress === null || progress.kind === "report") {
         return progress;
       }
-      if (progress.kind === "start") {
-        slot.cycleCount = progress.cycles;
-        return progress;
+      applyBenchProgress(slot, progress);
+      if (
+        progress.kind === "live" ||
+        progress.kind === "activity" ||
+        progress.kind === "error"
+      ) {
+        paint();
       }
-      slot.completedCycles = progress.cycle;
-      slot.cycleCount = progress.cycleCount;
-      slot.balance = progress.balance;
-      slot.completedAtMs = Date.now();
       return progress;
     },
     finishTask(id, durationMs, reportPath) {

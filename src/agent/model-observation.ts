@@ -184,14 +184,7 @@ export function compactObservationForModel(
         alert.patienceRemaining,
       ]),
     ),
-    ...nonEmpty(
-      "laneGuidanceOpportunities",
-      (observation.laneGuidanceOpportunities ?? []).map((opportunity) => [
-        opportunity.sourceLaneId,
-        opportunity.targetLaneId,
-        opportunity.eligibleVehicleIds,
-      ]),
-    ),
+    ...guidanceEligibleField(observation),
     ...nonEmpty(
       "activeLaneGuidancePermits",
       (observation.activeLaneGuidancePermits ?? []).map((permit) => [
@@ -357,6 +350,19 @@ function compactCrosswalks(
       ];
     }),
   );
+}
+
+/** Unique vehicles that can still be guided; omitted when none are eligible. */
+function guidanceEligibleField(
+  observation: CompactObservation,
+): Record<string, number> {
+  const vehicleIds = new Set<string>();
+  for (const opportunity of observation.laneGuidanceOpportunities ?? []) {
+    for (const vehicleId of opportunity.eligibleVehicleIds) {
+      vehicleIds.add(vehicleId);
+    }
+  }
+  return vehicleIds.size === 0 ? {} : { guidanceEligible: vehicleIds.size };
 }
 
 function nonEmpty<T>(

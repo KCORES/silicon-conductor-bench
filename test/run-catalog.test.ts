@@ -1,8 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  filterRunsByModel,
+  modelMatchIndexes,
+  modelQueryIsBlank,
   parseRunReport,
   readAnimationVersionHeader,
+  readReportedFinalBalance,
   readSchemaVersionHeader,
+  reportFileForReplay,
   sortRuns,
 } from "../src/replay/run-catalog.js";
 
@@ -18,7 +23,12 @@ const newer = {
     seed: 42,
     finalBalance: -1128.61,
     elapsedMs: 465_695,
-    totals: { promptTokens: 100, completionTokens: 40, apiCalls: 208 },
+    totals: {
+      promptTokens: 100,
+      completionTokens: 40,
+      apiCalls: 208,
+      admittedVehicles: 87,
+    },
     replayPath: "logs\\replay_deepseek-flash_2026-09-23_140511.json",
   },
 };
@@ -49,6 +59,16 @@ describe("run catalog", () => {
     expect(entry?.executedAtMs).toBe(Date.parse("2026-09-23T14:05:11.008"));
   });
 
+  it("maps a replay file to its report and reads the settled final balance", () => {
+    expect(
+      reportFileForReplay("replay_deepseek-v4-pro_2026-10-01_152631644-43700.json"),
+    ).toBe("report_deepseek-v4-pro_2026-10-01_152631644-43700.json");
+    expect(reportFileForReplay("report_secret.json")).toBeNull();
+    expect(reportFileForReplay("../replay_secret.json")).toBeNull();
+    expect(readReportedFinalBalance(newer)).toBe(-1128.61);
+    expect(readReportedFinalBalance({ summary: {} })).toBeNull();
+  });
+
   it("reads date, score, model, and total tokens from a report", () => {
     const entry = parseRunReport("report_deepseek-flash_2026-09-23_140511.json", newer);
     expect(entry).toMatchObject({
@@ -57,6 +77,7 @@ describe("run catalog", () => {
       score: -1128.61,
       totalTokens: 140,
       apiCalls: 208,
+      admittedVehicles: 87,
       elapsedMs: 465_695,
       seed: 42,
       replayFile: "replay_deepseek-flash_2026-09-23_140511.json",
@@ -92,6 +113,10 @@ describe("run catalog", () => {
       15,
       140,
     ]);
+    expect(sortRuns(runs, "admitted", "desc").map((run) => run.admittedVehicles)).toEqual([
+      87,
+      null,
+    ]);
     expect(sortRuns(runs, "model", "asc").map((run) => run.model)).toEqual([
       "deepseek-flash",
       "other-model",
@@ -108,6 +133,45 @@ describe("run catalog", () => {
     expect(sortRuns(versioned, "schema", "desc").map((run) => run.id)).toEqual([
       "older.json",
       "newer.json",
+    ]);
+  });
+
+  it("fuzzy-filters model names without case or separator sensitivity", () => {
+    const runs = ["deepseek-flash", "glm-5.3-flash", "ling-3.1-flash-internal"].flatMap(
+      (model) => {
+        const entry = parseRunReport(`${model}.json`, {
+          ...newer,
+          identity: { ...newer.identity, model },
+          summary: { ...newer.summary, model },
+        });
+        return entry === null ? [] : [entry];
+      },
+    );
+    expect(modelQueryIsBlank("  -._")).toBe(true);
+    expect(filterRunsByModel(runs, "  ").map((run) => run.model)).toEqual([
+      "deepseek-flash",
+      "glm-5.3-flash",
+      "ling-3.1-flash-internal",
+    ]);
+    expect(filterRunsByModel(runs, "FLASH").map((run) => run.model)).toEqual([
+      "deepseek-flash",
+      "glm-5.3-flash",
+      "ling-3.1-flash-internal",
+    ]);
+    expect(filterRunsByModel(runs, "deep seek").map((run) => run.model)).toEqual([
+      "deepseek-flash",
+    ]);
+    expect(filterRunsByModel(runs, "dsf").map((run) => run.model)).toEqual([
+      "deepseek-flash",
+    ]);
+    expect(filterRunsByModel(runs, "internal").map((run) => run.model)).toEqual([
+      "ling-3.1-flash-internal",
+    ]);
+    expect(filterRunsByModel(runs, "fling")).toEqual([]);
+    expect(modelMatchIndexes("deepseek-flash", "ds-f")).toEqual([0, 4, 9]);
+    expect(modelMatchIndexes("deepseek-flash", "seek")).toEqual([4, 5, 6, 7]);
+    expect(modelMatchIndexes("Ling-3.1-flash-internal", "internal")).toEqual([
+      15, 16, 17, 18, 19, 20, 21, 22,
     ]);
   });
 

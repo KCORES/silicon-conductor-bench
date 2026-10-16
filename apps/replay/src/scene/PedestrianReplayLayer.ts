@@ -3,11 +3,12 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
 import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
 import type { Direction } from "../../../../src/core/types.js";
-import type { CollisionOutcome } from "../../../../src/core/types.js";
 import {
-  collisionOutcomeForPedestrian,
+  collisionSettleTick,
   pedestrianCollisionVisual,
+  type CollisionOutcomeIndex,
 } from "@replay/collisionVisual.js";
+import { replayScoreShake, setCss2DMounted } from "./css2dLabel.js";
 import {
   presentScoreBubble,
   scoreBubblePaintDue,
@@ -152,15 +153,12 @@ export class PedestrianReplayLayer {
   }
 
   applyCollisionVisuals(
-    outcomes: readonly CollisionOutcome[],
+    index: CollisionOutcomeIndex,
     logicalTick: number,
     reducedMotion = false,
   ): void {
     for (const [id, actor] of this.actors) {
-      const match = collisionOutcomeForPedestrian(
-        outcomes.filter((outcome) => outcome.impactTick <= logicalTick),
-        id,
-      );
+      const match = index.pedestrian(id, logicalTick);
       if (match === undefined) {
         continue;
       }
@@ -170,7 +168,7 @@ export class PedestrianReplayLayer {
         reducedMotion
           ? Math.max(
               logicalTick,
-              match.outcome.impactTick + match.participant.slideTicks,
+              collisionSettleTick(match.outcome, match.participant.slideTicks),
             )
           : logicalTick,
       );
@@ -243,14 +241,18 @@ export class PedestrianReplayLayer {
     this.scoreBubblesVisible = visible;
     for (const actor of this.actors.values()) {
       actor.scoreBubble.hidden = !visible || !actor.scorePaintedVisible;
-      actor.scoreLabel.visible = visible && actor.scorePaintedVisible;
+      setCss2DMounted(
+        actor.scoreLabel,
+        actor.root,
+        visible && actor.scorePaintedVisible,
+      );
     }
   }
 
   setIdLabelsVisible(visible: boolean): void {
     this.idLabelsVisible = visible;
     for (const actor of this.actors.values()) {
-      actor.idLabel.visible = visible;
+      setCss2DMounted(actor.idLabel, actor.root, visible);
     }
   }
 
@@ -373,7 +375,7 @@ export class PedestrianReplayLayer {
     captureBaseColors(actor.model, actor.baseColors);
     actor.pedestrianId = id;
     actor.idLabel.element.textContent = id;
-    actor.idLabel.visible = this.idLabelsVisible;
+    setCss2DMounted(actor.idLabel, actor.root, this.idLabelsVisible);
     actor.root.visible = true;
     this.group.add(actor.root);
     this.actors.set(id, actor);
@@ -427,19 +429,15 @@ export class PedestrianReplayLayer {
     const scoreLabel = new CSS2DObject(scoreBubble);
     scoreLabel.center.set(0.5, 1);
     scoreLabel.position.set(0, TARGET_BIND_HEIGHT + 0.55, 0);
-    scoreLabel.visible = false;
     const idElement = document.createElement("span");
     idElement.className = "entity-id-label pedestrian-id-label";
     const idLabel = new CSS2DObject(idElement);
     idLabel.center.set(0.5, 1);
     idLabel.position.set(0, TARGET_BIND_HEIGHT + 0.9, 0);
-    idLabel.visible = false;
     const root = new THREE.Group();
     root.add(model);
     root.add(presence);
     root.add(halo);
-    root.add(scoreLabel);
-    root.add(idLabel);
     return {
       root,
       model,
@@ -475,13 +473,13 @@ export class PedestrianReplayLayer {
     actor.clipName = undefined;
     actor.pedestrianId = undefined;
     actor.halo.visible = false;
-    actor.scoreLabel.visible = false;
+    setCss2DMounted(actor.scoreLabel, actor.root, false);
     actor.scoreBubble.hidden = true;
     actor.scoreMemory = undefined;
     actor.scorePaintedAtMs = null;
     actor.scorePaintedVisible = false;
     actor.scorePaintedTone = undefined;
-    actor.idLabel.visible = false;
+    setCss2DMounted(actor.idLabel, actor.root, false);
     actor.idLabel.element.remove();
     restoreBaseColors(actor);
     actor.root.visible = false;
@@ -581,8 +579,11 @@ export class PedestrianReplayLayer {
     actor.scorePaintedTone = tone;
     actor.scoreBubble.hidden =
       !this.scoreBubblesVisible || !presented.view.visible;
-    actor.scoreLabel.visible =
-      this.scoreBubblesVisible && presented.view.visible;
+    setCss2DMounted(
+      actor.scoreLabel,
+      actor.root,
+      this.scoreBubblesVisible && presented.view.visible,
+    );
     if (!presented.view.visible) {
       return;
     }
@@ -600,9 +601,7 @@ export class PedestrianReplayLayer {
       presented.view.tone === "loss",
     );
     if (shake) {
-      actor.scoreBubble.classList.remove("score-bubble-shake");
-      void actor.scoreBubble.offsetWidth;
-      actor.scoreBubble.classList.add("score-bubble-shake");
+      replayScoreShake(actor.scoreBubble);
     }
   }
 }

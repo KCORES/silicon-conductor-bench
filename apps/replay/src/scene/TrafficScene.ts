@@ -12,9 +12,12 @@ import type {
 } from "@replay/types.js";
 import type { CollisionOutcome } from "../../../../src/core/types.js";
 import {
+  buildCollisionOutcomeIndex,
   collisionAlignmentRetention,
-  collisionOutcomeForVehicle,
+  collisionSettleTick,
+  pedestrianStrikeLunge,
   vehicleCollisionVisual,
+  type CollisionOutcomeIndex,
 } from "@replay/collisionVisual.js";
 import { AccidentEffects } from "./AccidentEffects.js";
 import { DecisionVisualizer } from "./DecisionVisualizer.js";
@@ -26,6 +29,12 @@ import type { VehicleSpec } from "./vehicleTypes.js";
 import { createVehicleGalleryLayout } from "./vehicleGalleryLayout.js";
 import { findVehiclePaintConfig } from "./vehiclePaintConfig.js";
 import { applyVehiclePaint } from "./vehiclePaintMaterial.js";
+import { mergeVehicleWheels, VEHICLE_WHEEL_FLAG } from "./vehicleWheelMerge.js";
+import {
+  replayDemoPenaltyPulse,
+  replayScoreShake,
+  setCss2DMounted,
+} from "./css2dLabel.js";
 import { createRandomVehicleFleet } from "./randomVehicleFleet.js";
 import {
   CITY_INNER_TILE,
@@ -101,6 +110,8 @@ import {
 import { PedestrianReplayLayer } from "./PedestrianReplayLayer.js";
 import {
   createVehicleDamageController,
+  precompileVehicleDamagePrograms,
+  type DentWarmupVehicle,
   type VehicleDamageController,
 } from "./vehicleDamageMaterial.js";
 import {
@@ -115,6 +126,8 @@ const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const BACKGROUND_COLOR = 0x000000;
 const FOG_NEAR = 225;
 const FOG_FAR = 325;
+// Floor only. A zero radius puts the camera on the orbit target and breaks the view.
+const MIN_CAMERA_DISTANCE = 0.05;
 const MAX_PIXEL_RATIO = 1.5;
 const SUN_OFFSET = new THREE.Vector3(48, 86, 34);
 const SUN_DISTANCE = SUN_OFFSET.length();
@@ -179,6 +192,8 @@ interface VehicleActor {
   /** Distance from the rendered center back to the simulation head cell. */
   readonly centerOffset: number;
   edgeFade: number;
+  /** NaN until the first fade write, so a vehicle born at full opacity still updates once. */
+  appliedEdgeFade: number;
   hazardActive: boolean;
   scoreMemory: ScoreBubbleMemory | undefined;
   scorePaintedAtMs: number | null;
@@ -262,6 +277,7 @@ export class TrafficScene {
   private readonly labelRenderer: CSS2DRenderer;
   private readonly scene = new THREE.Scene();
   private readonly controls: OrbitControls;
+  private viewExtent = CITY_WORLD_EXTENT;
   private readonly vehicles = new Map<string, VehicleActor>();
   private readonly loader = new GLTFLoader();
   private readonly templates = new Map<string, THREE.Object3D>();
@@ -308,6 +324,7 @@ export class TrafficScene {
   private trafficLogicBundle: ReplayBundle | undefined;
   private collisionBundle: ReplayBundle | undefined;
   private collisionOutcomes: readonly CollisionOutcome[] = [];
+  private collisionIndex: CollisionOutcomeIndex = buildCollisionOutcomeIndex([]);
   private readonly visualCollisionContacts = new Map<
     string,
     {
@@ -357,8 +374,8 @@ export class TrafficScene {
     this.controls = new OrbitControls(this.camera, canvas);
     this.controls.enableDamping = true;
     this.controls.enablePan = true;
-    this.controls.minDistance = 24;
-    this.controls.maxDistance = 220;
+    this.controls.minDistance = MIN_CAMERA_DISTANCE;
+    this.controls.maxDistance = Infinity;
     this.controls.maxPolarAngle = Math.PI / 2.15;
     this.controls.minPolarAngle = 0.35;
     this.controls.target.set(0, 2, 0);
@@ -455,6 +472,16 @@ export class TrafficScene {
         usedTemplateKeys.has(spec.templateKey),
       ).map((spec) => this.cacheTemplate(spec.templateKey, spec.assetPath)),
     );
+    for (const key of new Set([
+      "sedan",
+      "moto",
+      ...VEHICLE_CATALOG.map(vehicleTemplateKey),
+    ])) {
+      const template = this.templates.get(key);
+      if (template !== undefined) {
+        mergeVehicleWheels(template);
+      }
+    }
     for (const [key, template] of this.templates) {
       if (key.startsWith("building:")) {
         this.prepareTexturedModel(template, { contactAo: true, castShadow: true });
@@ -464,6 +491,60 @@ export class TrafficScene {
     }
     this.configureLayoutView(layout);
     this.composeStaticCity(layout);
+    const hazardPad = this.hazardPads[0] ?? this.addHazardPad();
+    hazardPad.visible = true;
+    try {
+      await precompileVehicleDamagePrograms(
+        this.renderer,
+        this.scene,
+        this.camera,
+        this.createDentWarmupVehicles(),
+      );
+    } catch (error) {
+      console.warn("Vehicle damage shader precompile failed", error);
+    } finally {
+      hazardPad.visible = false;
+    }
+  }
+
+  /** One prepared model per distinct vehicle material layout, plain and painted. */
+  private createDentWarmupVehicles(): DentWarmupVehicle[] {
+    const seen = new Set<string>();
+    const vehicles: DentWarmupVehicle[] = [];
+    const add = (
+      template: THREE.Object3D | undefined,
+      paintConfig: ReturnType<typeof findVehiclePaintConfig>,
+    ): void => {
+      if (template === undefined) {
+        return;
+      }
+      const signature = `${vehicleProgramSignature(template)}|${paintConfig === undefined ? "plain" : "paint"}`;
+      if (seen.has(signature)) {
+        return;
+      }
+      seen.add(signature);
+      const model = template.clone(true);
+      this.prepareTexturedModel(model);
+      if (paintConfig !== undefined) {
+        applyVehiclePaint(model, {
+          hex: "#c45c26",
+          darkCutoff: paintConfig.darkCutoff,
+          brightCutoff: paintConfig.brightCutoff,
+        });
+      }
+      vehicles.push({ model, bounds: normalizeVehicleModelPivot(model) });
+    };
+    add(this.templates.get("sedan"), undefined);
+    add(this.templates.get("moto"), undefined);
+    for (const spec of VEHICLE_CATALOG) {
+      const template = this.templates.get(vehicleTemplateKey(spec));
+      add(template, undefined);
+      const paintConfig = findVehiclePaintConfig(spec.id);
+      if (paintConfig !== undefined) {
+        add(template, paintConfig);
+      }
+    }
+    return vehicles;
   }
 
   applyVehicles(
@@ -473,8 +554,8 @@ export class TrafficScene {
     if (this.debugMode !== "replay") {
       this.syncHazardZones([]);
       for (const actor of this.vehicles.values()) {
-        actor.scoreLabel.visible = false;
-        actor.demoPenaltyLabel.visible = false;
+        setCss2DMounted(actor.scoreLabel, actor.root, false);
+        setCss2DMounted(actor.demoPenaltyLabel, actor.root, false);
       }
       return;
     }
@@ -522,15 +603,11 @@ export class TrafficScene {
           ? readCollisionOutcomes(event.payload)
           : [],
       );
+      this.collisionIndex = buildCollisionOutcomeIndex(this.collisionOutcomes);
     }
     for (const pose of vehicles) {
       const actor = this.vehicles.get(pose.id);
-      const match = collisionOutcomeForVehicle(
-        this.collisionOutcomes.filter(
-          (outcome) => outcome.impactTick <= logicalTick,
-        ),
-        pose.id,
-      );
+      const match = this.collisionIndex.vehicle(pose.id, logicalTick);
       if (actor === undefined) {
         continue;
       }
@@ -560,7 +637,10 @@ export class TrafficScene {
           this.reducedMotion
             ? Math.max(
                 logicalTick,
-                match.outcome.impactTick + match.participant.slideTicks,
+                collisionSettleTick(
+                  match.outcome,
+                  match.participant.slideTicks,
+                ),
               )
             : logicalTick,
         );
@@ -576,9 +656,10 @@ export class TrafficScene {
         this.placeVisualActor(actor, mapped.x, mapped.z, mapped.heading);
         actor.root.rotateX(visual.pitch);
       } else if (pose.state === "EVACUATING") {
+        const lunge = pedestrianStrikeLunge(match.outcome)?.offset;
         const mapped = mapSimulationPose(
-          match.participant.restPose.x,
-          match.participant.restPose.z,
+          match.participant.restPose.x + (lunge?.x ?? 0),
+          match.participant.restPose.z + (lunge?.z ?? 0),
           match.participant.restPose.heading,
         );
         this.placeVisualActor(actor, mapped.x, mapped.z, mapped.heading);
@@ -595,7 +676,7 @@ export class TrafficScene {
     this.separateAccidentVehicles(logicalTick);
     this.applyVehicleCollisionDamage(logicalTick, vehicles);
     this.pedestrians.applyCollisionVisuals(
-      this.collisionOutcomes,
+      this.collisionIndex,
       logicalTick,
       this.reducedMotion,
     );
@@ -816,12 +897,7 @@ export class TrafficScene {
   ): void {
     for (const pose of vehicles) {
       const actor = this.vehicles.get(pose.id);
-      const match = collisionOutcomeForVehicle(
-        this.collisionOutcomes.filter(
-          (outcome) => outcome.impactTick <= logicalTick,
-        ),
-        pose.id,
-      );
+      const match = this.collisionIndex.vehicle(pose.id, logicalTick);
       if (
         actor === undefined ||
         match === undefined ||
@@ -1002,13 +1078,7 @@ export class TrafficScene {
       }
     }
     while (this.hazardPads.length < cells.length) {
-      const pad = new THREE.Mesh(
-        new THREE.PlaneGeometry(VISUAL_CELL_SIZE, VISUAL_CELL_SIZE),
-        this.hazardMaterial,
-      );
-      pad.rotation.x = -Math.PI / 2;
-      this.hazardZones.add(pad);
-      this.hazardPads.push(pad);
+      this.addHazardPad();
     }
     for (let index = 0; index < this.hazardPads.length; index += 1) {
       const pad = this.hazardPads[index];
@@ -1023,6 +1093,17 @@ export class TrafficScene {
       pad.visible = true;
       pad.position.set(cell.x, 0.08, cell.z);
     }
+  }
+
+  private addHazardPad(): THREE.Mesh {
+    const pad = new THREE.Mesh(
+      new THREE.PlaneGeometry(VISUAL_CELL_SIZE, VISUAL_CELL_SIZE),
+      this.hazardMaterial,
+    );
+    pad.rotation.x = -Math.PI / 2;
+    this.hazardZones.add(pad);
+    this.hazardPads.push(pad);
+    return pad;
   }
 
   applyPedestrians(
@@ -1091,6 +1172,7 @@ export class TrafficScene {
     this.clearReplayVehicles();
     this.collisionBundle = undefined;
     this.collisionOutcomes = [];
+    this.collisionIndex = buildCollisionOutcomeIndex([]);
     this.visualCollisionContacts.clear();
     this.settledCollisionOffsets.clear();
     this.collisionAlignmentAdvances.clear();
@@ -1110,7 +1192,11 @@ export class TrafficScene {
     }
     this.xRayMode = enabled;
     for (const actor of this.vehicles.values()) {
-      actor.idLabel.visible = enabled && this.xRayVehicleIdsVisible;
+      setCss2DMounted(
+        actor.idLabel,
+        actor.root,
+        enabled && this.xRayVehicleIdsVisible,
+      );
     }
     this.pedestrians.setIdLabelsVisible(
       enabled && this.xRayPedestrianIdsVisible,
@@ -1138,7 +1224,11 @@ export class TrafficScene {
   setXRayVehicleIdsVisible(visible: boolean): void {
     this.xRayVehicleIdsVisible = visible;
     for (const actor of this.vehicles.values()) {
-      actor.idLabel.visible = this.xRayMode && visible;
+      setCss2DMounted(
+        actor.idLabel,
+        actor.root,
+        this.xRayMode && visible,
+      );
     }
   }
 
@@ -1217,8 +1307,7 @@ export class TrafficScene {
     this.pedestrians.setScoreBubblesVisible(visible);
     for (const actor of this.vehicles.values()) {
       actor.scoreBubble.hidden = !visible || !actor.scorePaintedVisible;
-      actor.scoreLabel.visible =
-        actor.statusVisible || (visible && actor.scorePaintedVisible);
+      this.syncScoreLabelMount(actor);
     }
   }
 
@@ -1234,7 +1323,7 @@ export class TrafficScene {
     for (const [id, actor] of this.vehicles) {
       const absolute = Math.max(0, -(penalties.get(id) ?? 0));
       const visible = absolute > 0;
-      actor.demoPenaltyLabel.visible = visible;
+      setCss2DMounted(actor.demoPenaltyLabel, actor.root, visible);
       actor.demoPenaltyBubble.hidden = !visible;
       if (!visible) {
         actor.demoPenaltyStep = -1;
@@ -1244,9 +1333,7 @@ export class TrafficScene {
       actor.demoPenaltyBubble.textContent = `−${Math.floor(absolute).toLocaleString()}`;
       if (nextStep !== actor.demoPenaltyStep) {
         actor.demoPenaltyStep = nextStep;
-        actor.demoPenaltyBubble.classList.remove("demo-penalty-pulse");
-        void actor.demoPenaltyBubble.offsetWidth;
-        actor.demoPenaltyBubble.classList.add("demo-penalty-pulse");
+        replayDemoPenaltyPulse(actor.demoPenaltyBubble);
       }
     }
   }
@@ -1502,8 +1589,7 @@ export class TrafficScene {
       actor.scorePaintedVisible = view.visible;
       actor.scorePaintedTone = view.visible ? view.tone : undefined;
       actor.scoreBubble.hidden = !this.scoreBubblesVisible || !view.visible;
-      actor.scoreLabel.visible =
-        actor.statusVisible || (this.scoreBubblesVisible && view.visible);
+      this.syncScoreLabelMount(actor);
       if (!view.visible) {
         continue;
       }
@@ -1515,9 +1601,7 @@ export class TrafficScene {
       actor.scoreBubble.classList.toggle("score-bubble-gain", view.tone === "gain");
       actor.scoreBubble.classList.toggle("score-bubble-loss", view.tone === "loss");
       if (view.shake) {
-        actor.scoreBubble.classList.remove("score-bubble-shake");
-        void actor.scoreBubble.offsetWidth;
-        actor.scoreBubble.classList.add("score-bubble-shake");
+        replayScoreShake(actor.scoreBubble);
       }
     }
   }
@@ -1549,15 +1633,29 @@ export class TrafficScene {
         icon.classList.add("is-pop");
       }
     }
-    actor.scoreLabel.visible =
+    this.syncScoreLabelMount(actor);
+  }
+
+  private syncScoreLabelMount(actor: VehicleActor): void {
+    setCss2DMounted(
+      actor.scoreLabel,
+      actor.root,
       actor.statusVisible ||
-      (this.scoreBubblesVisible && actor.scorePaintedVisible);
+        (this.scoreBubblesVisible && actor.scorePaintedVisible),
+    );
   }
 
   private applyEdgeFade(actor: VehicleActor, x: number, z: number): void {
     const fade = edgeFadeOpacity(distanceFromMapEdge(x, z));
-    actor.edgeFade = fade;
+    if (fade === actor.appliedEdgeFade) {
+      return;
+    }
     const opaque = fade >= 1;
+    const wasOpaque = actor.appliedEdgeFade >= 1;
+    const transparencyChanged =
+      !Number.isFinite(actor.appliedEdgeFade) || wasOpaque !== opaque;
+    actor.edgeFade = fade;
+    actor.appliedEdgeFade = fade;
     actor.root.traverse((child) => {
       if (
         !(child instanceof THREE.Mesh) ||
@@ -1571,6 +1669,9 @@ export class TrafficScene {
         : [child.material];
       for (const material of materials) {
         material.opacity = opaque ? 1 : fade;
+        if (!transparencyChanged) {
+          continue;
+        }
         material.transparent = !opaque;
         material.depthWrite = opaque;
         material.needsUpdate = true;
@@ -1703,13 +1804,17 @@ export class TrafficScene {
     this.trafficLightBend.update(deltaSeconds);
     this.clouds?.update(deltaSeconds);
     this.controls.update();
+    this.updateCameraRange();
     this.updateShadowFrustum();
     this.enforceVehicleSpacing();
     this.accidents.update(deltaSeconds);
     const shake = this.accidents.cameraNudge();
     this.camera.position.add(shake);
     this.renderer.render(this.scene, this.camera);
+    const matrixAutoUpdate = this.scene.matrixWorldAutoUpdate;
+    this.scene.matrixWorldAutoUpdate = false;
     this.labelRenderer.render(this.scene, this.camera);
+    this.scene.matrixWorldAutoUpdate = matrixAutoUpdate;
     this.camera.position.sub(shake);
   }
 
@@ -1804,6 +1909,11 @@ export class TrafficScene {
         : template.clone(true);
     if (template !== undefined) {
       this.prepareTexturedModel(model);
+      model.traverse((child) => {
+        if (child.userData[VEHICLE_WHEEL_FLAG] === true) {
+          child.castShadow = false;
+        }
+      });
     }
     if (pose.paintHex !== undefined && spec !== undefined) {
       const paintConfig = findVehiclePaintConfig(spec.id);
@@ -1865,15 +1975,17 @@ export class TrafficScene {
     scoreLabel.visible = false;
     const roof = Number.isFinite(bounds.max.y) ? bounds.max.y + 0.45 : 2;
     scoreLabel.position.set(0, roof, 0);
-    root.add(scoreLabel);
     const idElement = document.createElement("span");
     idElement.className = "entity-id-label vehicle-id-label";
     idElement.textContent = pose.id;
     const idLabel = new CSS2DObject(idElement);
     idLabel.center.set(0.5, 1);
     idLabel.position.set(0, roof + 0.68, 0);
-    idLabel.visible = this.xRayMode && this.xRayVehicleIdsVisible;
-    root.add(idLabel);
+    setCss2DMounted(
+      idLabel,
+      root,
+      this.xRayMode && this.xRayVehicleIdsVisible,
+    );
     const demoPenaltyBubble = document.createElement("span");
     demoPenaltyBubble.className = "demo-penalty-bubble";
     demoPenaltyBubble.hidden = true;
@@ -1884,7 +1996,6 @@ export class TrafficScene {
     demoPenaltyLabel.center.set(0.5, 1);
     demoPenaltyLabel.visible = false;
     demoPenaltyLabel.position.set(0, roof + 0.7, 0);
-    root.add(demoPenaltyLabel);
     const hazardLamps = [-1, 1].map((side) => {
       const lamp = new THREE.Mesh(
         new THREE.SphereGeometry(0.09, 10, 8),
@@ -1917,6 +2028,7 @@ export class TrafficScene {
       statusIcon,
       centerOffset: (spec?.length ?? 1) / 2,
       edgeFade: 1,
+      appliedEdgeFade: Number.NaN,
       hazardActive: false,
       scoreMemory: undefined,
       scorePaintedAtMs: null,
@@ -2062,13 +2174,35 @@ export class TrafficScene {
 
   private configureLayoutView(layout: CityLayout): void {
     const extent = layout.worldExtent || CITY_WORLD_EXTENT;
+    this.viewExtent = extent;
     this.camera.position.set(extent * 1.45, extent * 1.55, extent * 1.5);
-    this.camera.near = 0.5;
-    this.camera.far = extent * 5;
-    this.camera.updateProjectionMatrix();
-    this.controls.maxDistance = extent * 3.2;
     this.scene.fog = new THREE.Fog(BACKGROUND_COLOR, FOG_NEAR, FOG_FAR);
+    this.updateCameraRange();
     this.updateShadowFrustum();
+  }
+
+  /**
+   * Keep the perspective clip planes and fog ahead of the camera so zoom has
+   * no practical stop. The authored fog stays put until the city would leave it.
+   */
+  private updateCameraRange(): void {
+    const distance = Math.max(
+      MIN_CAMERA_DISTANCE,
+      this.camera.position.distanceTo(this.controls.target),
+    );
+    const near = Math.max(0.01, distance * 0.002);
+    const far = Math.max(distance + this.viewExtent * 8, near * 100);
+    this.camera.near = near;
+    this.camera.far = far;
+    this.camera.updateProjectionMatrix();
+
+    const fog = this.scene.fog;
+    if (fog instanceof THREE.Fog) {
+      const cityFar = distance + this.viewExtent;
+      const extra = Math.max(0, cityFar * 1.15 - FOG_FAR);
+      fog.near = FOG_NEAR + extra;
+      fog.far = FOG_FAR + extra;
+    }
   }
 
   private updateShadowFrustum(): void {
@@ -2683,4 +2817,32 @@ function clearOwnedMaterials(root: THREE.Object3D): void {
       material.dispose();
     }
   });
+}
+
+/** Geometry attributes and texture slots that change the compiled program. */
+function vehicleProgramSignature(root: THREE.Object3D): string {
+  const parts = new Set<string>();
+  root.traverse((child) => {
+    if (!(child instanceof THREE.Mesh)) {
+      return;
+    }
+    const attributes = Object.keys(child.geometry.attributes).sort().join("+");
+    const materials = Array.isArray(child.material)
+      ? child.material
+      : [child.material];
+    for (const material of materials) {
+      const slots =
+        material instanceof THREE.MeshStandardMaterial
+          ? [
+              material.map !== null,
+              material.normalMap !== null,
+              material.emissiveMap !== null,
+              material.vertexColors,
+              material.alphaTest > 0,
+            ].join(",")
+          : material.type;
+      parts.add(`${attributes}:${slots}`);
+    }
+  });
+  return [...parts].sort().join("/");
 }

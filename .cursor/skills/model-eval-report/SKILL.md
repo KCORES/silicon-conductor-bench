@@ -28,6 +28,7 @@ node report/select-best-run.mjs --model <model> [--rules N] [--expected 3]
 ```
 
 - Defaults to the latest rules version among the model's complete runs; only runs with the same rules version, seed, and horizon are compared.
+- When a rerun replaces an older batch under the same rules, add `--since YYYY-MM-DD` (run-id date) so the old batch is not ranked together with it.
 - Output: ranked runs, balance spread, matching baselines, `BEST_REPLAY=...`, and `report/out/<slug>_rules-<N>_runs.json`.
 - Handle every `WARN`:
   - Fewer than 3 runs: tell the user and ask whether to continue with what exists.

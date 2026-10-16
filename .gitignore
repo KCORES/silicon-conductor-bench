@@ -13,3 +13,5 @@ apps/replay/public/sample-replay.json
 .specstory/
 archive/
 docs/
+report/
+.cursor/

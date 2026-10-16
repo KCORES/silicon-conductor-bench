@@ -13,7 +13,12 @@ import {
 import { JevClient } from "./agent/jev/client.js";
 import { JevAgentRunner } from "./agent/jev/runner.js";
 import { createSearchDecider } from "./agent/jev/search.js";
+import type { AgentCycleMetrics } from "./agent/metrics.js";
 import { NoReleaseRunner } from "./agent/no-release-runner.js";
+import { captureHttpErrorBody } from "./agent/http-error-body.js";
+import {
+  type LiveStreamSample,
+} from "./agent/chat-sampling.js";
 import { ToolCallAgentRunner } from "./agent/runner.js";
 import {
   buildAgentSettlementSummary,
@@ -28,7 +33,11 @@ import {
   parseBenchmarkArgs,
   shouldUseBenchTui,
 } from "./benchmark-args.js";
-import { config, engineDynamicsFromConfig } from "./config.js";
+import {
+  config,
+  engineDynamicsFromConfig,
+  resolveDisplayModelName,
+} from "./config.js";
 import { arrivalsAt } from "./core/demand.js";
 import { SimulationEngine } from "./core/engine.js";
 import { createRoadNetwork, defaultRouteIds } from "./core/network.js";
@@ -81,6 +90,72 @@ interface CycleSummary {
   avgDecodeTokensPerSec: number;
   avgGenerationTokensPerSec: number;
   [key: string]: unknown;
+}
+
+function writeBenchActivity(activity: string): void {
+  process.stderr.write(`[bench] activity=${activity}\n`);
+}
+
+function writeBenchError(message: string): void {
+  const flat = message.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/ {2,}/g, " ").trim();
+  if (flat.length === 0) {
+    return;
+  }
+  process.stderr.write(`[bench] error=${flat}\n`);
+}
+
+function writeBenchLive(sample: LiveStreamSample): void {
+  if (sample.phase === "ttft") {
+    const parts = [
+      `ttft=${(sample.ttftMs / 1000).toFixed(3)}`,
+      `in=${sample.promptTokens}`,
+    ];
+    if (sample.prefillPerSec !== null && sample.prefillPerSec > 0) {
+      parts.push(`prefill/s=${sample.prefillPerSec.toFixed(1)}`);
+    }
+    process.stderr.write(`[bench] live ${parts.join(" ")}\n`);
+    return;
+  }
+  process.stderr.write(
+    `[bench] live decode/s=${sample.windowDecodePerSec.toFixed(1)} out=${sample.generatedTokens}\n`,
+  );
+}
+
+function createBenchOpenAI(): OpenAI {
+  let client: OpenAI | undefined;
+  client = new OpenAI({
+    apiKey: config.openai.apiKey,
+    baseURL: config.openai.baseURL,
+    timeout: config.openai.timeoutMs,
+    maxRetries: 0,
+    fetch: (input, init) => {
+      if (client === undefined) {
+        return Promise.reject(new Error("OpenAI client is not ready"));
+      }
+      return captureHttpErrorBody(client, input, init);
+    },
+  });
+  return client;
+}
+
+function formatCycleThroughput(metrics: AgentCycleMetrics): string {
+  const parts = [
+    `in=${metrics.promptTokens}`,
+    `out=${metrics.completionTokens}`,
+  ];
+  if (metrics.avgTtftMs !== null) {
+    parts.push(`ttft=${(metrics.avgTtftMs / 1000).toFixed(3)}`);
+  }
+  if (metrics.avgPrefillTokensPerSec !== null) {
+    parts.push(`prefill/s=${metrics.avgPrefillTokensPerSec.toFixed(1)}`);
+  }
+  const decodePerSec = metrics.avgTtftMs === null
+    ? metrics.avgDecodeTokensPerSec
+    : metrics.avgDecodeExcludingPrefillTokensPerSec;
+  if (decodePerSec !== null && decodePerSec > 0) {
+    parts.push(`decode/s=${decodePerSec.toFixed(1)}`);
+  }
+  return parts.join(" ");
 }
 
 async function main(): Promise<void> {
@@ -152,11 +227,16 @@ async function main(): Promise<void> {
   const modelName = config.simulation.pedestrianDemandEnabled
     ? baseModelName
     : `${baseModelName}-no-ped`;
+  const displayModelName = resolveDisplayModelName({
+    modelName,
+    alias: config.modelNameAlias,
+    pedestrianDemandEnabled: config.simulation.pedestrianDemandEnabled,
+  });
 
   const store = resumed === undefined
     ? createRunArtifactStore({
         directory: config.agent.apiLogDir,
-        model: modelName,
+        model: displayModelName,
         ...(config.agent.artifactPostfix.length > 0
           ? { postfix: config.agent.artifactPostfix }
           : {}),
@@ -249,6 +329,7 @@ async function main(): Promise<void> {
       towDispatchCost: config.economy.towDispatchCost,
       towClearanceTicks: config.simulation.towClearanceTicks,
       logger: runnerLogger,
+      ...(!useTui ? { onActivity: writeBenchActivity, onError: writeBenchError } : {}),
     });
   const vehicleToll = (type: Vehicle["type"]): number =>
     rewardTollForVehicle(
@@ -332,12 +413,7 @@ async function main(): Promise<void> {
           logger,
         ))
       : new ToolCallAgentRunner({
-          client: new OpenAI({
-            apiKey: config.openai.apiKey,
-            baseURL: config.openai.baseURL,
-            timeout: config.openai.timeoutMs,
-            maxRetries: 0,
-          }),
+          client: createBenchOpenAI(),
           engine,
           memory,
           model: modelName,
@@ -349,6 +425,19 @@ async function main(): Promise<void> {
             : { reasoningEffort: config.openai.reasoningEffort }),
           replayReasoningContent: config.openai.replayReasoningContent,
           maxTokens: config.openai.maxTokens,
+          ...(config.openai.temperature === undefined
+            ? {}
+            : { temperature: config.openai.temperature }),
+          ...(config.openai.topP === undefined
+            ? {}
+            : { topP: config.openai.topP }),
+          ...(config.openai.topK === undefined
+            ? {}
+            : { topK: config.openai.topK }),
+          stream: config.openai.stream,
+          ...(config.openai.thinkingType === undefined
+            ? {}
+            : { thinkingType: config.openai.thinkingType }),
           maxApiRounds: config.agent.maxApiRounds,
           maxToolCalls: config.agent.maxToolCalls,
           economy: agentEconomy,
@@ -358,11 +447,16 @@ async function main(): Promise<void> {
           towDispatchCost: config.economy.towDispatchCost,
           towClearanceTicks: config.simulation.towClearanceTicks,
           logger,
+          ...(!useTui ? {
+            onActivity: writeBenchActivity,
+            onError: writeBenchError,
+            onSample: writeBenchLive,
+          } : {}),
         });
   const recorder = new ReplayRecorder({
     network: engine.network,
     identity: store.identity,
-    model: modelName,
+    model: displayModelName,
     seed,
     tickDurationMs: config.simulation.microTickMs,
     warmupTicks: WARMUP_TICKS,
@@ -418,7 +512,7 @@ async function main(): Promise<void> {
 
   const apiLogPath = logger.path === undefined ? "disabled" : resolve(logger.path);
   process.stderr.write(
-    `[bench] start model=${modelName} seed=${seed} cycles=${cycleCount} horizonTicks=${horizonTicks ?? "none"} maxApiRounds=${config.agent.maxApiRounds} artifacts=${store.directory} apiLog=${apiLogPath}\n`,
+    `[bench] start model=${displayModelName} seed=${seed} cycles=${cycleCount} horizonTicks=${horizonTicks ?? "none"} maxApiRounds=${config.agent.maxApiRounds} artifacts=${store.directory} apiLog=${apiLogPath}\n`,
   );
   if (noRelease) {
     process.stderr.write(
@@ -516,7 +610,7 @@ async function main(): Promise<void> {
       horizonTicks,
       dotenvPath: process.env.DOTENV_CONFIG_PATH ?? "",
       argv: process.argv.slice(2),
-      model: modelName,
+      model: displayModelName,
       apiLog: apiLogPath,
     });
     persistProgress();
@@ -586,6 +680,9 @@ async function main(): Promise<void> {
       let cyclePedestrianReward = 0;
       let cyclePedestrianJaywalk = 0;
       let cyclePedestrianStrike = 0;
+      if (!useTui) {
+        writeBenchActivity("sim");
+      }
       const stepBudget =
         endTick === undefined
           ? result.commit.sleepTicks
@@ -787,7 +884,7 @@ async function main(): Promise<void> {
         horizonTicks === null
           ? ""
           : ` ticks=${engine.currentTick - WARMUP_TICKS}/${horizonTicks}`;
-      const cycleLine = `[bench] cycle=${cycle}/${cycleCount}${tickProgress} tick=${engine.currentTick} fallback=${result.usedFallback} admitted=${result.commit.admission.admittedVehicleIds.length} rejected=${result.commit.admission.rejectedVehicleIds.length} api=${result.metrics.apiCalls} tools=${result.metrics.nonTerminalToolCalls} tok=${result.metrics.promptTokens}/${result.metrics.completionTokens} dec/s=${result.metrics.avgDecodeTokensPerSec.toFixed(1)} sleep=${result.commit.sleepTicks} balance=${balance.toFixed(2)} elapsed=${formatDuration(timing.elapsedMs)} eta=${eta}`;
+      const cycleLine = `[bench] cycle=${cycle}/${cycleCount}${tickProgress} tick=${engine.currentTick} fallback=${result.usedFallback} admitted=${result.commit.admission.admittedVehicleIds.length} rejected=${result.commit.admission.rejectedVehicleIds.length} api=${result.metrics.apiCalls} tools=${result.metrics.nonTerminalToolCalls} tok=${result.metrics.promptTokens}/${result.metrics.completionTokens} dec/s=${result.metrics.avgDecodeTokensPerSec.toFixed(1)} sleep=${result.commit.sleepTicks} balance=${balance.toFixed(2)} elapsed=${formatDuration(timing.elapsedMs)} eta=${eta} ${formatCycleThroughput(result.metrics)}`;
       if (useTui) {
         session?.pushLog(cycleLine);
       } else {
@@ -811,7 +908,7 @@ async function main(): Promise<void> {
 
   const replayPath = writeReplayBundle(store, recorder.finalize());
   const reportPath = writeBenchmarkReport(store, {
-    model: modelName,
+    model: displayModelName,
     seed,
     cycleCount,
     horizonTicks,

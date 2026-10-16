@@ -47,6 +47,8 @@ npm run bench -- 20 --seed 2 --plain
 
 离场收入默认为普通车辆每位乘员 0.1（一辆公交 4）、摩托车 0.2、特殊车辆 1；每次决策扣 `DECISION_TAX`（默认 0.02），每次工具调用扣 `TOOL_TAX`（默认 0.0015）。校车卷入事故额外扣 `SCHOOL_BUS_ACCIDENT_PENALTY`（默认 10）；油罐车卷入的事故，锁格扣费乘 `HAZMAT_HAZARD_MULTIPLIER`（默认 3）。完整数值见 `scripts/env.template`，各基线的参考余额见 `docs/2026-10-01-step3-v16-aggression-tiers.md`。
 
+规则版本 20 起，车撞行人时，如果行人不在车身范围内，被撞起点取两者相撞的那个横道格子，再沿车辆冲量方向倒地；之前起点会吸附到车身表面，行人倒地扫过、被事故锁住的格子也随之偏向车身一侧。车身凹痕位置不变。
+
 ## 司机抢行
 
 `VEHICLE_AGGRESSION_ENABLED`（默认 `true`）打开司机抢行。每名司机（特殊车辆除外）有由种子固定的耐心：激进型（出租车、跑车、肌肉车）60–90 tick，普通型 100–140，温和型（公交、校车、重型货车、垃圾车）160–220。在进口道上每静止一拍消耗一点，向前挪动不清零。剩余不超过 12 时出现在观测的 `driverAlerts` 里，不唤醒模型。
@@ -69,8 +71,12 @@ npm run bench -- 20 --seed 2 --plain
 
 路口中心的占用和预约不在每轮观测里，模型要调用付费工具 `inspect_junction`（按非终结工具扣 `TOOL_TAX`）才能看到 15×15 的占用网格、未来几拍的预约网格和路口内车辆列表。版本 18 起它还会返回 `crosswalks`，逐格给出横道在查询范围内最早被车辆预约的拍偏移。`inspect_incident` 的锁格改成同坐标的 `lock_grid`。
 
+规则版本 21 起，可诱导换道的车辆不再整表放进观测，只留 `guidanceEligible`（车辆数，没有则为省略）。名单通过付费工具 `inspect_guidance` 读取，每行是 `[源车道, 目标车道, [vehicleId...], 源占用, 目标占用]`。每个决策周期的工具表按当前态势裁剪，同一周期内各轮 API 共用这一份：没有未关闭事故时不提供事故工具，没有抛锚时不提供绕行和拖车，没有已进入 12 格的紧急车时不提供 `dispatch_emergency_convoy`，`guidanceEligible` 不出现时不提供 `inspect_guidance` 和 `guide_inbound_lane_change`。
+
+后续 API 轮默认不把上一轮的 `reasoning_content` 再喂回去，只保留 tool call 和工具结果。官方 DeepSeek 等在带 `tools` 时必须回传思考、否则会 400 的模型，把 `OPENAI_REPLAY_REASONING_CONTENT` 设为 `true`。留空即为不回放。Cerebras 始终不回放。完整思考仍写在 raw API 日志里。
+
 版本 18 的系统提示写明了每条路线经过哪两条斑马线：进口侧一条，出口侧一条。工具参数也接受两类别名，并在工具描述里写明：
-- 需要进口车道的参数（`lane_batches.lane_id`、`inspect_lane_queue` 和 `dispatch_emergency_convoy` 的 `lane_id`、`guide_inbound_lane_change` 的 `target_lane`）可以直接填路线 ID，自动换成该路线所在的进口车道。
+- 需要进口车道的参数（`lane_batches.lane_id`、`inspect_lane_queue` 和 `dispatch_emergency_convoy` 的 `lane_id`、`inspect_guidance` 的 `source_lane`、`guide_inbound_lane_change` 的 `target_lane`）可以直接填路线 ID，自动换成该路线所在的进口车道。
 - `crosswalk_id` 可以填观测里的短键 `N/E/S/W`，也可以填 `NORTH` 这样的方向名。
 
 `node scripts/measure-observation.mjs logs/api-log_*.jsonl` 统计一场里系统提示、观测各字段和各工具结果的平均体积；`node scripts/preview-observation.mjs [ticks]` 在本地推进引擎并打印压缩后的观测。
@@ -183,7 +189,7 @@ npm run bench:runs -- --resume logs/api-log_<model>_<date>_<postfix>.jsonl
 
 每场开始时，标准错误里的 `[bench] start` 行带有本场 `apiLog=` 绝对路径。结束时再打印报告和回放路径。默认目录是 `logs/`，可用 `AGENT_API_LOG_DIR` 修改。
 
-文件名带模型名、日期和后缀。`AGENT_ARTIFACT_POSTFIX` 留空时，后缀是该场开始时的本地时间、毫秒和进程号，例如 `164600123-4821`，并行运行不会写进同一个文件。如果设了固定后缀，同一配置下的各场会写到同一批文件名上。
+文件名带模型名、日期和后缀。设置了 `MODEL_NAME_ALIAS` 时，日志文件名、报告、回放和网页里的模型名用这个别名；发给接口的模型 ID 仍是 `OPENAI_MODEL` 或 `AI_GATEWAY_MODEL`。`AGENT_ARTIFACT_POSTFIX` 留空时，后缀是该场开始时的本地时间、毫秒和进程号，例如 `164600123-4821`，并行运行不会写进同一个文件。如果设了固定后缀，同一配置下的各场会写到同一批文件名上。
 
 一场开始时会写很小的 `run_*.json`，里面是种子、周期数、截止 tick 数、环境文件路径和参数。warmup 之后，以及每个决策周期完整结束时，原子写入同名的 `checkpoint_*.json`，并只把这一周期新增的回放帧追加到 `replay-part_*.jsonl`。整场结束时仍写出完整的 `replay_*.json`。续跑读检查点还原路口、账本和工作记忆，再把已经追加的回放帧装回来。
 

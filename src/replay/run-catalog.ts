@@ -6,6 +6,7 @@ export type RunSortKey =
   | "schema"
   | "tokens"
   | "api"
+  | "admitted"
   | "duration";
 export type RunSortDirection = "asc" | "desc";
 
@@ -19,6 +20,8 @@ export interface RunCatalogEntry {
   readonly promptTokens: number | null;
   readonly completionTokens: number | null;
   readonly apiCalls: number | null;
+  /** Vehicles released through commit_schedule during the run. */
+  readonly admittedVehicles: number | null;
   readonly elapsedMs: number | null;
   readonly seed: number | null;
   readonly replayFile: string | null;
@@ -29,6 +32,23 @@ export interface RunCatalogEntry {
 }
 
 const REPLAY_FILE_NAME = /^replay_[a-z0-9._-]+\.json$/;
+
+/** Report written beside a replay: `replay_…json` -> `report_…json`. */
+export function reportFileForReplay(replayFile: string): string | null {
+  if (!REPLAY_FILE_NAME.test(replayFile)) {
+    return null;
+  }
+  return `report_${replayFile.slice("replay_".length)}`;
+}
+
+/** Official score, including the end-of-run toll credit and unserved liability. */
+export function readReportedFinalBalance(raw: unknown): number | null {
+  if (!isRecord(raw)) {
+    return null;
+  }
+  const summary = isRecord(raw.summary) ? raw.summary : null;
+  return readNumber(summary?.finalBalance);
+}
 
 export function parseRunReport(
   reportFileName: string,
@@ -63,6 +83,7 @@ export function parseRunReport(
     promptTokens,
     completionTokens,
     apiCalls: readNumber(totals?.apiCalls),
+    admittedVehicles: readNumber(totals?.admittedVehicles),
     elapsedMs: readNumber(summary?.elapsedMs),
     seed: readNumber(summary?.seed),
     replayFile: replayFileName(summary?.replayPath) ?? replayFileFromIdentity(identity),
@@ -91,6 +112,73 @@ function readVersionHeader(text: string, field: string): number | null {
   }
   const version = Number(match[1]);
   return Number.isInteger(version) ? version : null;
+}
+
+/** Blank after trimming separators, so a search box of spaces or dashes matches everything. */
+export function modelQueryIsBlank(query: string): boolean {
+  return normalizeSearchText(query).length === 0;
+}
+
+/**
+ * Indexes of `model` characters that satisfy a fuzzy query.
+ * Matching is case-insensitive, ignores separators, and allows gaps
+ * (`dsf` matches `deepseek-flash`). An empty query matches with no highlights.
+ * Returns null when the model does not match.
+ */
+export function modelMatchIndexes(model: string, query: string): number[] | null {
+  const needle = [...normalizeSearchText(query)];
+  if (needle.length === 0) {
+    return [];
+  }
+  const chars: { char: string; index: number }[] = [];
+  for (let index = 0; index < model.length; index += 1) {
+    const char = model[index]?.toLowerCase() ?? "";
+    if (!isSearchSeparator(char)) {
+      chars.push({ char, index });
+    }
+  }
+  let best: number[] | null = null;
+  let bestSpan = Number.POSITIVE_INFINITY;
+  for (let start = 0; start < chars.length; start += 1) {
+    if (chars[start]?.char !== needle[0]) {
+      continue;
+    }
+    const indexes = [chars[start]!.index];
+    let needleIndex = 1;
+    for (
+      let cursor = start + 1;
+      cursor < chars.length && needleIndex < needle.length;
+      cursor += 1
+    ) {
+      if (chars[cursor]?.char === needle[needleIndex]) {
+        indexes.push(chars[cursor]!.index);
+        needleIndex += 1;
+      }
+    }
+    if (needleIndex !== needle.length) {
+      continue;
+    }
+    const span = indexes[indexes.length - 1]! - indexes[0]!;
+    if (span < bestSpan) {
+      best = indexes;
+      bestSpan = span;
+    }
+  }
+  return best;
+}
+
+export function modelMatchesQuery(model: string, query: string): boolean {
+  return modelMatchIndexes(model, query) !== null;
+}
+
+export function filterRunsByModel(
+  runs: readonly RunCatalogEntry[],
+  query: string,
+): RunCatalogEntry[] {
+  if (modelQueryIsBlank(query)) {
+    return runs.slice();
+  }
+  return runs.filter((run) => modelMatchesQuery(run.model, query));
 }
 
 export function sortRuns(
@@ -142,6 +230,9 @@ function compareRuns(
   if (key === "api") {
     return compareNullable(left.apiCalls, right.apiCalls, factor);
   }
+  if (key === "admitted") {
+    return compareNullable(left.admittedVehicles, right.admittedVehicles, factor);
+  }
   return compareNullable(left.elapsedMs, right.elapsedMs, factor);
 }
 
@@ -160,6 +251,14 @@ function compareNullable(
     return -1;
   }
   return (left - right) * factor;
+}
+
+function normalizeSearchText(value: string): string {
+  return value.toLowerCase().replace(/[\s._\-/]+/g, "");
+}
+
+function isSearchSeparator(char: string): boolean {
+  return char.length === 1 && /[\s._\-/]/.test(char);
 }
 
 function dateLabel(

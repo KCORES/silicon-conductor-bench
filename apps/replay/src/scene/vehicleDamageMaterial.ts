@@ -41,7 +41,7 @@ interface DentUniforms {
 }
 
 let sharedSmokeTexture: THREE.CanvasTexture | undefined;
-let dentProgramSequence = 0;
+const retainedDentWarmupMaterials: THREE.Material[] = [];
 const dentGeometryCache = new WeakMap<
   THREE.BufferGeometry,
   { geometry: THREE.BufferGeometry; references: number }
@@ -274,7 +274,7 @@ function prepareDentGeometry(
   sources.add(source);
 }
 
-function isRigidRunningGear(mesh: THREE.Object3D): boolean {
+export function isRigidRunningGear(mesh: THREE.Object3D): boolean {
   let current: THREE.Object3D | null = mesh;
   while (current !== null) {
     if (/(wheel|tire|tyre|rim|axle)/i.test(current.name)) {
@@ -285,13 +285,68 @@ function isRigidRunningGear(mesh: THREE.Object3D): boolean {
   return false;
 }
 
+const DENT_PROGRAM_SUFFIX = "vehicle-spherical-dent-v1";
+
+export interface DentWarmupVehicle {
+  readonly model: THREE.Object3D;
+  readonly bounds: THREE.Box3;
+}
+
+/**
+ * Compiles dent and smoke programs for prepared vehicle models against the live
+ * scene so fog and the shadow light match playback and the first crash does not
+ * compile on the playback frame. Model geometry is shared with the templates,
+ * so only the damage controllers are disposed; materials are retained because
+ * disposing them would release the cached programs.
+ */
+export async function precompileVehicleDamagePrograms(
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.Camera,
+  vehicles: readonly DentWarmupVehicle[],
+): Promise<void> {
+  const group = new THREE.Group();
+  group.name = "dent-program-warmup";
+  const controllers: VehicleDamageController[] = [];
+  for (const { model, bounds } of vehicles) {
+    const body = new THREE.Group();
+    body.add(model);
+    group.add(body);
+    const damage = createVehicleDamageController(model, body, bounds);
+    damage.setDamage("SERIOUS", { x: 0, z: 1 }, 0.4, 0, {
+      sphericalDent: true,
+      dentRadius: 0.6,
+      dentDepth: 0.2,
+      contactPointBody: { x: 0, z: bounds.max.z },
+    });
+    controllers.push(damage);
+  }
+  createSmoke(group);
+  scene.add(group);
+  try {
+    await renderer.compileAsync(scene, camera);
+  } finally {
+    group.traverse((child) => {
+      if (child instanceof THREE.Mesh || child instanceof THREE.Sprite) {
+        const materials = Array.isArray(child.material)
+          ? child.material
+          : [child.material];
+        retainedDentWarmupMaterials.push(...materials);
+      }
+    });
+    for (const damage of controllers) {
+      damage.dispose();
+    }
+    group.removeFromParent();
+  }
+}
+
 function installDentShader(
   state: DamageMaterial,
   body: THREE.Object3D,
   bounds: THREE.Box3,
 ): DentUniforms {
-  const programKey = `vehicle-spherical-dent-v1-${dentProgramSequence}`;
-  dentProgramSequence += 1;
+  const previousKey = state.material.customProgramCacheKey.bind(state.material);
   body.updateWorldMatrix(true, true);
   state.mesh.updateWorldMatrix(true, false);
   const meshToBody = new THREE.Matrix4()
@@ -347,7 +402,8 @@ dentBodyPosition += normalize(uDentDirection + vec3(0.00001)) * dentDisplacement
 transformed = (uBodyToMesh * vec4(dentBodyPosition, 1.0)).xyz;`,
       );
   };
-  state.material.customProgramCacheKey = () => programKey;
+  state.material.customProgramCacheKey = () =>
+    `${previousKey()}|${DENT_PROGRAM_SUFFIX}`;
   state.material.needsUpdate = true;
   return uniforms;
 }

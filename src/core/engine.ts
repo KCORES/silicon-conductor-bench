@@ -91,6 +91,7 @@ import type {
   IncidentSummary,
   Lane,
   LaneId,
+  LaneGuidanceOpportunity,
   LaneGuidancePermit,
   LaneBatchRequest,
   LanePressureSignal,
@@ -3008,6 +3009,28 @@ export class SimulationEngine {
           this.validLaneGuidanceTargetLaneIds(vehicle),
       })),
     };
+  }
+
+  /**
+   * Vehicles 12–24 slots from the stop line that can slide into an adjacent lane.
+   * Grouped by source and target lane, busiest source first.
+   */
+  inspectLaneGuidance(
+    sourceLaneId?: LaneId,
+    limit = 16,
+  ): LaneGuidanceOpportunity[] {
+    if (
+      sourceLaneId !== undefined &&
+      !this.network.inboundLanes.has(sourceLaneId)
+    ) {
+      throw new Error(`Unknown inbound lane: ${sourceLaneId}`);
+    }
+    const boundedLimit = Math.max(1, Math.min(16, Math.trunc(limit)));
+    const opportunities = this.laneGuidanceOpportunities().filter(
+      (opportunity) =>
+        sourceLaneId === undefined || opportunity.sourceLaneId === sourceLaneId,
+    );
+    return opportunities.slice(0, boundedLimit);
   }
 
   /** Read-only slot layout of every approach and exit lane plus crosswalk cells. */

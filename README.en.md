@@ -19,7 +19,7 @@ The simulator is a deterministic, tick-based four-way intersection. Each decisio
 - **Incidents**: breakdowns, accidents and emergency convoys that call for tow trucks, clearance crews and detours.
 - **Partial observability and interruption**: junction occupancy costs a paid tool call to inspect, and events such as red-light runners interrupt the model's sleep.
 
-Tools available to the model include `inspect_junction`, `inspect_lane_queue`, `inspect_crosswalk`, `inspect_incident`, `dry_run_admit`, `commit_schedule`, `dispatch_tow_truck`, `order_accident_clearance`, `dispatch_emergency_convoy`, `guide_inbound_lane_change`, `reroute_queue_around_stall`, `set_lane_detour`, `hold` and `sleep`. Every decision and every non-terminal tool call has a cost.
+Tools available to the model include `inspect_junction`, `inspect_lane_queue`, `inspect_crosswalk`, `inspect_guidance`, `inspect_incident`, `dry_run_admit`, `commit_schedule`, `dispatch_tow_truck`, `order_accident_clearance`, `dispatch_emergency_convoy`, `guide_inbound_lane_change`, `reroute_queue_around_stall`, `set_lane_detour`, `hold` and `sleep`. Accident, stall, emergency, and lane-guidance tools are offered only when the current situation needs them. Every decision and every non-terminal tool call has a cost.
 
 The project also ships baseline policies (`random`, `longest-queue`, `hold`, `balanced`, `balanced-bus`) and a `search` planner that can see future demand, used to estimate the score ceiling.
 

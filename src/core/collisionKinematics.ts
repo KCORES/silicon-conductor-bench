@@ -73,6 +73,7 @@ export function solveCollisionOutcome(
   const pedestrianSamples = input.pedestrians.map((pedestrian) => ({
     pedestrian,
     point:
+      pedestrianImpactCellPoint(pedestrian, input.resourceId, input.network) ??
       pedestrianPoint(pedestrian, input.network) ??
       pointForResource(input.resourceId, input.network) ?? { x: 0, z: 0 },
     velocity: pedestrianVelocity(pedestrian, input.network),
@@ -250,10 +251,13 @@ export function solveCollisionOutcome(
           z: base.z - pedestrianContact.z,
         }) ??
         impactDirection;
-      const impactStart = {
-        x: pedestrianContact.x + contactNormal.x * PEDESTRIAN_BODY_RADIUS,
-        z: pedestrianContact.z + contactNormal.z * PEDESTRIAN_BODY_RADIUS,
-      };
+      const impactStart =
+        bodyContact !== undefined && !bodyContact.inside
+          ? { x: base.x, z: base.z }
+          : {
+              x: pedestrianContact.x + contactNormal.x * PEDESTRIAN_BODY_RADIUS,
+              z: pedestrianContact.z + contactNormal.z * PEDESTRIAN_BODY_RADIUS,
+            };
       const restPose = {
         x: impactStart.x + impulse.x,
         z: impactStart.z + impulse.z,
@@ -389,7 +393,11 @@ function closestBodyContact(
   body: VehicleBodyBounds,
   point: CollisionVector,
   entryVelocity: CollisionVector,
-): { readonly point: CollisionVector; readonly normal: CollisionVector } {
+): {
+  readonly point: CollisionVector;
+  readonly normal: CollisionVector;
+  readonly inside: boolean;
+} {
   const delta = {
     x: point.x - body.center.x,
     z: point.z - body.center.z,
@@ -416,6 +424,7 @@ function closestBodyContact(
         normalized({ x: point.x - nearest.x, z: point.z - nearest.z }) ??
         normalized(entryVelocity) ??
         body.forward,
+      inside: false,
     };
   }
   const faces = [
@@ -460,6 +469,7 @@ function closestBodyContact(
       face.across,
     ),
     normal: face.normal,
+    inside: true,
   };
 }
 
@@ -652,6 +662,17 @@ function pedestrianPoint(
     (candidate) =>
       candidate.column === pedestrian.column && candidate.row === pedestrian.row,
   );
+  return cell === undefined ? undefined : { x: cell.x, z: cell.y };
+}
+
+function pedestrianImpactCellPoint(
+  pedestrian: Pedestrian,
+  resourceId: string,
+  network: RoadNetwork,
+): CollisionVector | undefined {
+  const cell = network.crosswalks
+    .get(pedestrian.crosswalkId)
+    ?.cells.find((candidate) => candidate.conflictResourceId === resourceId);
   return cell === undefined ? undefined : { x: cell.x, z: cell.y };
 }
 

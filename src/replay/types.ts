@@ -16,7 +16,7 @@ export interface ReplayIdentity {
 }
 
 export const REPLAY_SCHEMA_VERSION = 7;
-export const SIMULATION_RULES_VERSION = 19;
+export const SIMULATION_RULES_VERSION = 21;
 
 export interface ReplayVec2 {
   readonly x: number;

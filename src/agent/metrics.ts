@@ -63,6 +63,9 @@ export interface AgentCycleMetrics {
   readonly outputTokens: number;
   readonly avgDecodeTokensPerSec: number;
   readonly maxDecodeTokensPerSec: number;
+  readonly avgTtftMs: number | null;
+  readonly avgPrefillTokensPerSec: number | null;
+  readonly avgDecodeExcludingPrefillTokensPerSec: number | null;
   readonly avgGenerationTokensPerSec: number;
   readonly maxGenerationTokensPerSec: number;
   readonly wallClockLatencyMs: number;
@@ -97,13 +100,21 @@ export class AgentMetricsCollector {
   private protocolViolations = 0;
   private readonly warnings: string[] = [];
   private readonly decodeRates: number[] = [];
+  private readonly ttftSamples: number[] = [];
+  private readonly prefillRates: number[] = [];
+  private readonly decodeExcludingPrefillRates: number[] = [];
   private readonly generationRates: number[] = [];
   private readonly successfulDryRuns = new Set<string>();
 
   constructor(private readonly economy: AgentEconomyConfig) {}
 
-  recordApiCall(latencyMs: number, usage?: TokenUsageInput | null): TokenCallStats {
+  recordApiCall(
+    latencyMs: number,
+    usage?: TokenUsageInput | null,
+    ttftMs?: number | null,
+  ): TokenCallStats {
     const stats = describeTokenUsage(usage, latencyMs);
+    const sampling = describeStreamSampling(stats, latencyMs, ttftMs);
     this.apiCalls += 1;
     this.wallClockLatencyMs += latencyMs;
     this.promptTokens += stats.promptTokens;
@@ -112,6 +123,18 @@ export class AgentMetricsCollector {
     this.outputTokens += stats.outputTokens;
     if (stats.decodeTokensPerSec > 0) {
       this.decodeRates.push(stats.decodeTokensPerSec);
+    }
+    if (sampling.ttftMs !== null) {
+      this.ttftSamples.push(sampling.ttftMs);
+    }
+    if (sampling.prefillTokensPerSec !== null && sampling.prefillTokensPerSec > 0) {
+      this.prefillRates.push(sampling.prefillTokensPerSec);
+    }
+    if (
+      sampling.decodeExcludingPrefillTokensPerSec !== null &&
+      sampling.decodeExcludingPrefillTokensPerSec > 0
+    ) {
+      this.decodeExcludingPrefillRates.push(sampling.decodeExcludingPrefillTokensPerSec);
     }
     if (stats.generationTokensPerSec > 0) {
       this.generationRates.push(stats.generationTokensPerSec);
@@ -207,6 +230,11 @@ export class AgentMetricsCollector {
       outputTokens: this.outputTokens,
       avgDecodeTokensPerSec: average(this.decodeRates),
       maxDecodeTokensPerSec: maximum(this.decodeRates),
+      avgTtftMs: averageOrNull(this.ttftSamples),
+      avgPrefillTokensPerSec: averageOrNull(this.prefillRates),
+      avgDecodeExcludingPrefillTokensPerSec: averageOrNull(
+        this.decodeExcludingPrefillRates,
+      ),
       avgGenerationTokensPerSec: average(this.generationRates),
       maxGenerationTokensPerSec: maximum(this.generationRates),
       wallClockLatencyMs: this.wallClockLatencyMs,
@@ -245,6 +273,36 @@ export function describeTokenUsage(
       seconds > 0 && outputTokens > 0 ? outputTokens / seconds : 0,
     generationTokensPerSec:
       seconds > 0 && completionTokens > 0 ? completionTokens / seconds : 0,
+  };
+}
+
+/** Prefill uses TTFT as its window. Decode after that uses the remaining latency. */
+export function describeStreamSampling(
+  stats: Pick<TokenCallStats, "promptTokens" | "outputTokens">,
+  latencyMs: number,
+  ttftMs: number | null | undefined,
+): {
+  readonly ttftMs: number | null;
+  readonly prefillTokensPerSec: number | null;
+  readonly decodeExcludingPrefillTokensPerSec: number | null;
+} {
+  if (ttftMs === null || ttftMs === undefined || ttftMs <= 0) {
+    return {
+      ttftMs: null,
+      prefillTokensPerSec: null,
+      decodeExcludingPrefillTokensPerSec: null,
+    };
+  }
+  const ttftSeconds = ttftMs / 1000;
+  const decodeSeconds = Math.max(0, latencyMs - ttftMs) / 1000;
+  return {
+    ttftMs,
+    prefillTokensPerSec:
+      stats.promptTokens > 0 ? stats.promptTokens / ttftSeconds : null,
+    decodeExcludingPrefillTokensPerSec:
+      decodeSeconds > 0 && stats.outputTokens > 0
+        ? stats.outputTokens / decodeSeconds
+        : null,
   };
 }
 
@@ -299,6 +357,10 @@ function average(values: readonly number[]): number {
     return 0;
   }
   return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function averageOrNull(values: readonly number[]): number | null {
+  return values.length === 0 ? null : average(values);
 }
 
 function maximum(values: readonly number[]): number {

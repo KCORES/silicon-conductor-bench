@@ -6,6 +6,7 @@ import {
   createDefaultAgentApiLogger,
   type AgentApiLogger,
 } from "../api-logger.js";
+import { formatLastError } from "../http-error-body.js";
 import {
   AgentMetricsCollector,
   type AgentEconomyConfig,
@@ -67,6 +68,8 @@ export interface JevAgentRunnerOptions {
   readonly towDispatchCost?: number;
   readonly towClearanceTicks?: number;
   readonly logger?: AgentApiLogger;
+  readonly onActivity?: (activity: string) => void;
+  readonly onError?: (message: string) => void;
 }
 
 export class JevAgentRunner {
@@ -195,6 +198,7 @@ export class JevAgentRunner {
     round: number,
   ): Promise<Readonly<Record<string, JevAnswer>> | undefined> {
     if (this.options.baseline !== undefined) {
+      this.options.onActivity?.("baseline");
       const answers = await this.options.baseline(build);
       const payload = { model: this.options.model, baseline: true, answers };
       this.logApi("API_RESPONSE", tick, round, payload, 0);
@@ -217,6 +221,7 @@ export class JevAgentRunner {
     this.logApi("API_REQUEST", tick, round, requestPayload);
     trace.push({ kind: "API_REQUEST", round, data: requestPayload });
     const startedAt = performance.now();
+    this.options.onActivity?.("request");
     try {
       const evaluation = await client.evaluate(requestPayload);
       const latencyMs = Math.round(performance.now() - startedAt);
@@ -241,12 +246,15 @@ export class JevAgentRunner {
     } catch (error) {
       const latencyMs = Math.round(performance.now() - startedAt);
       const status = error instanceof JevApiError ? error.status : undefined;
+      const body = error instanceof JevApiError ? error.body : undefined;
       const errorPayload = {
         message: error instanceof Error ? error.message : String(error),
         ...(status === undefined ? {} : { status }),
+        ...(body === undefined ? {} : { body }),
       };
       metrics.recordApiCall(latencyMs);
       metrics.recordProtocolViolation("api_error");
+      this.options.onError?.(formatLastError(error, body));
       this.logApi("API_ERROR", tick, round, errorPayload, latencyMs);
       trace.push({ kind: "API_ERROR", round, data: errorPayload });
       trace.push({
@@ -366,6 +374,9 @@ export class JevAgentRunner {
     round: number,
     call: JevToolCall,
   ): { readonly output: unknown; readonly commit?: CommitExecution } {
+    this.options.onActivity?.(
+      /^[A-Za-z0-9_-]+$/.test(call.name) ? `tool:${call.name}` : "tool_call",
+    );
     this.logger.log({
       timestamp: new Date().toISOString(),
       event: "TOOL_CALL",

@@ -1,4 +1,7 @@
 import {
+  filterRunsByModel,
+  modelMatchIndexes,
+  modelQueryIsBlank,
   sortRuns,
   type RunCatalogEntry,
   type RunSortDirection,
@@ -17,6 +20,7 @@ export class ReplayList {
   private runs: RunCatalogEntry[] = [];
   private sortKey: RunSortKey = "time";
   private sortDirection: RunSortDirection = "desc";
+  private modelQuery = "";
   private status = "";
   private openPanel = false;
 
@@ -55,6 +59,15 @@ export class ReplayList {
         this.callbacks.onPick(replayFile);
       }
     });
+    this.root.addEventListener("input", (event) => {
+      if (event instanceof InputEvent && event.isComposing) {
+        return;
+      }
+      this.applyModelQuery(event.target);
+    });
+    this.root.addEventListener("compositionend", (event) => {
+      this.applyModelQuery(event.target);
+    });
     this.root.addEventListener("change", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLSelectElement)) {
@@ -69,9 +82,21 @@ export class ReplayList {
       this.paint();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && this.openPanel) {
-        this.close();
+      if (event.key !== "Escape" || !this.openPanel) {
+        return;
       }
+      const search = this.root.querySelector<HTMLInputElement>("[data-model-query]");
+      if (
+        search !== null &&
+        document.activeElement === search &&
+        search.value.length > 0
+      ) {
+        event.preventDefault();
+        this.modelQuery = "";
+        this.paint();
+        return;
+      }
+      this.close();
     });
   }
 
@@ -85,6 +110,7 @@ export class ReplayList {
     this.runs = [];
     this.root.hidden = false;
     this.paint();
+    this.root.querySelector<HTMLInputElement>("[data-model-query]")?.focus();
     void this.load();
   }
 
@@ -95,6 +121,14 @@ export class ReplayList {
 
   setStatus(status: string): void {
     this.status = status;
+    this.paint();
+  }
+
+  private applyModelQuery(target: EventTarget | null): void {
+    if (!(target instanceof HTMLInputElement) || target.dataset.modelQuery === undefined) {
+      return;
+    }
+    this.modelQuery = target.value;
     this.paint();
   }
 
@@ -127,12 +161,36 @@ export class ReplayList {
   }
 
   private paint(): void {
-    const rows = sortRuns(this.runs, this.sortKey, this.sortDirection);
+    const search = document.activeElement;
+    const searchWasFocused =
+      search instanceof HTMLInputElement &&
+      search.dataset.modelQuery !== undefined &&
+      this.root.contains(search);
+    const selectionStart = searchWasFocused ? search.selectionStart : null;
+    const selectionEnd = searchWasFocused ? search.selectionEnd : null;
+    const filtering = !modelQueryIsBlank(this.modelQuery);
+    const matched = filterRunsByModel(this.runs, this.modelQuery);
+    const rows = sortRuns(matched, this.sortKey, this.sortDirection);
+    const showEmpty =
+      filtering && this.status.length === 0 && this.runs.length > 0 && rows.length === 0;
     this.root.innerHTML = `
       <div class="run-list-backdrop" data-run-close></div>
       <section class="run-list" role="dialog" aria-labelledby="run-list-title">
         <header class="run-list-bar">
           <h2 id="run-list-title">运行记录</h2>
+          <label class="run-search">
+            <input
+              type="search"
+              data-model-query
+              placeholder="搜索模型名称"
+              aria-label="搜索模型名称"
+              title="按模型名称模糊搜索，忽略大小写、空格和连字符"
+              value="${escapeHtml(this.modelQuery)}"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            ${filtering ? `<span class="run-search-count">${matched.length}/${this.runs.length}</span>` : ""}
+          </label>
           <div class="run-sort">
             <label>排序
               <select data-sort-key>
@@ -161,16 +219,31 @@ export class ReplayList {
               </tr>
             </thead>
             <tbody>
-              ${rows.map((run) => rowHtml(run)).join("")}
+              ${
+                showEmpty
+                  ? `<tr class="run-empty"><td colspan="${SORT_COLUMNS.length}">没有匹配的模型名称。</td></tr>`
+                  : rows.map((run) => rowHtml(run, this.modelQuery)).join("")
+              }
             </tbody>
           </table>
         </div>
       </section>
     `;
+    if (!searchWasFocused) {
+      return;
+    }
+    const nextSearch = this.root.querySelector<HTMLInputElement>("[data-model-query]");
+    if (nextSearch === null) {
+      return;
+    }
+    nextSearch.focus();
+    if (selectionStart !== null && selectionEnd !== null) {
+      nextSearch.setSelectionRange(selectionStart, selectionEnd);
+    }
   }
 }
 
-function rowHtml(run: RunCatalogEntry): string {
+function rowHtml(run: RunCatalogEntry, query: string): string {
   const seed = run.seed === null ? "" : `<small>seed ${run.seed}</small>`;
   const scoreClass = run.score !== null && run.score < 0 ? "score-down" : "score-up";
   const replay = run.replayFile === null ? "" : ` data-replay-file="${escapeHtml(run.replayFile)}"`;
@@ -178,7 +251,7 @@ function rowHtml(run: RunCatalogEntry): string {
   const logPath = `logs/${sourceFileName}`;
   return `
     <tr${replay}${run.replayFile === null ? "" : " role=\"button\" tabindex=\"0\""}>
-      <td>${escapeHtml(run.model)}${seed}</td>
+      <td>${modelHtml(run.model, query)}${seed}</td>
       <td class="file-name">
         <span class="file-name-line">
           <span class="file-name-text" title="${escapeHtml(sourceFileName)}">${escapeHtml(sourceFileName)}</span>
@@ -193,6 +266,7 @@ function rowHtml(run: RunCatalogEntry): string {
       </td>
       <td>${formatVersions(run.schemaVersion, run.animationVersion)}</td>
       <td class="${scoreClass}">${formatScore(run.score)}</td>
+      <td>${formatCount(run.admittedVehicles)}</td>
       <td>${formatTokens(run.totalTokens)}</td>
       <td>${formatCount(run.apiCalls)}</td>
       <td>${formatElapsed(run.elapsedMs)}</td>
@@ -206,6 +280,7 @@ const SORT_COLUMNS: readonly { key: RunSortKey; label: string }[] = [
   { key: "file", label: "原始文件" },
   { key: "schema", label: "Versions" },
   { key: "score", label: "得分" },
+  { key: "admitted", label: "放行车辆" },
   { key: "tokens", label: "总计 token" },
   { key: "api", label: "API 调用" },
   { key: "duration", label: "运行时长" },
@@ -227,6 +302,31 @@ function headerCell(
     ? `<span class="sort-mark" data-direction="${direction}" aria-hidden="true"></span>`
     : "";
   return `<th aria-sort="${ariaSort}"><button type="button" class="run-sort-header${active ? " is-active" : ""}" data-sort-column="${column.key}">${escapeHtml(column.label)}${mark}</button></th>`;
+}
+
+function modelHtml(model: string, query: string): string {
+  const indexes = modelMatchIndexes(model, query);
+  if (indexes === null || indexes.length === 0) {
+    return escapeHtml(model);
+  }
+  const hits = new Set(indexes);
+  let html = "";
+  let open = false;
+  for (let index = 0; index < model.length; index += 1) {
+    const hit = hits.has(index);
+    if (hit && !open) {
+      html += `<mark class="model-hit">`;
+      open = true;
+    } else if (!hit && open) {
+      html += `</mark>`;
+      open = false;
+    }
+    html += escapeHtml(model[index] ?? "");
+  }
+  if (open) {
+    html += `</mark>`;
+  }
+  return html;
 }
 
 function option(value: string, label: string, selected: string): string {
@@ -319,6 +419,7 @@ function toEntry(value: unknown): RunCatalogEntry | null {
     promptTokens: finiteNumber(record.promptTokens),
     completionTokens: finiteNumber(record.completionTokens),
     apiCalls: finiteNumber(record.apiCalls),
+    admittedVehicles: finiteNumber(record.admittedVehicles),
     elapsedMs: finiteNumber(record.elapsedMs),
     seed: finiteNumber(record.seed),
     replayFile,

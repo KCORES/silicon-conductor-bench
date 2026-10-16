@@ -39,7 +39,10 @@ interface IncidentRecord {
   cleared: boolean;
 }
 
-export function deriveRunSettlement(bundle: ReplayBundle): RunSettlement {
+export function deriveRunSettlement(
+  bundle: ReplayBundle,
+  reportedFinalScore: number | null = null,
+): RunSettlement {
   const vehicleTypes = collectVehicleTypes(bundle);
   const seenSequences = new Set<number>();
   const completed = new Map<string, SettlementDot>();
@@ -105,11 +108,12 @@ export function deriveRunSettlement(bundle: ReplayBundle): RunSettlement {
   const startedIncidents = [...incidents.values()].filter(
     (incident) => incident.started,
   );
-  const finalScore =
+  const frameScore =
     [...bundle.frames]
       .reverse()
       .find((frame) => frame.financialBalance !== undefined)
       ?.financialBalance ?? null;
+  const finalScore = reportedFinalScore ?? frameScore;
 
   return {
     model: bundle.model,

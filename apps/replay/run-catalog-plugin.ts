@@ -5,7 +5,9 @@ import type { Connect, Plugin } from "vite";
 import {
   parseRunReport,
   readAnimationVersionHeader,
+  readReportedFinalBalance,
   readSchemaVersionHeader,
+  reportFileForReplay,
   type RunCatalogEntry,
 } from "../../src/replay/run-catalog.ts";
 
@@ -20,6 +22,11 @@ export function runCatalogPlugin(logsDir: string): Plugin {
         sendJson(res, 200, { runs: listRuns(root) });
         return;
       }
+      if (url === "/api/run-score") {
+        const replay = replayQuery(req.url ?? "");
+        sendJson(res, 200, { score: readReplayFinalScore(root, replay) });
+        return;
+      }
       if (url.startsWith("/api/replays/")) {
         serveReplay(root, url.slice("/api/replays/".length), res);
         return;
@@ -32,6 +39,32 @@ export function runCatalogPlugin(logsDir: string): Plugin {
     configureServer: attach,
     configurePreviewServer: attach,
   };
+}
+
+function replayQuery(url: string): string {
+  try {
+    return new URL(url, "http://replay.local").searchParams.get("replay") ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function readReplayFinalScore(logsDir: string, replayFile: string): number | null {
+  const reportName = reportFileForReplay(replayFile);
+  if (reportName === null) {
+    return null;
+  }
+  const filePath = resolve(logsDir, reportName);
+  const fromRoot = relative(logsDir, filePath);
+  if (fromRoot.startsWith("..") || fromRoot.includes("..")) {
+    return null;
+  }
+  try {
+    const raw: unknown = JSON.parse(readFileSync(filePath, "utf8"));
+    return readReportedFinalBalance(raw);
+  } catch {
+    return null;
+  }
 }
 
 function listRuns(logsDir: string): RunCatalogEntry[] {

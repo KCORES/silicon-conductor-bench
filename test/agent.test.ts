@@ -11,6 +11,7 @@ import { createRoadNetwork } from "../src/core/network.js";
 import type { Pedestrian } from "../src/core/types.js";
 import {
   AgentMetricsCollector,
+  describeStreamSampling,
   describeTokenUsage,
 } from "../src/agent/metrics.js";
 import {
@@ -36,9 +37,12 @@ import {
   DRY_RUN_ADMIT,
   GUIDE_INBOUND_LANE_CHANGE,
   INSPECT_CROSSWALK,
+  INSPECT_GUIDANCE,
+  INSPECT_INCIDENT,
   INSPECT_LANE_QUEUE,
   REROUTE_QUEUE_AROUND_STALL,
   SET_LANE_DETOUR,
+  selectAgentTools,
 } from "../src/agent/tools.js";
 import { WorkingMemoryStack } from "../src/agent/working-memory.js";
 
@@ -306,7 +310,9 @@ describe("agent tools", () => {
     expect(buildTrafficSystemPrompt(6)).toContain("上游 4 格");
     expect(buildTrafficSystemPrompt(6)).toContain("每 4 tick");
     expect(buildTrafficSystemPrompt(6)).toContain("inspect_crosswalk");
-    expect(buildTrafficSystemPrompt(6)).toContain("laneGuidanceOpportunities");
+    expect(buildTrafficSystemPrompt(6)).toContain("guidanceEligible");
+    expect(buildTrafficSystemPrompt(6)).toContain("inspect_guidance");
+    expect(buildTrafficSystemPrompt(6)).toContain("未列出的工具本周期不可用");
     expect(buildTrafficSystemPrompt(6)).toContain("SLOW_SLIDE");
     expect(buildTrafficSystemPrompt(6)).toContain("0、1");
     expect(buildTrafficSystemPrompt(6)).toContain("swept");
@@ -343,6 +349,105 @@ describe("agent tools", () => {
     });
     expect(metrics.snapshot().toolCallsByName).toMatchObject({
       [GUIDE_INBOUND_LANE_CHANGE]: 1,
+    });
+  });
+
+  it("replaces the guidance table with a count and an inspect tool", () => {
+    const engine = new SimulationEngine({ network: createRoadNetwork() });
+    const vehicle = engine.spawnVehicle("N_L1_LEFT", "MOTORCYCLE");
+    const observation = engine.buildObservation(0);
+    const compact = compactObservationForModel(observation);
+    const vehicleIds = new Set(
+      (observation.laneGuidanceOpportunities ?? []).flatMap(
+        (opportunity) => opportunity.eligibleVehicleIds,
+      ),
+    );
+
+    expect(compact).not.toHaveProperty("laneGuidanceOpportunities");
+    expect(vehicleIds.size).toBeGreaterThan(0);
+    expect(compact.guidanceEligible).toBe(vehicleIds.size);
+
+    const result = runtimeFor(engine, new AgentMetricsCollector(economy)).execute(
+      INSPECT_GUIDANCE,
+      "{}",
+    );
+    const opportunities = (result.output as { opportunities: unknown[][] }).opportunities;
+    expect(opportunities.length).toBeGreaterThan(0);
+    expect(opportunities[0]?.[0]).toBe("IN_N_L1_LEFT");
+    expect(opportunities[0]?.[2]).toContain(vehicle?.id);
+    expect(opportunities[0]).toHaveLength(5);
+  });
+
+  it("gates accident, stall, emergency, and guidance tools by the current state", () => {
+    const idle = {
+      blockedRoutes: [],
+      activeLaneHolds: [],
+      stalledVehicles: [],
+      emergencyAlerts: [],
+    };
+    const names = (
+      state: Parameters<typeof selectAgentTools>[0],
+    ) =>
+      selectAgentTools(state).flatMap((tool) =>
+        tool.type === "function" ? [tool.function.name] : [],
+      );
+
+    const calm = names(idle);
+    expect(calm).toContain(DRY_RUN_ADMIT);
+    expect(calm).toContain(COMMIT_SCHEDULE);
+    expect(calm).not.toContain(INSPECT_INCIDENT);
+    expect(calm).not.toContain(DISPATCH_TOW_TRUCK);
+    expect(calm).not.toContain(DISPATCH_EMERGENCY_CONVOY);
+    expect(calm).not.toContain(INSPECT_GUIDANCE);
+
+    expect(
+      names({
+        ...idle,
+        blockedRoutes: [{ blockKind: "INCIDENT" }],
+      }),
+    ).toContain(INSPECT_INCIDENT);
+    expect(
+      names({
+        ...idle,
+        stalledVehicles: [{}],
+      }),
+    ).toContain(DISPATCH_TOW_TRUCK);
+    expect(
+      names({
+        ...idle,
+        emergencyAlerts: [{}],
+      }),
+    ).toContain(DISPATCH_EMERGENCY_CONVOY);
+    expect(
+      names({
+        ...idle,
+        laneGuidanceOpportunities: [{ eligibleVehicleIds: ["V00001"] }],
+      }),
+    ).toEqual(
+      expect.arrayContaining([INSPECT_GUIDANCE, GUIDE_INBOUND_LANE_CHANGE]),
+    );
+  });
+
+  it("rejects a known tool that was not offered this cycle", () => {
+    const engine = new SimulationEngine({ network: createRoadNetwork() });
+    const runtime = new AgentToolRuntime({
+      engine,
+      metrics: new AgentMetricsCollector(economy),
+      memory: new WorkingMemoryStack(),
+      tollMotorcycle: 5,
+      tollStandard: 20,
+      tollEmergency: 50,
+      availableToolNames: [COMMIT_SCHEDULE, DRY_RUN_ADMIT],
+    });
+
+    expect(
+      runtime.execute(INSPECT_INCIDENT, JSON.stringify({ incident_id: "INC0001" })),
+    ).toMatchObject({
+      terminal: false,
+      output: {
+        error: { code: "TOOL_NOT_AVAILABLE", tool_name: INSPECT_INCIDENT },
+        available_tools: [COMMIT_SCHEDULE, DRY_RUN_ADMIT],
+      },
     });
   });
 
@@ -1034,6 +1139,8 @@ describe("tool call runner", () => {
       new SilentAgentApiLogger(),
       12,
       "deepseek-style",
+      undefined,
+      true,
     );
 
     await runner.runCycle({ financialBalance: 0 });
@@ -1072,7 +1179,16 @@ describe("tool call runner", () => {
         }),
       ]),
     ]);
-    const runner = createRunner(client.client, engine, 3);
+    const runner = createRunner(
+      client.client,
+      engine,
+      3,
+      new SilentAgentApiLogger(),
+      12,
+      undefined,
+      undefined,
+      true,
+    );
 
     await runner.runCycle({ financialBalance: 0 });
 
@@ -1087,6 +1203,40 @@ describe("tool call runner", () => {
     expect(client.requests[0]).not.toHaveProperty("reasoning_format");
   });
 
+  it("drops reasoning_content unless replay is enabled", async () => {
+    const engine = new SimulationEngine({ network: createRoadNetwork() });
+    const client = mockClient([
+      completion(
+        [
+          toolCall("inspect", INSPECT_LANE_QUEUE, {
+            lane_id: "IN_N_S1_STRAIGHT",
+            depth: 1,
+          }),
+        ],
+        { reasoning_content: "kept in the log, not the next request" },
+      ),
+      completion([
+        toolCall("commit", COMMIT_SCHEDULE, {
+          admit_vehicle_ids: [],
+          sleep_ticks: 1,
+          tactical_summary: "Done",
+        }),
+      ]),
+    ]);
+    const runner = createRunner(client.client, engine, 3);
+
+    await runner.runCycle({ financialBalance: 0 });
+
+    const secondRequest = client.requests[1] as {
+      messages?: Array<Record<string, unknown>>;
+    };
+    const assistant = secondRequest.messages?.find(
+      (message) => message.role === "assistant",
+    );
+    expect(assistant).not.toHaveProperty("reasoning_content");
+    expect(assistant?.tool_calls).toBeDefined();
+  });
+
   it("sends Cerebras reasoning_effort and drops replayed reasoning", async () => {
     expect(
       resolveProviderRequestProfile("https://api.cerebras.ai/v1", "low"),
@@ -1097,7 +1247,18 @@ describe("tool call runner", () => {
     expect(
       resolveProviderRequestProfile("https://api.openai.com/v1", "low"),
     ).toEqual({
+      replayReasoningContent: false,
+    });
+    expect(
+      resolveProviderRequestProfile("https://api.openai.com/v1", undefined, true),
+    ).toEqual({
       replayReasoningContent: true,
+    });
+    expect(
+      resolveProviderRequestProfile("https://api.cerebras.ai/v1", "low", true),
+    ).toEqual({
+      reasoningEffort: "low",
+      replayReasoningContent: false,
     });
     expect(
       resolveProviderRequestProfile("https://api.cerebras.ai/v1", undefined),
@@ -1544,6 +1705,51 @@ describe("tool call runner", () => {
     expect(stats.decodeTokensPerSec).toBe(3);
     expect(stats.generationTokensPerSec).toBe(5);
     expect(Number.isFinite(stats.decodeTokensPerSec)).toBe(true);
+  });
+
+  it("splits prefill and decode when TTFT is known and keeps the old decode rate otherwise", () => {
+    const economy = {
+      decisionTax: 0,
+      toolTax: 0,
+      recklessAttemptPenalty: 0,
+      parallelTerminalWarningPenalty: 0,
+    };
+    const sampled = new AgentMetricsCollector(economy);
+    sampled.recordApiCall(2_000, {
+      prompt_tokens: 1_000,
+      completion_tokens: 10,
+      completion_tokens_details: { reasoning_tokens: 4 },
+    }, 500);
+    sampled.recordApiCall(1_250, {
+      prompt_tokens: 500,
+      completion_tokens: 10,
+    }, 250);
+    const withTtft = sampled.snapshot();
+    expect(withTtft.avgTtftMs).toBe(375);
+    expect(withTtft.avgPrefillTokensPerSec).toBe(2_000);
+    expect(withTtft.avgDecodeExcludingPrefillTokensPerSec).toBe(7);
+    expect(withTtft.avgDecodeTokensPerSec).toBeCloseTo((6 / 2 + 10 / 1.25) / 2);
+
+    const plain = new AgentMetricsCollector(economy);
+    plain.recordApiCall(2_000, {
+      prompt_tokens: 20,
+      completion_tokens: 10,
+      completion_tokens_details: { reasoning_tokens: 4 },
+    });
+    const withoutTtft = plain.snapshot();
+    expect(withoutTtft.avgTtftMs).toBeNull();
+    expect(withoutTtft.avgPrefillTokensPerSec).toBeNull();
+    expect(withoutTtft.avgDecodeExcludingPrefillTokensPerSec).toBeNull();
+    expect(withoutTtft.avgDecodeTokensPerSec).toBe(3);
+    expect(describeStreamSampling(
+      { promptTokens: 100, outputTokens: 10 },
+      1_000,
+      null,
+    )).toEqual({
+      ttftMs: null,
+      prefillTokensPerSec: null,
+      decodeExcludingPrefillTokensPerSec: null,
+    });
   });
 });
 

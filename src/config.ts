@@ -9,12 +9,84 @@ const booleanFromEnv = z
   .union([z.boolean(), z.enum(["true", "false", "1", "0"])])
   .transform((value) => value === true || value === "true" || value === "1");
 
+const optionalNumberFromEnv = z
+  .string()
+  .default("")
+  .transform((value, ctx) => {
+    const trimmed = value.trim();
+    if (trimmed.length === 0) {
+      return undefined;
+    }
+    const parsed = Number(trimmed);
+    if (!Number.isFinite(parsed)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `expected a finite number, received ${value}`,
+      });
+      return z.NEVER;
+    }
+    return parsed;
+  });
+
+const optionalPositiveIntFromEnv = z
+  .string()
+  .default("")
+  .transform((value, ctx) => {
+    const trimmed = value.trim();
+    if (trimmed.length === 0) {
+      return undefined;
+    }
+    const parsed = Number(trimmed);
+    if (!Number.isInteger(parsed) || parsed <= 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `expected a positive integer, received ${value}`,
+      });
+      return z.NEVER;
+    }
+    return parsed;
+  });
+
+const optionalTextFromEnv = z
+  .string()
+  .default("")
+  .transform((value) => {
+    const trimmed = value.trim();
+    return trimmed.length === 0 ? undefined : trimmed;
+  });
+
 const environmentSchema = z.object({
   OPENAI_API_KEY: z.string().default(""),
   OPENAI_BASE_URL: z.string().url().default("https://api.openai.com/v1"),
   OPENAI_MODEL: z.string().default(""),
+  MODEL_NAME_ALIAS: z.string().default(""),
   OPENAI_TIMEOUT_MS: z.coerce.number().int().positive().default(30_000),
   OPENAI_MAX_TOKENS: z.coerce.number().int().positive().default(65_536),
+  OPENAI_TEMPERATURE: optionalNumberFromEnv,
+  OPENAI_TOP_P: optionalNumberFromEnv,
+  OPENAI_TOP_K: optionalPositiveIntFromEnv,
+  OPENAI_STREAM: booleanFromEnv.default(false),
+  OPENAI_THINKING: optionalTextFromEnv,
+  OPENAI_REPLAY_REASONING_CONTENT: z
+    .string()
+    .default("")
+    .transform((value, ctx) => {
+      const trimmed = value.trim().toLowerCase();
+      if (trimmed.length === 0) {
+        return undefined;
+      }
+      if (trimmed === "true" || trimmed === "1") {
+        return true;
+      }
+      if (trimmed === "false" || trimmed === "0") {
+        return false;
+      }
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "OPENAI_REPLAY_REASONING_CONTENT must be true or false",
+      });
+      return z.NEVER;
+    }),
   SIMULATION_SEED: z.coerce.number().int().default(1),
   BENCH_HORIZON_TICKS: z.coerce.number().int().nonnegative().default(400),
   PEDESTRIAN_DEMAND_ENABLED: booleanFromEnv.default(true),
@@ -174,6 +246,22 @@ export interface ModelConnection {
 
 const TYPESAFE_API_HOST = "api.typesafe.ai";
 
+/** Name written into logs, reports, replays, and the web UI. */
+export function resolveDisplayModelName(input: {
+  readonly modelName: string;
+  readonly alias: string;
+  readonly pedestrianDemandEnabled: boolean;
+}): string {
+  const alias = input.alias.trim();
+  if (alias.length === 0) {
+    return input.modelName;
+  }
+  if (input.pedestrianDemandEnabled || alias.endsWith("-no-ped")) {
+    return alias;
+  }
+  return `${alias}-no-ped`;
+}
+
 export function detectModelProvider(
   model: string,
   baseURL: string,
@@ -224,14 +312,15 @@ export function isCerebrasHost(baseURL: string): boolean {
 export function resolveProviderRequestProfile(
   baseURL: string,
   reasoningEffort: ReasoningEffort | undefined,
+  replayReasoningContent?: boolean,
 ): ProviderRequestProfile {
-  if (!isCerebrasHost(baseURL)) {
-    return { replayReasoningContent: true };
+  if (isCerebrasHost(baseURL)) {
+    return {
+      ...(reasoningEffort === undefined ? {} : { reasoningEffort }),
+      replayReasoningContent: false,
+    };
   }
-  return {
-    ...(reasoningEffort === undefined ? {} : { reasoningEffort }),
-    replayReasoningContent: false,
-  };
+  return { replayReasoningContent: replayReasoningContent === true };
 }
 
 export function detectReasoningFormat(
@@ -256,9 +345,11 @@ const decisionBaseline =
 const providerRequestProfile = resolveProviderRequestProfile(
   environment.OPENAI_BASE_URL,
   environment.OPENAI_REASONING_EFFORT,
+  environment.OPENAI_REPLAY_REASONING_CONTENT,
 );
 
 export const config = {
+  modelNameAlias: environment.MODEL_NAME_ALIAS.trim(),
   provider: decisionBaseline === undefined ? modelConnection.provider : "baseline",
   baseline: decisionBaseline,
   search: {
@@ -281,6 +372,11 @@ export const config = {
     model: environment.OPENAI_MODEL,
     timeoutMs: environment.OPENAI_TIMEOUT_MS,
     maxTokens: environment.OPENAI_MAX_TOKENS,
+    temperature: environment.OPENAI_TEMPERATURE,
+    topP: environment.OPENAI_TOP_P,
+    topK: environment.OPENAI_TOP_K,
+    stream: environment.OPENAI_STREAM,
+    thinkingType: environment.OPENAI_THINKING,
     reasoningFormat: detectReasoningFormat(
       environment.OPENAI_BASE_URL,
       environment.OPENAI_MODEL,

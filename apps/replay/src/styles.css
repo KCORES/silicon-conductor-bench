@@ -153,7 +153,6 @@ h1 {
 }
 .score-bubble-gain { background: rgba(61, 186, 122, 0.62); color: #042216; }
 .score-bubble-loss { background: rgba(255, 77, 61, 0.62); color: #2a0806; }
-.score-bubble-shake { animation: score-shake 300ms ease; }
 .entity-id-label {
   display: inline-block;
   max-width: 180px;
@@ -198,9 +197,6 @@ h1 {
   white-space: nowrap;
   will-change: transform, filter;
 }
-.demo-penalty-pulse {
-  animation: demo-penalty-pulse 100ms ease-out;
-}
 .vehicle-state-icon {
   width: 18px;
   height: 18px;
@@ -214,21 +210,8 @@ h1 {
   from { transform: scale(0.55); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-@keyframes score-shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-3px) rotate(-2deg); }
-  40% { transform: translateX(3px) rotate(2deg); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-}
-@keyframes demo-penalty-pulse {
-  0% { transform: translateY(2px) scale(0.94); filter: brightness(1.7); }
-  100% { transform: translateY(0) scale(1); filter: brightness(1); }
-}
 @media (prefers-reduced-motion: reduce) {
-  .vehicle-state-icon.is-pop,
-  .score-bubble-shake,
-  .demo-penalty-pulse { animation: none; }
+  .vehicle-state-icon.is-pop { animation: none; }
 }
 .run-meta {
   display: flex;
@@ -540,8 +523,39 @@ button:disabled:active {
 .run-list-bar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   padding: 16px 18px 8px;
+}
+.run-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.run-search input {
+  width: min(280px, 46vw);
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  background: #121916;
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+}
+.run-search input::placeholder { color: var(--muted); }
+.run-search input:focus {
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
+  border-color: var(--cyan);
+}
+.run-search input[type="search"]::-webkit-search-cancel-button {
+  filter: invert(1) grayscale(1) brightness(1.8);
+  cursor: pointer;
+}
+.run-search-count {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .run-list-bar h2 {
   margin: 0;
@@ -625,6 +639,16 @@ button:disabled:active {
   padding: 10px 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   vertical-align: middle;
+}
+.run-table tr.run-empty td {
+  padding: 28px 14px;
+  color: var(--muted);
+  text-align: center;
+}
+.run-table .model-hit {
+  background: rgba(232, 163, 23, 0.28);
+  color: inherit;
+  border-radius: 2px;
 }
 .run-table tr[data-replay-file] { cursor: pointer; }
 .run-table tr[data-replay-file]:hover td { color: var(--amber); }
@@ -880,12 +904,44 @@ button:disabled:active {
 .settlement-fleet-section {
   padding-top: 18px;
 }
-.settlement-fleet-section > header {
+.settlement-fleet-section > details > summary {
+  position: relative;
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto minmax(0, 1fr);
   align-items: baseline;
   gap: 10px;
   margin-bottom: 8px;
+  padding-right: 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.settlement-fleet-section > details > summary::-webkit-details-marker,
+.settlement-fleet-section > details > summary::marker {
+  display: none;
+  content: "";
+}
+.settlement-fleet-section > details > summary::after {
+  content: "";
+  position: absolute;
+  top: 0.42em;
+  right: 2px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--amber);
+  border-bottom: 1.5px solid var(--amber);
+  transform: rotate(-45deg);
+}
+.settlement-fleet-section > details[open] > summary::after {
+  top: 0.22em;
+  transform: rotate(45deg);
+}
+.settlement-fleet-section > details:not([open]) > summary {
+  margin-bottom: 0;
+}
+.settlement-fleet-section > details > summary:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 4px;
 }
 .settlement-fleet-section h3 {
   margin: 0;
@@ -893,20 +949,22 @@ button:disabled:active {
   font-size: 13px;
   letter-spacing: 0.16em;
 }
-.settlement-fleet-section > header > span {
+.settlement-fleet-count {
   color: var(--cyan);
   font-weight: 600;
 }
-.settlement-fleet-section > header p {
-  margin: 0;
+.settlement-fleet-caption {
+  min-width: 0;
   color: var(--muted);
   font-size: 11px;
 }
 .settlement-fleet {
   display: grid;
-  gap: 7px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
 }
 .settlement-empty {
+  grid-column: 1 / -1;
   margin: 0;
   padding: 16px;
   color: var(--muted);
@@ -915,8 +973,9 @@ button:disabled:active {
 }
 .settlement-vehicle-row {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  min-height: 82px;
+  grid-template-columns: 92px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 78px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -925,16 +984,19 @@ button:disabled:active {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 80px;
+  min-height: 76px;
+  overflow: hidden;
   background:
     radial-gradient(ellipse at 50% 70%, rgba(94, 224, 200, 0.13), transparent 58%),
     repeating-linear-gradient(90deg, transparent 0 11px, rgba(255,255,255,0.025) 12px);
 }
 .settlement-vehicle-model img {
   display: block;
-  width: 144px;
-  height: 68px;
+  width: 88px;
+  height: 52px;
   object-fit: contain;
+  transform: scale(1.5);
+  transform-origin: center center;
   opacity: 0;
   transition: opacity 180ms ease;
 }
@@ -949,14 +1011,14 @@ button:disabled:active {
 .settlement-vehicle-model:has(img[data-loaded="true"])::after { display: none; }
 .settlement-vehicle-data {
   min-width: 0;
-  padding: 10px 14px 12px;
+  padding: 8px 10px 10px;
   border-left: 1px solid var(--line);
 }
 .settlement-vehicle-data > header {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 9px;
+  gap: 8px;
+  margin-bottom: 8px;
   font-size: 11px;
 }
 .settlement-vehicle-data > header strong {
@@ -1038,12 +1100,11 @@ button:disabled:active {
   .settlement-metric:nth-child(3) { border-right: 0; }
   .settlement-metric:nth-child(-n + 3) { border-bottom: 1px solid var(--line); }
   .settlement-scroll { padding: 8px 14px 18px; }
-  .settlement-vehicle-row { grid-template-columns: 110px minmax(0, 1fr); }
-  .settlement-vehicle-model img { width: 106px; }
-  .settlement-fleet-section > header {
+  .settlement-fleet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .settlement-fleet-section > details > summary {
     grid-template-columns: auto auto;
   }
-  .settlement-fleet-section > header p { grid-column: 1 / -1; }
+  .settlement-fleet-caption { grid-column: 1 / -1; }
   .settlement-actions { padding: 12px 14px; }
 }
 
@@ -1055,4 +1116,5 @@ button:disabled:active {
     width: calc(100vw - 28px);
   }
   .menu-grid.decisions { grid-template-columns: 1fr; }
+  .settlement-fleet { grid-template-columns: 1fr; }
 }

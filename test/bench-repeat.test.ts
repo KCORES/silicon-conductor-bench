@@ -13,6 +13,9 @@ import {
   parseBenchProgress,
   progressBar,
   renderCampaign,
+  truncateLastError,
+  decodeSparkline,
+  applyBenchProgress,
   runTaskPool,
 } from "../scripts/bench-repeat.mjs";
 
@@ -159,10 +162,30 @@ describe("benchmark repeat launcher", () => {
     });
     expect(parseBenchProgress(
       "[bench] cycle=42/100 tick=80 fallback=false admitted=1 rejected=0 api=3 tools=2 tok=10/4 dec/s=20.0 sleep=2 balance=-12.40 elapsed=00:08:00 eta=00:12:00",
-    )).toEqual({ kind: "cycle", cycle: 42, cycleCount: 100, balance: "-12.40" });
+    )).toEqual({
+      kind: "cycle",
+      cycle: 42,
+      cycleCount: 100,
+      balance: "-12.40",
+      inputTokens: null,
+      outputTokens: null,
+      ttftSeconds: null,
+      prefillPerSec: null,
+      decodePerSec: null,
+    });
     expect(parseBenchProgress(
-      "[bench] cycle=12/400 ticks=96/400 tick=157 fallback=false admitted=1 rejected=0 api=3 tools=2 tok=10/4 dec/s=20.0 sleep=8 balance=-2.50 elapsed=00:01:00 eta=00:03:00",
-    )).toEqual({ kind: "cycle", cycle: 96, cycleCount: 400, balance: "-2.50" });
+      "[bench] cycle=12/400 ticks=96/400 tick=157 fallback=false admitted=1 rejected=0 api=3 tools=2 tok=10/4 dec/s=20.0 sleep=8 balance=-2.50 elapsed=00:01:00 eta=00:03:00 in=10 out=4 ttft=1.840 prefill/s=4200.0 decode/s=86.2",
+    )).toEqual({
+      kind: "cycle",
+      cycle: 96,
+      cycleCount: 400,
+      balance: "-2.50",
+      inputTokens: 10,
+      outputTokens: 4,
+      ttftSeconds: 1.84,
+      prefillPerSec: 4200,
+      decodePerSec: 86.2,
+    });
     expect(parseBenchProgress(
       "[bench] start model=deepseek-v4-pro seed=63916 cycles=100 maxApiRounds=8 artifacts=logs apiLog=logs/api-log_demo.jsonl",
     )).toEqual({
@@ -173,6 +196,31 @@ describe("benchmark repeat launcher", () => {
       apiLog: "logs/api-log_demo.jsonl",
     });
     expect(parseBenchProgress('            "tactical_summary": {')).toBeNull();
+    expect(parseBenchProgress("[bench] activity=thinking")).toEqual({
+      kind: "activity",
+      activity: "thinking",
+    });
+    expect(parseBenchProgress("[bench] activity=tool:commit_schedule")).toEqual({
+      kind: "activity",
+      activity: "tool:commit_schedule",
+    });
+    expect(parseBenchProgress("[bench] error=429 {\"message\":\"quota exceeded\"}")).toEqual({
+      kind: "error",
+      message: "429 {\"message\":\"quota exceeded\"}",
+    });
+    expect(parseBenchProgress("[bench] live ttft=1.840 in=18420 prefill/s=10010.9")).toMatchObject({
+      kind: "live",
+      ttftSeconds: 1.84,
+      inputTokens: 18420,
+      prefillPerSec: 10010.9,
+      decodePerSec: null,
+      outputTokens: null,
+    });
+    expect(parseBenchProgress("[bench] live decode/s=42.0 out=420")).toMatchObject({
+      kind: "live",
+      decodePerSec: 42,
+      outputTokens: 420,
+    });
   });
 
   it("renders a campaign bar with elapsed time and a finish clock", () => {
@@ -207,7 +255,192 @@ describe("benchmark repeat launcher", () => {
     expect(frame).toContain(`finish ${formatClock(270_000)}`);
     expect(frame).toContain("deepseek-flash 1/3");
     expect(frame).toContain("1/2");
-    expect(frame).toContain("bal -3.20");
+    expect(frame).toContain("-3.20");
+    expect(frame).toContain("IN tok");
+    expect(frame).toContain("DECODE t/s");
+  });
+
+  it("aligns throughput columns to the widest cell in the frame", () => {
+    const snapshot = {
+      startedAtMs: 0,
+      total: 2,
+      parallel: 2,
+      finished: 0,
+      finishedDurations: [],
+      active: [
+        {
+          label: "short",
+          run: 1,
+          runs: 3,
+          startedAtMs: 0,
+          completedCycles: 1,
+          completedAtMs: 1_000,
+          cycleCount: 200,
+          balance: "9.00",
+          inputTokens: 9,
+          outputTokens: 1,
+          hasThroughput: true,
+          ttftSeconds: 1.2,
+          prefillPerSec: 8,
+          decodePerSec: 3,
+          activity: "thinking",
+        },
+        {
+          label: "ling-3.1-flash-internal",
+          run: 2,
+          runs: 3,
+          startedAtMs: 0,
+          completedCycles: 20,
+          completedAtMs: 1_000,
+          cycleCount: 200,
+          balance: "999.49",
+          inputTokens: 18420,
+          outputTokens: 2311,
+          hasThroughput: true,
+          ttftSeconds: 1.844,
+          prefillPerSec: 4200,
+          decodePerSec: 86.2,
+          activity: "tool:commit_schedule",
+        },
+      ],
+    };
+    const lines = renderCampaign(snapshot, 1_000, 80).split("\n").slice(1);
+    const header = lines[0] ?? "";
+    const inTokAt = header.indexOf("IN tok");
+    const outTokAt = header.indexOf("OUT tok");
+    expect(inTokAt).toBeGreaterThan(0);
+    expect(outTokAt).toBeGreaterThan(inTokAt);
+    for (const line of lines) {
+      expect(line.length).toBe(header.length);
+    }
+    expect(lines[1]).toContain("-/9");
+    expect(lines[2]).toContain("-/18420");
+    expect(lines[1]).toContain("-/1");
+    expect(lines[2]).toContain("-/2311");
+    const statusAt = header.indexOf("STATUS");
+    expect(statusAt).toBeGreaterThan(0);
+    expect(lines[1]?.slice(statusAt, statusAt + "tool:commit_schedule".length).trim()).toBe("thinking");
+    expect(lines[2]?.slice(statusAt, statusAt + "tool:commit_schedule".length).trim()).toBe("tool:commit_schedule");
+    expect(lines[1]).toContain("1.20s");
+    expect(lines[2]).toContain("1.84s");
+    expect(lines[1]).toContain("8.0");
+    expect(lines[2]).toContain("4200.0");
+    expect(header).toContain("LAST ERROR");
+    const errorAt = header.indexOf("LAST ERROR");
+    expect(lines[1]?.slice(errorAt).trimEnd()).toBe("-");
+    expect(lines[2]?.slice(errorAt).trimEnd()).toBe("-");
+  });
+
+  it("keeps the last error within 100 ASCII columns and marks truncation", () => {
+    expect(truncateLastError("a".repeat(100))).toBe("a".repeat(100));
+    expect(truncateLastError("a".repeat(101))).toBe(`${"a".repeat(97)}...`);
+    expect(truncateLastError("测".repeat(60)).endsWith("...")).toBe(true);
+    expect(truncateLastError("测".repeat(60)).length).toBeLessThan(60);
+    const snapshot = {
+      startedAtMs: 0,
+      total: 1,
+      parallel: 1,
+      finished: 0,
+      finishedDurations: [],
+      active: [
+        {
+          label: "ling",
+          run: 1,
+          runs: 1,
+          startedAtMs: 0,
+          completedCycles: 1,
+          completedAtMs: 1_000,
+          cycleCount: 200,
+          balance: "1.00",
+          inputTokens: 1,
+          outputTokens: 1,
+          hasThroughput: true,
+          ttftSeconds: null,
+          prefillPerSec: null,
+          decodePerSec: null,
+          activity: "request",
+          lastError: "x".repeat(140),
+        },
+      ],
+    };
+    const lines = renderCampaign(snapshot, 1_000, 80).split("\n").slice(1);
+    const header = lines[0] ?? "";
+    const errorAt = header.indexOf("LAST ERROR");
+    const cell = lines[1]?.slice(errorAt).trimEnd() ?? "";
+    expect(cell).toBe(`${"x".repeat(97)}...`);
+    expect(cell.length).toBe(100);
+    expect(header.indexOf("LAST ERROR")).toBeGreaterThan(header.indexOf("TREND"));
+  });
+
+  it("draws a fixed-width decode trend and replaces the last error", () => {
+    expect(decodeSparkline([])).toBe("............");
+    expect(decodeSparkline([10, 5])).toHaveLength(12);
+    expect(decodeSparkline([10, 5]).startsWith("..........")).toBe(true);
+    expect(decodeSparkline([10]).endsWith("█")).toBe(true);
+    const slot = {
+      cycleCount: 0,
+      activity: "thinking",
+      lastError: "max_tokens",
+      ttftSeconds: null as number | null,
+      prefillPerSec: null as number | null,
+      decodePerSec: null as number | null,
+      decodeWindows: [] as number[],
+      liveInputTokens: null as number | null,
+      liveOutputTokens: null as number | null,
+      inputTokens: 3,
+      outputTokens: 1,
+      hasThroughput: true,
+      completedCycles: 1,
+      balance: "1.00",
+    };
+    applyBenchProgress(slot, parseBenchProgress("[bench] live ttft=1.500 in=90 prefill/s=60.0"));
+    applyBenchProgress(slot, parseBenchProgress("[bench] live decode/s=12.5 out=40"));
+    expect(slot.ttftSeconds).toBe(1.5);
+    expect(slot.prefillPerSec).toBe(60);
+    expect(slot.liveInputTokens).toBe(90);
+    expect(slot.liveOutputTokens).toBe(40);
+    expect(slot.decodeWindows).toEqual([12.5]);
+    applyBenchProgress(slot, parseBenchProgress("[bench] error=ok"));
+    expect(slot.lastError).toBe("ok");
+    applyBenchProgress(slot, parseBenchProgress("[bench] error=max_tokens"));
+    expect(slot.lastError).toBe("max_tokens");
+    applyBenchProgress(slot, parseBenchProgress("[bench] activity=request"));
+    expect(slot.decodeWindows).toEqual([]);
+    expect(slot.decodePerSec).toBeNull();
+    expect(slot.liveOutputTokens).toBeNull();
+    expect(slot.lastError).toBe("max_tokens");
+    const shown = renderCampaign({
+      startedAtMs: 0,
+      total: 1,
+      parallel: 1,
+      finished: 0,
+      finishedDurations: [],
+      active: [{
+        label: "ling",
+        run: 1,
+        runs: 1,
+        startedAtMs: 0,
+        completedCycles: 2,
+        completedAtMs: 1_000,
+        cycleCount: 200,
+        balance: "1.00",
+        inputTokens: 100,
+        outputTokens: 40,
+        lastInputTokens: 30,
+        lastOutputTokens: 10,
+        liveInputTokens: 5,
+        liveOutputTokens: 2,
+        hasThroughput: true,
+        ttftSeconds: 1.5,
+        prefillPerSec: 60,
+        decodePerSec: 12.5,
+        decodeWindows: [12.5],
+        activity: "thinking",
+        lastError: "ok",
+      }],
+    }, 1_000, 120).split("\n").slice(1);
+    expect(shown[1]).toContain("5/105");
+    expect(shown[1]).toContain("2/42");
   });
 
   it("lists an open failure and hides it after the report exists", () => {

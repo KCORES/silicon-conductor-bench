@@ -77,7 +77,10 @@ function installPaintShader(
   material.needsUpdate = true;
 }
 
-function isWheelNode(object: THREE.Object3D, root: THREE.Object3D): boolean {
+export function isWheelNode(
+  object: THREE.Object3D,
+  root: THREE.Object3D,
+): boolean {
   let current: THREE.Object3D | null = object;
   while (current !== null && current !== root) {
     if (/(?:wheel|tire|tyre)/iu.test(current.name)) {

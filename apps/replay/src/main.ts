@@ -91,7 +91,7 @@ let xRayPrecision: TrafficLogicPrecision = "route-estimate";
 const hud = new CommandHud(hudRoot, {
   onPlay: () => {
     if (debugMode === "replay" && demoPlayback.activeId === null) {
-      settlement.close();
+      invalidateSettlement();
       mutate((state) => play(state));
     }
   },
@@ -216,6 +216,8 @@ const settlement = new SettlementOverlay(settlementRoot, {
 });
 
 let bundle: ReplayBundle | undefined;
+let loadedReplayFile: string | null = null;
+let settlementGeneration = 0;
 let context: PlaybackContext | undefined;
 let state = createPlaybackState();
 let demoPlayback = createDemoPlaybackState();
@@ -251,6 +253,7 @@ async function loadDefaultSample(): Promise<void> {
     if (!response.ok) {
       return;
     }
+    loadedReplayFile = null;
     applyBundle(parseReplayBundle(await response.json()));
   } catch {
     // Optional demo fixture; the file picker remains the primary loader.
@@ -259,7 +262,7 @@ async function loadDefaultSample(): Promise<void> {
 
 function applyBundle(next: ReplayBundle): void {
   discardDemoMode();
-  settlement.close();
+  invalidateSettlement();
   const scored = withDerivedVehicleScores(next);
   bundle = scored;
   scene.setReplayScene(scored.scene);
@@ -297,7 +300,7 @@ function installDemo(next: DemoPlaybackState): void {
   if (id === null) {
     return;
   }
-  settlement.close();
+  invalidateSettlement();
   replayList.close();
   scene.clearAccidentBursts();
   scene.setTrafficLightsBendProgress(0);
@@ -375,7 +378,8 @@ function toggleActiveDemoPlayback(): void {
 }
 
 async function loadFile(file: File): Promise<void> {
-  settlement.close();
+  loadedReplayFile = null;
+  invalidateSettlement();
   await changeDebugMode("replay");
   try {
     applyBundle(await readReplayFile(file));
@@ -394,7 +398,8 @@ async function loadFile(file: File): Promise<void> {
 }
 
 async function loadReplayUrl(replayFile: string): Promise<void> {
-  settlement.close();
+  loadedReplayFile = replayFile;
+  invalidateSettlement();
   replayList.setStatus("正在加载回放…");
   await changeDebugMode("replay");
   try {
@@ -420,7 +425,7 @@ async function changeDebugMode(
   seed = randomFleetSeed,
 ): Promise<void> {
   if (mode !== "replay") {
-    settlement.close();
+    invalidateSettlement();
   }
   const previous = debugMode;
   debugMode = mode;
@@ -459,7 +464,7 @@ function loop(now: number): void {
     demoPlayback.activeId === null
   ) {
     replayList.close();
-    settlement.open(deriveRunSettlement(bundle));
+    void openCompletedSettlement(bundle, settlementGeneration);
   }
   if (
     demoPlayback.activeId !== null &&
@@ -695,14 +700,54 @@ function draw(deltaSeconds: number, wasPlaying: boolean): void {
   scene.update(settlement.isOpen ? 0 : deltaSeconds);
 }
 
+function invalidateSettlement(): void {
+  settlementGeneration += 1;
+  settlement.close();
+}
+
+async function fetchReportedFinalScore(
+  replayFile: string | null,
+): Promise<number | null> {
+  if (replayFile === null) {
+    return null;
+  }
+  try {
+    const response = await fetch(
+      `/api/run-score?replay=${encodeURIComponent(replayFile)}`,
+    );
+    if (!response.ok) {
+      return null;
+    }
+    const body: unknown = await response.json();
+    if (typeof body !== "object" || body === null || !("score" in body)) {
+      return null;
+    }
+    const score = body.score;
+    return typeof score === "number" && Number.isFinite(score) ? score : null;
+  } catch {
+    return null;
+  }
+}
+
+async function openCompletedSettlement(
+  source: ReplayBundle,
+  generation: number,
+): Promise<void> {
+  const reported = await fetchReportedFinalScore(loadedReplayFile);
+  if (generation !== settlementGeneration || bundle !== source) {
+    return;
+  }
+  settlement.open(deriveRunSettlement(source, reported));
+}
+
 function restartPlayback(): void {
   if (context === undefined || bundle === undefined) {
-    settlement.close();
+    invalidateSettlement();
     return;
   }
   const speed = state.speed;
   const autoPauseOnDecision = state.autoPauseOnDecision;
-  settlement.close();
+  invalidateSettlement();
   scene.clearAccidentBursts();
   state = play(createPlaybackState({ speed, autoPauseOnDecision }));
   lastEventCursor = state.eventCursor;

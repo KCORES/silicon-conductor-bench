@@ -109,7 +109,7 @@ export class SettlementOverlay {
     }
     const focusable = [
       ...this.root.querySelectorAll<HTMLElement>(
-        "button:not(:disabled), [tabindex=\"0\"]",
+        "button:not(:disabled), summary, [tabindex=\"0\"]",
       ),
     ];
     const first = focusable[0];
@@ -157,7 +157,7 @@ function settlementHtml(summary: RunSettlement): string {
       </div>
       <div class="settlement-scroll">
         ${fleetSection("成功放行", "每个圆点代表一次批准放行", summary.admittedGroups, "admitted")}
-        ${fleetSection("完成驶离", "每个圆点代表一辆驶出路网的车辆", summary.completedGroups, "completed")}
+        ${fleetSection("完成驶离", "每个圆点代表一辆驶出路网的车辆", summary.completedGroups, "completed", true)}
         ${fleetSection("故障清障", "拖车已完成", summary.towedGroups, "tow")}
         ${fleetSection("绕行处置", "后方队列已绕过抛锚车", summary.reroutedGroups, "reroute")}
         ${fleetSection("事故车辆", "圆点代表已清障事故涉及的车辆", summary.accidentVehicleGroups, "accident")}
@@ -185,19 +185,25 @@ function fleetSection(
   caption: string,
   groups: readonly SettlementVehicleGroup[],
   tone: string,
+  collapsed = false,
 ): string {
   const total = groups.reduce((sum, group) => sum + group.dots.length, 0);
   return `
     <section class="settlement-fleet-section">
-      <header><h3>${escapeHtml(title)}</h3><span>${total.toLocaleString("zh-CN")}</span>
-        <p>${escapeHtml(caption)}</p></header>
-      <div class="settlement-fleet">
-        ${
-          groups.length === 0
-            ? '<p class="settlement-empty">本次没有相关记录</p>'
-            : groups.map((group) => vehicleRow(group, tone)).join("")
-        }
-      </div>
+      <details${collapsed ? "" : " open"}>
+        <summary>
+          <h3>${escapeHtml(title)}</h3>
+          <span class="settlement-fleet-count">${total.toLocaleString("zh-CN")}</span>
+          <span class="settlement-fleet-caption">${escapeHtml(caption)}</span>
+        </summary>
+        <div class="settlement-fleet">
+          ${
+            groups.length === 0
+              ? '<p class="settlement-empty">本次没有相关记录</p>'
+              : groups.map((group) => vehicleRow(group, tone)).join("")
+          }
+        </div>
+      </details>
     </section>`;
 }
 

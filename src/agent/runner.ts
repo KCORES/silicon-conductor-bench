@@ -1,5 +1,11 @@
 import OpenAI from "openai";
 import {
+  createChatCompletion,
+  estimatePromptTokens,
+  samplingRequestFields,
+  type LiveStreamSample,
+} from "./chat-sampling.js";
+import {
   config,
   type ReasoningEffort,
   type ReasoningFormat,
@@ -27,14 +33,19 @@ import {
   type AgentApiLogger,
 } from "./api-logger.js";
 import {
+  errorResponseBody,
+  formatLastError,
+  takeHttpErrorBody,
+} from "./http-error-body.js";
+import {
   AgentMetricsCollector,
   type AgentCycleMetrics,
   type AgentEconomyConfig,
 } from "./metrics.js";
 import {
-  AGENT_TOOLS,
   AgentToolRuntime,
   COMMIT_SCHEDULE,
+  selectAgentTools,
   type CommitExecution,
 } from "./tools.js";
 import { WorkingMemoryStack } from "./working-memory.js";
@@ -156,7 +167,7 @@ export function buildTrafficSystemPrompt(
 - set_lane_detour 是有副作用的事故处置，不是查询工具。HOLD 会暂停车道直到事故关闭并自动释放，RELEASE 可提前解除；查询路线使用 incidentBlocked 或 inspect_incident。它不能修复抛锚；普通路线返回 SOURCE_NOT_SEVERED，抛锚队首返回 STALLED_HEAD。
 - 借道只改车道，不改去向：车辆换到直接相邻车道后仍按原意图（intentRouteId）驶向原出口方向。目标车道原生路线去向相同时直接使用原生路线（例如 S1 与 S2 直行互借），否则使用 *_GUIDED_* 引导轨迹；没有保持去向的轨迹时返回 MANEUVER_NOT_SUPPORTED。换道必须由工具把车实体滑到有空间的直接相邻车道；禁止只改 route，也禁止跨过中间车道。事故队首即使已经到停止线也必须通过相邻性和槽位占用检查。失败时按 valid_target_route_ids、blocking_vehicle_id 和 blocked_slot 修正，不要重复原调用。
 - 任何换道（绕行、清道、事故借道、车道诱导）都会作废目标车道上已放行未入场车辆的许可，见 revokedAdmissions。stoplineCandidates 带 intentRouteId 表示这辆车正在借道，routeId 是它实际走的引导轨迹。
-- laneGuidanceOpportunities 列出距停止线 12–24 格内可诱导到相邻车道的车辆；两条车道的占用直接看 lanes 矩阵。guide_inbound_lane_change 会把车辆原子地移到相邻物理车道，并绑定保留原意图的临时许可；失败时世界状态不变。inspect_lane_queue 会返回每辆车的 distance_to_stopline 和 valid_guidance_target_lanes。该工具不是终结动作，车辆到停止线后应基于新 route 重新 dry-run，不能复用换道前的试算。
+- guidanceEligible 大于 0 时，距停止线 12–24 格内有这么多车可以诱导到相邻车道。两条车道的占用直接看 lanes 矩阵，名单调用 inspect_guidance。guide_inbound_lane_change 会把车辆原子地移到相邻物理车道，并绑定保留原意图的临时许可；失败时世界状态不变。inspect_lane_queue 也会返回每辆车的 distance_to_stopline 和 valid_guidance_target_lanes。该工具不是终结动作，车辆到停止线后应基于新 route 重新 dry-run，不能复用换道前的试算。
 - activeLaneGuidancePermits 只表示仍在进口道上的借道车辆；车辆获准进入路口后许可元数据自动释放，但它继续沿已预约的引导轨迹行驶。每个方向支持 L1 左转借 S2、S2 直行借 L1、S1 直行借 R1、R1 右转借 S1 四种引导轨迹，不支持跨道或潮汐改向。
 
 ### 基线玩法（可以偏离）
@@ -166,7 +177,7 @@ export function buildTrafficSystemPrompt(
 4. dry_run_admit 先试一次。车辆和 pedestrian_phases 必须作为同一个原子计划验证；有冲突就调整后再试。任何 top_n >= 2 或包含 pedestrian_phases 的计划，verified commit 都必须使用规范化后完全相同参数的 phase；失败、改参或配额耗尽后不得用历史组合替代验证。
 5. 放行一整波之后，多睡几拍可以等它离开路口。只是在等预约到期时，短睡就够。抛锚后方的链式加价会随睡眠继续上涨，放行别的方向停不掉它。余额更高时就偏离这些步骤。
 
-如果 interruptReason 以 ACCIDENT_INTERRUPT 开头，先调用 inspect_incident，然后 order_accident_clearance，或者 set_lane_detour。不要向已切断的路线放行。dispatch_emergency_convoy 的 clearing_route_id 同样执行实体相邻换道并保持原去向，目标被占、不相邻或无法保持去向时整组不动。guide_inbound_lane_change、dispatch_emergency_convoy、reroute_queue_around_stall 和 dispatch_tow_truck 都不是终结动作，用过之后仍然要调用 commit_schedule。commit_schedule 是终结动作：会在未来占用同一冲突格的车仍会被放行，并在那里追尾。不要编造车辆或车道 ID。
+如果 interruptReason 以 ACCIDENT_INTERRUPT 开头，先调用 inspect_incident，然后 order_accident_clearance，或者 set_lane_detour。不要向已切断的路线放行。dispatch_emergency_convoy 的 clearing_route_id 同样执行实体相邻换道并保持原去向，目标被占、不相邻或无法保持去向时整组不动。guide_inbound_lane_change、dispatch_emergency_convoy、reroute_queue_around_stall 和 dispatch_tow_truck 都不是终结动作，用过之后仍然要调用 commit_schedule。commit_schedule 是终结动作：会在未来占用同一冲突格的车仍会被放行，并在那里追尾。不要编造车辆或车道 ID。本周期的工具表按当前态势裁剪：没有未关闭事故时不提供事故工具，没有抛锚时不提供绕行和拖车，没有已进入 12 格的紧急车时不提供 dispatch_emergency_convoy，guidanceEligible 不出现时不提供 inspect_guidance 与 guide_inbound_lane_change。未列出的工具本周期不可用。
 
 ### 空间矩阵
 - 车型字母：P 乘用车、T 出租车、V 通勤小巴、B 公交、S 校车、L 轻型货车、K 重型货车、H 危化品罐车、E 特殊车辆（警车、救护车、消防车等）、M 摩托车。矩阵里大写字母是车头，同一辆车的车身用对应小写字母，每个字母占 1 格，所以字母个数就是车长（例如 Bbbb 是 4 格长的公交）。. 是空格。
@@ -190,7 +201,7 @@ export function buildTrafficSystemPrompt(
 - exitHolds、crosswalkHolds：{laneId: [当前是否有车 0/1, 解除 tick]}。
 - pedestrianAlerts：[pedestrianId, 方向 AB|BA, 类型 P=耐心告急 J=正在闯红灯, patienceRemaining]；pedestrianId 以所在斑马线 ID 结尾。
 - driverAlerts：[vehicleId, laneId, distanceToStopline, 性格 A=激进 N=普通 C=温和, patienceRemaining]。
-- laneGuidanceOpportunities：[源车道, 目标车道, [vehicleId...]]。activeLaneGuidancePermits：[vehicleId, 源车道, 目标车道, guidedRouteId, intentRouteId]。
+- guidanceEligible：可诱导车辆数，没有则省略。inspect_guidance 的 opportunities 每行是 [源车道, 目标车道, [vehicleId...], 源占用, 目标占用]。activeLaneGuidancePermits：[vehicleId, 源车道, 目标车道, guidedRouteId, intentRouteId]。
 - 事故类 interruptReason 里的 locked=N 是锁格数量，具体格子用 inspect_incident 的 lock_grid 查看。
 - dry_run_admit 与 commit_schedule 的 vehicle_plans：[vehicleId, 档位, enterTick, 预计出清 tick, 是否排程 0/1]。
 - lastSettlement 是上一完整周期的财务结算；costs 中各项都是正数扣款，只列非零项，未列出的收入为 0；netDelta = endingBalance - startingBalance。首周期为 null。`;
@@ -205,6 +216,11 @@ export interface AgentRunnerOptions {
   readonly reasoningEffort?: ReasoningEffort;
   readonly replayReasoningContent?: boolean;
   readonly maxTokens: number;
+  readonly temperature?: number;
+  readonly topP?: number;
+  readonly topK?: number;
+  readonly stream?: boolean;
+  readonly thinkingType?: string;
   readonly maxApiRounds: number;
   readonly maxToolCalls: number;
   readonly economy: AgentEconomyConfig;
@@ -214,6 +230,9 @@ export interface AgentRunnerOptions {
   readonly towDispatchCost?: number;
   readonly towClearanceTicks?: number;
   readonly logger?: AgentApiLogger;
+  readonly onActivity?: (activity: string) => void;
+  readonly onSample?: (sample: LiveStreamSample) => void;
+  readonly onError?: (message: string) => void;
 }
 
 export interface AgentCycleInput {
@@ -265,11 +284,13 @@ export interface RunnerCheckpointState {
 }
 
 type StepFunChatCompletionRequest = Omit<
-  OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming,
+  OpenAI.Chat.Completions.ChatCompletionCreateParams,
   "reasoning_effort"
 > & {
   readonly reasoning_format?: ReasoningFormat;
   readonly reasoning_effort?: ReasoningEffort;
+  readonly top_k?: number;
+  readonly thinking?: { readonly type: string };
 };
 
 type ProviderAssistantMessage =
@@ -328,6 +349,7 @@ export class ToolCallAgentRunner {
           },
     );
     const metrics = new AgentMetricsCollector(this.options.economy);
+    const cycleTools = selectAgentTools(observation);
     const runtime = new AgentToolRuntime({
       engine: this.options.engine,
       memory: this.options.memory,
@@ -335,6 +357,9 @@ export class ToolCallAgentRunner {
       tollMotorcycle: this.options.tollMotorcycle,
       tollStandard: this.options.tollStandard,
       tollEmergency: this.options.tollEmergency,
+      availableToolNames: cycleTools.flatMap((tool) =>
+        tool.type === "function" ? [tool.function.name] : [],
+      ),
       ...(this.options.towDispatchCost === undefined
         ? {}
         : { towDispatchCost: this.options.towDispatchCost }),
@@ -381,6 +406,13 @@ export class ToolCallAgentRunner {
       const requestPayload: StepFunChatCompletionRequest = {
         model: this.options.model,
         max_tokens: this.options.maxTokens,
+        ...samplingRequestFields({
+          temperature: this.options.temperature,
+          topP: this.options.topP,
+          topK: this.options.topK,
+          stream: this.options.stream,
+          thinkingType: this.options.thinkingType,
+        }),
         ...(this.options.reasoningFormat === undefined
           ? {}
           : { reasoning_format: this.options.reasoningFormat }),
@@ -388,7 +420,7 @@ export class ToolCallAgentRunner {
           ? {}
           : { reasoning_effort: this.options.reasoningEffort }),
         tool_choice: "auto",
-        tools: AGENT_TOOLS,
+        tools: cycleTools,
         messages,
       };
       this.logger.logRaw?.({
@@ -411,52 +443,69 @@ export class ToolCallAgentRunner {
 
       const startedAt = performance.now();
       let response: OpenAI.Chat.Completions.ChatCompletion;
+      let sampledTtftMs: number | null = null;
       try {
-        response = await this.options.client.chat.completions.create(
-          requestPayload as OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming,
+        this.options.onActivity?.("request");
+        const outcome = await createChatCompletion(
+          this.options.client,
+          requestPayload,
+          undefined,
+          (activity) => {
+            this.options.onActivity?.(activity);
+          },
+          {
+            promptTokensHint: estimatePromptTokens(requestPayload),
+            ...(this.options.onSample === undefined
+              ? {}
+              : { onSample: this.options.onSample }),
+          },
         );
+        if (outcome.streamError !== null) {
+          const latencyMs = Math.round(performance.now() - startedAt);
+          this.recordApiFailure({
+            tick,
+            round,
+            latencyMs,
+            error: outcome.streamError,
+            partial: outcome.completion,
+            ttftMs: outcome.ttftMs,
+            metrics,
+            trace,
+          });
+          return this.fallback(observation, metrics, trace);
+        }
+        response = outcome.completion;
+        sampledTtftMs = outcome.ttftMs;
       } catch (error) {
         const latencyMs = Math.round(performance.now() - startedAt);
-        const status = errorStatus(error);
-        const errorPayload = {
-          message: error instanceof Error ? error.message : String(error),
-          ...(status === undefined ? {} : { status }),
-        };
-        this.logger.logRaw?.({
-          timestamp: new Date().toISOString(),
-          event: "API_ERROR",
+        this.recordApiFailure({
           tick,
-          cycle: this.cycle,
           round,
           latencyMs,
-          payload: serializeRawError(error),
-        });
-        metrics.recordApiCall(latencyMs);
-        metrics.recordProtocolViolation("api_error");
-        this.logger.log({
-          timestamp: new Date().toISOString(),
-          event: "API_ERROR",
-          tick,
-          cycle: this.cycle,
-          round,
-          latencyMs,
-          payload: errorPayload,
-        });
-        trace.push({ kind: "API_ERROR", round, data: errorPayload });
-        trace.push({
-          kind: "FALLBACK",
-          round,
-          data: {
-            reason: "api_error",
-            message: errorPayload.message,
-          },
+          error,
+          partial: null,
+          ttftMs: null,
+          metrics,
+          trace,
         });
         return this.fallback(observation, metrics, trace);
       }
 
       const latencyMs = Math.round(performance.now() - startedAt);
-      const tokenStats = metrics.recordApiCall(latencyMs, response.usage);
+      const tokenStats = metrics.recordApiCall(
+        latencyMs,
+        response.usage,
+        sampledTtftMs,
+      );
       const message = response.choices[0]?.message;
+      const functionToolCallCount = (message?.tool_calls ?? []).filter(
+        (call) => call.type === "function",
+      ).length;
+      const requestLabel = requestOutcome(
+        response.choices[0]?.finish_reason ?? null,
+        functionToolCallCount,
+      );
+      this.options.onError?.(requestLabel);
       this.logger.logRaw?.({
         timestamp: new Date().toISOString(),
         event: "API_RESPONSE",
@@ -474,6 +523,7 @@ export class ToolCallAgentRunner {
         toolCalls: message?.tool_calls ?? [],
         usage: response.usage ?? null,
         tokenStats,
+        outcome: requestLabel,
       };
       this.logger.log({
         timestamp: new Date().toISOString(),
@@ -502,7 +552,7 @@ export class ToolCallAgentRunner {
       messages.push(
         normalizeAssistantMessage(
           message,
-          this.options.replayReasoningContent !== false,
+          this.options.replayReasoningContent === true,
         ),
       );
 
@@ -563,6 +613,7 @@ export class ToolCallAgentRunner {
           return this.fallback(observation, metrics, trace);
         }
 
+        this.options.onActivity?.(toolActivity(toolCall.function.name));
         this.logger.log({
           timestamp: new Date().toISOString(),
           event: "TOOL_CALL",
@@ -640,6 +691,76 @@ export class ToolCallAgentRunner {
     return this.fallback(observation, metrics, trace);
   }
 
+  private recordApiFailure(input: {
+    readonly tick: number;
+    readonly round: number;
+    readonly latencyMs: number;
+    readonly error: unknown;
+    readonly partial: OpenAI.Chat.Completions.ChatCompletion | null;
+    readonly ttftMs: number | null;
+    readonly metrics: AgentMetricsCollector;
+    readonly trace: AgentTraceEvent[];
+  }): void {
+    const status = errorStatus(input.error);
+    const message = input.error instanceof Error
+      ? input.error.message
+      : String(input.error);
+    const captured = takeHttpErrorBody(this.options.client);
+    const body = captured !== undefined ? captured : errorResponseBody(input.error);
+    const outcomeLabel = isTimeoutError(input.error)
+      ? "timeout"
+      : formatLastError(input.error, body);
+    const partial = input.partial === null
+      ? null
+      : partialStreamLog(input.partial, input.ttftMs);
+    const errorPayload = {
+      message,
+      outcome: isTimeoutError(input.error) ? "timeout" : "error",
+      ...(status === undefined ? {} : { status }),
+      ...(body === undefined ? {} : { body }),
+      ...(partial === null ? {} : { partial }),
+    };
+    this.options.onError?.(outcomeLabel);
+    this.logger.logRaw?.({
+      timestamp: new Date().toISOString(),
+      event: "API_ERROR",
+      tick: input.tick,
+      cycle: this.cycle,
+      round: input.round,
+      latencyMs: input.latencyMs,
+      payload: {
+        error: serializeRawError(input.error),
+        outcome: errorPayload.outcome,
+        ...(body === undefined ? {} : { body }),
+        ...(partial === null ? {} : { partial }),
+      },
+    });
+    input.metrics.recordApiCall(
+      input.latencyMs,
+      input.partial?.usage,
+      input.ttftMs,
+    );
+    input.metrics.recordProtocolViolation("api_error");
+    this.logger.log({
+      timestamp: new Date().toISOString(),
+      event: "API_ERROR",
+      tick: input.tick,
+      cycle: this.cycle,
+      round: input.round,
+      latencyMs: input.latencyMs,
+      payload: errorPayload,
+    });
+    input.trace.push({ kind: "API_ERROR", round: input.round, data: errorPayload });
+    input.trace.push({
+      kind: "FALLBACK",
+      round: input.round,
+      data: {
+        reason: "api_error",
+        message,
+      },
+    });
+  }
+
   private fallback(
     observation: CompactObservation,
     metrics: AgentMetricsCollector,
@@ -701,6 +822,73 @@ export class ToolCallAgentRunner {
     this.pendingFeedback.length = 0;
     this.pendingFeedback.push(...state.pendingFeedback);
   }
+}
+
+function requestOutcome(
+  finishReason: string | null,
+  functionToolCallCount: number,
+): string {
+  if (finishReason === "length") {
+    return "max_tokens";
+  }
+  if (
+    finishReason !== null &&
+    finishReason !== "stop" &&
+    finishReason !== "tool_calls"
+  ) {
+    return finishReason;
+  }
+  return functionToolCallCount > 0 ? "ok" : "no_tool_call";
+}
+
+function isTimeoutError(error: unknown): boolean {
+  if (typeof error !== "object" || error === null) {
+    return false;
+  }
+  const name = "name" in error && typeof error.name === "string" ? error.name : "";
+  const message = "message" in error && typeof error.message === "string"
+    ? error.message
+    : "";
+  if (name === "APIConnectionTimeoutError" || name === "TimeoutError") {
+    return true;
+  }
+  if (name === "AbortError") {
+    return /timeout/i.test(message);
+  }
+  return /timeout/i.test(name) || /timeout/i.test(message);
+}
+
+function toolActivity(name: string): string {
+  return /^[A-Za-z0-9_-]+$/.test(name) ? `tool:${name}` : "tool_call";
+}
+
+function partialStreamLog(
+  completion: OpenAI.Chat.Completions.ChatCompletion,
+  ttftMs: number | null,
+): {
+  readonly content: string | null;
+  readonly reasoning: string | null;
+  readonly reasoning_content: string | null;
+  readonly tool_calls: unknown;
+  readonly usage: OpenAI.Completions.CompletionUsage | null;
+  readonly ttftMs: number | null;
+} {
+  const message = completion.choices[0]?.message as {
+    readonly content?: string | null;
+    readonly reasoning?: string | null;
+    readonly reasoning_content?: string | null;
+    readonly tool_calls?: unknown;
+  } | undefined;
+  return {
+    content: typeof message?.content === "string" ? message.content : null,
+    reasoning: typeof message?.reasoning === "string" ? message.reasoning : null,
+    reasoning_content: typeof message?.reasoning_content === "string"
+      ? message.reasoning_content
+      : null,
+    tool_calls: message?.tool_calls ?? null,
+    usage: completion.usage ?? null,
+    ttftMs,
+  };
 }
 
 function serializeRawError(error: unknown): unknown {

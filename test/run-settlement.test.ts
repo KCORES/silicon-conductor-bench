@@ -12,6 +12,7 @@ describe("run settlement", () => {
     const settlement = deriveRunSettlement(bundle());
 
     expect(settlement.finalScore).toBe(42.25);
+    expect(deriveRunSettlement(bundle(), 740.17).finalScore).toBe(740.17);
     expect(settlement.admittedCount).toBe(3);
     expect(settlement.completedCount).toBe(1);
     expect(settlement.stalledCount).toBe(2);

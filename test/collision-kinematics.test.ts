@@ -287,4 +287,63 @@ describe("deterministic collision kinematics", () => {
       ),
     ).toBeCloseTo(0.22);
   });
+
+  it("starts an outside pedestrian from the shared crosswalk cell", () => {
+    const network = createRoadNetwork();
+    const crosswalk = network.crosswalks.get("CROSSWALK:WEST");
+    const sharedCell = crosswalk?.cells.find(
+      (candidate) => candidate.row === 0 && candidate.column === 0,
+    );
+    const trajectory = network.trajectories.get("N_R1_RIGHT");
+    const head = trajectory?.slots.findIndex(
+      (slot) => slot.x === -5 && slot.y === -4,
+    );
+    expect(sharedCell).toBeDefined();
+    expect(head).toBeGreaterThanOrEqual(0);
+    if (sharedCell === undefined || head === undefined || head < 0) {
+      return;
+    }
+    const taxi = vehicle("V00017", "N_R1_RIGHT", "simplepoly-city:Taxi");
+    taxi.trajectoryHeadSlot = head;
+    const pedestrian: Pedestrian = {
+      id: "PED:3:0:CROSSWALK:WEST",
+      crosswalkId: "CROSSWALK:WEST",
+      direction: "A_TO_B",
+      generatedAtTick: 3,
+      patienceLimit: 55,
+      state: "CROSSING_JAYWALK",
+      waitingTicks: 55,
+      row: 0,
+      column: 1,
+    };
+
+    const outcome = solveCollisionOutcome({
+      tick: 173,
+      resourceId: sharedCell.conflictResourceId,
+      collisionType: "ANGLE_COLLISION",
+      severity: "SERIOUS",
+      vehicles: [taxi],
+      pedestrians: [pedestrian],
+      network,
+    });
+    const participant = outcome.pedestrians[0];
+    expect(participant).toBeDefined();
+    if (participant === undefined) {
+      return;
+    }
+    const impactStart = {
+      x: participant.restPose.x - participant.impulse.x,
+      z: participant.restPose.z - participant.impulse.z,
+    };
+    expect(impactStart.x).toBeCloseTo(sharedCell.x);
+    expect(impactStart.z).toBeCloseTo(sharedCell.y);
+    expect(participant.contactPoint).toEqual(outcome.contactPoint);
+    expect(outcome.vehicles[0]?.contactPoint).toEqual(outcome.contactPoint);
+    expect(
+      Math.hypot(
+        impactStart.x - outcome.contactPoint.x,
+        impactStart.z - outcome.contactPoint.z,
+      ),
+    ).toBeGreaterThan(0.5);
+  });
 });
