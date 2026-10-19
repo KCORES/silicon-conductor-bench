@@ -1,0 +1,55 @@
+{
+  "identity": {
+    "model": "qwen-qwen3.8-flash-next",
+    "testDate": "2026-10-19",
+    "postfix": "090612336-9897"
+  },
+  "updatedAt": "2026-10-19T13:02:03.359Z",
+  "tick": 218,
+  "depth": 6,
+  "lastAction": null,
+  "plans": [
+    {
+      "phaseName": "South wave now, big E/W through wave ~tick92",
+      "intendedDuration": 180,
+      "resumeCondition": "tick>=92: batch E_S1/E_S2/W_S1/W_S2 throughs (W crosswalk free ~113 for W throughs). Emergencies V00056 N_L1 ~tick92, V00034/V00036/V00043 as heads move.",
+      "savedAtTick": 81,
+      "targetTick": 261
+    },
+    {
+      "phaseName": "Tow W stalls; now E-side minor heads; big waves from ~160",
+      "intendedDuration": 124,
+      "resumeCondition": "At tick ~150: E crosswalk free (res 149). At ~160: center frees (E clears 159/163) -> N+S through wave, then E+W through wave; keep buses/school buses first.",
+      "savedAtTick": 137,
+      "targetTick": 261
+    },
+    {
+      "phaseName": "Crosswalks self-locked (E154 N177 S187 W196); idle-sleep to ~152",
+      "intendedDuration": 20,
+      "resumeCondition": "After tick ~152: E crosswalk free (154) and W stalls towed (155) -> run W_S1/W_S2 straight wave + E-side heads; then N/S straight waves as N(177)/S(187) release",
+      "savedAtTick": 142,
+      "targetTick": 162
+    },
+    {
+      "phaseName": "Junction booked by own platoons; xwalk locks E156 N177 S187 W196",
+      "intendedDuration": 44,
+      "resumeCondition": "tick>=197: push big E/W/N batches + ped phases to 261",
+      "savedAtTick": 153,
+      "targetTick": 197
+    },
+    {
+      "phaseName": "Endgame: jaywalk N~221 S~237 W~233; INC0002 evac",
+      "intendedDuration": 56,
+      "resumeCondition": "C2@215 E phase A_TO_B+sleep10; C3/C4 pure sleep; C5@243 S_R1; C6@249 big batch all dirs; C7@257 mop-up heads",
+      "savedAtTick": 205,
+      "targetTick": 261
+    },
+    {
+      "phaseName": "Evac INC0003(W,55)/INC0004(S,14); big batches after ~234",
+      "intendedDuration": 43,
+      "resumeCondition": "tick>=234 or incidents closed",
+      "savedAtTick": 218,
+      "targetTick": 261
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "identity": {
+    "model": "qwen-qwen3.8-flash-next",
+    "testDate": "2026-10-19",
+    "postfix": "172126369-9913"
+  },
+  "updatedAt": "2026-10-19T21:20:54.606Z",
+  "tick": 228,
+  "depth": 4,
+  "lastAction": null,
+  "plans": [
+    {
+      "phaseName": "INC0001 pileup clearance wait",
+      "intendedDuration": 40,
+      "resumeCondition": "INC0001 closed or routes reopen ~tick125; re-issue clearance each cycle",
+      "savedAtTick": 95,
+      "targetTick": 135
+    },
+    {
+      "phaseName": "Post-INC0001: E-W through backbone",
+      "intendedDuration": 60,
+      "resumeCondition": "crosswalk E reservation (149) clears; then E_S1/E_S2 + W_S1/W_S2 through phases alternate with S axis (S_S1 120pax) at ~135",
+      "savedAtTick": 125,
+      "targetTick": 185
+    },
+    {
+      "phaseName": "INC0003 hold, then mass drain",
+      "intendedDuration": 100,
+      "resumeCondition": "Tows land 164/166. Xwalk reservations end: E,N@160 W@163 S@169. INC0003 est close 178 -> then batch S_S1/S_L1/W_S2/N_S2/E_S2.",
+      "savedAtTick": 154,
+      "targetTick": 254
+    },
+    {
+      "phaseName": "Endgame: crosswalks held by jaywalkers, all vehicle routes dead",
+      "intendedDuration": 33,
+      "resumeCondition": "Re-evaluate vehicles only if E/W/S/N crosswalks all clear jaywalkers AND reservation-free window >=13 ticks before 261",
+      "savedAtTick": 228,
+      "targetTick": 261
+    }
+  ]
+}

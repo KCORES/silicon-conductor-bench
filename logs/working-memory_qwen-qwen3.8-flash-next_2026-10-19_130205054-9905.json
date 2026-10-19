@@ -1,0 +1,55 @@
+{
+  "identity": {
+    "model": "qwen-qwen3.8-flash-next",
+    "testDate": "2026-10-19",
+    "postfix": "130205054-9905"
+  },
+  "updatedAt": "2026-10-19T17:21:24.646Z",
+  "tick": 236,
+  "depth": 6,
+  "lastAction": null,
+  "plans": [
+    {
+      "phaseName": "wait_jaywalker_E_clear",
+      "intendedDuration": 5,
+      "resumeCondition": "tick>=186: dry-run E_S1 top3 + E_S2 top3 (+E_R1 top1); recheck jaywalker_warnings on crosswalk E. N-cwlk resv 237, W-cwlk 224. S_*/W_S1/S2 severed til ~215.",
+      "savedAtTick": 181,
+      "targetTick": 186
+    },
+    {
+      "phaseName": "清障后大放行(reopen sweep)",
+      "intendedDuration": 60,
+      "resumeCondition": "INC0001/2/3 关闭后：按乘员数优先大批放行 IN_S_S1/IN_S_L1/IN_E_S2/IN_W_S1/IN_W_S2/IN_E_L1/IN_W_L1 的公交校车车头；先 RELEASE 对应 HOLD；E_R1 V00212 待 E 横道 jaywalker 清空后 dry-run",
+      "savedAtTick": 187,
+      "targetTick": 247
+    },
+    {
+      "phaseName": "INC0001关闭后大放行(reopen sweep v2)",
+      "intendedDuration": 46,
+      "resumeCondition": "INC0001 CLOSED后立即dry-run: S_S1_top8(含紧急V00137/V00252)+S_S2_top8+W_S1_top6+W_S2_top8+E_L1_top6+E_S2_top4+E_S1_top4; N侧等N横道预约232解除再放; S/E横道事故锁格解除前不放E_R1/W_L1/W_R1",
+      "savedAtTick": 204,
+      "targetTick": 250
+    },
+    {
+      "phaseName": "J清场后 E/W 直行大放行",
+      "intendedDuration": 44,
+      "resumeCondition": "crosswalks E/W/N 的 j 全部走出横道；E_S1/E_S2/W_S1/W_S2 各Top3-4 同批放行(CRUISE)，随后 S_* 与 N_* 跟进；INC0004关闭前不放 severed 路线",
+      "savedAtTick": 217,
+      "targetTick": 261
+    },
+    {
+      "phaseName": "相位清场→末波E/W直行大放行",
+      "intendedDuration": 41,
+      "resumeCondition": "220放E/W/N相位(行人至~252占横道,阻止新jaywalk与闯红灯);S横道被INC0004锁格不能放相位;250后dry-run验证E_S1/E_S2/W_S1/W_S2直行Top4+BURST,只依赖E/W两横道干净",
+      "savedAtTick": 220,
+      "targetTick": 261
+    },
+    {
+      "phaseName": "J-清场后双大波末段放行",
+      "intendedDuration": 25,
+      "resumeCondition": "42@244干跑W_S1/W_S2 top4+E_S2 top4+N_L1 top2+E_R1 top3+E_L1 top2，冲突第二轮只留W直行与E_S2；睡10；43@254小批快清睡7；触S路线永放行；末段不睡",
+      "savedAtTick": 236,
+      "targetTick": 261
+    }
+  ]
+}
