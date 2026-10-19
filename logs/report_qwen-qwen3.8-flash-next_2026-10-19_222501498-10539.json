@@ -1,0 +1,5248 @@
+{
+  "generatedAt": "2026-10-19T22:35:58.112Z",
+  "identity": {
+    "model": "qwen-qwen3.8-flash-next",
+    "testDate": "2026-10-19",
+    "postfix": "222501498-10539"
+  },
+  "simulationRulesVersion": 21,
+  "summary": {
+    "model": "qwen/qwen3.8-flash-next",
+    "seed": 63916,
+    "cycleCount": 200,
+    "horizonTicks": 200,
+    "endTick": 261,
+    "pedestrianDemandEnabled": true,
+    "maxApiRounds": 8,
+    "elapsedMs": 656410,
+    "initialBalance": 1000,
+    "finalBalance": 543.9446,
+    "terminal": {
+      "outboundToll": 1.6,
+      "crossingToll": 0.1,
+      "unservedOnMap": 299,
+      "unservedUpstream": 153,
+      "unservedPassengers": 2169,
+      "unservedLiability": 216.9
+    },
+    "totals": {
+      "fallbacks": 6,
+      "apiCalls": 341,
+      "toolCalls": 312,
+      "verifiedCommits": 10,
+      "unverifiedCommits": 14,
+      "holdCommits": 25,
+      "recklessAttempts": 7,
+      "admittedVehicles": 90,
+      "rejectedVehicles": 14,
+      "promptTokens": 4274657,
+      "completionTokens": 50946,
+      "reasoningTokens": 0,
+      "outputTokens": 50946,
+      "avgDecodeTokensPerSec": 71.55,
+      "hazardBleed": 68.706,
+      "emergencyBleed": 0.81,
+      "stallChainBleed": 0.8242,
+      "upstreamBleed": 72.28,
+      "exitLockBleed": 0,
+      "secondaryPenalties": 1.8,
+      "towingCosts": 4.8,
+      "pedestrianDelay": 0.794,
+      "pedestrianReward": 0.28,
+      "pedestrianJaywalk": 7.2,
+      "pedestrianStrike": 35,
+      "schoolBusPenalties": 30,
+      "violationExits": 1,
+      "aggression": {
+        "redLight": 3,
+        "tailgate": 1,
+        "cutIn": 1
+      }
+    },
+    "incidents": [
+      {
+        "id": "INC0001",
+        "triggerTick": 133,
+        "status": "CLOSED",
+        "collisionType": "PILEUP",
+        "severity": "CRITICAL",
+        "vehicleIds": [
+          "V00033",
+          "V00036",
+          "V00012"
+        ],
+        "pedestrianIds": [],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 133,
+            "resourceId": "CROSSWALK:WEST:CELL:7:0",
+            "contactPoint": {
+              "x": -6.105704697986577,
+              "z": 3
+            },
+            "collisionType": "REAR_END",
+            "severity": "MODERATE",
+            "vehicles": [
+              {
+                "vehicleId": "V00033",
+                "preImpactVelocity": {
+                  "x": 0.7071067811865475,
+                  "z": 0.7071067811865476
+                },
+                "impulse": {
+                  "x": 0.15612917728598968,
+                  "z": 0.1561291772859897
+                },
+                "restPose": {
+                  "x": -4.843870822714011,
+                  "z": 3.15612917728599,
+                  "heading": 0.7853981633974483
+                },
+                "contactPoint": {
+                  "x": -6.105704697986577,
+                  "z": 3
+                },
+                "contactNormal": {
+                  "x": 0.02897713922895014,
+                  "z": -0.9995800745323539
+                },
+                "damageSeverity": "MODERATE",
+                "massKg": 17033,
+                "impactEnergy": 1121.2481119699885,
+                "dentRadius": 0.6938500070017236,
+                "dentDepth": 0.10838734496281076,
+                "deformation": 0.15939315435707463,
+                "slideTicks": 4,
+                "hazardResourceIds": [
+                  "SPACE:-4:3",
+                  "SPACE:-5:2",
+                  "SPACE:-5:3",
+                  "SPACE:-5:4",
+                  "SPACE:-6:1",
+                  "SPACE:-6:2",
+                  "SPACE:-6:3",
+                  "SPACE:-7:1",
+                  "SPACE:-7:2"
+                ]
+              },
+              {
+                "vehicleId": "V00036",
+                "preImpactVelocity": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": 0.2208,
+                  "z": 1.352010066258678e-17
+                },
+                "restPose": {
+                  "x": -6.7792,
+                  "z": 3,
+                  "heading": 1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": -6.105704697986577,
+                  "z": 3
+                },
+                "contactNormal": {
+                  "x": -1,
+                  "z": 0
+                },
+                "damageSeverity": "MODERATE",
+                "massKg": 4938,
+                "impactEnergy": 1121.248111969988,
+                "dentRadius": 0.6688500070017236,
+                "dentDepth": 0.12060000355016968,
+                "deformation": 0.17735294639730834,
+                "slideTicks": 4,
+                "hazardResourceIds": [
+                  "SPACE:-7:2",
+                  "SPACE:-7:3",
+                  "SPACE:-7:4",
+                  "SPACE:-8:2",
+                  "SPACE:-8:3",
+                  "SPACE:-8:4",
+                  "SPACE:-9:2",
+                  "SPACE:-9:3",
+                  "SPACE:-9:4"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 133,
+            "resourceId": "SPACE:-7:2",
+            "contactPoint": {
+              "x": -7.139786029570736,
+              "z": 1.5769110295707351
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00012",
+                "preImpactVelocity": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": 0.4287221489089962,
+                  "z": -0.16672528013127627
+                },
+                "restPose": {
+                  "x": -6.571277851091004,
+                  "z": 1.8332747198687238,
+                  "heading": 1.7307963267948965
+                },
+                "contactPoint": {
+                  "x": -7.139786029570736,
+                  "z": 1.5769110295707351
+                },
+                "contactNormal": {
+                  "x": -0.91240588001088,
+                  "z": 0.4092865867843357
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 2067,
+                "impactEnergy": 921.6547382198953,
+                "dentRadius": 0.7581126004406551,
+                "dentDepth": 0.3346689006609825,
+                "deformation": 0.49216014803085656,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-7:1",
+                  "SPACE:-7:2",
+                  "SPACE:-8:1",
+                  "SPACE:-8:2",
+                  "SPACE:-8:3",
+                  "SPACE:-9:2",
+                  "SPACE:-9:3"
+                ]
+              },
+              {
+                "vehicleId": "V00033",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.16776084087743326,
+                  "z": 0.06524032700789073
+                },
+                "restPose": {
+                  "x": -4.832239159122567,
+                  "z": 3.0652403270078907,
+                  "heading": 0.7853981633974483
+                },
+                "contactPoint": {
+                  "x": -7.139786029570736,
+                  "z": 1.5769110295707351
+                },
+                "contactNormal": {
+                  "x": 0.9504199400255176,
+                  "z": 0.31096935154753014
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 17033,
+                "impactEnergy": 921.6547382198953,
+                "dentRadius": 0.783112600440655,
+                "dentDepth": 0.2118157599120142,
+                "deformation": 0.31149376457649147,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-5:2",
+                  "SPACE:-5:3",
+                  "SPACE:-6:1",
+                  "SPACE:-6:2",
+                  "SPACE:-6:3",
+                  "SPACE:-7:1",
+                  "SPACE:-7:2"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 23
+      },
+      {
+        "id": "INC0002",
+        "triggerTick": 134,
+        "status": "CLOSED",
+        "collisionType": "ANGLE_COLLISION",
+        "severity": "SERIOUS",
+        "vehicleIds": [
+          "V00074",
+          "V00084"
+        ],
+        "pedestrianIds": [
+          "PED:11:0:CROSSWALK:EAST"
+        ],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 134,
+            "resourceId": "CROSSWALK:EAST:CELL:7:0",
+            "contactPoint": {
+              "x": 5.398012729460378,
+              "z": 3.398012729460378
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00074",
+                "preImpactVelocity": {
+                  "x": 0.7071067811865476,
+                  "z": -0.7071067811865475
+                },
+                "impulse": {
+                  "x": 0.03734836813257335,
+                  "z": -0.0848826548467576
+                },
+                "restPose": {
+                  "x": 5.037348368132573,
+                  "z": 2.9151173451532424,
+                  "heading": 2.471394490192345
+                },
+                "contactPoint": {
+                  "x": 5.398012729460378,
+                  "z": 3.398012729460378
+                },
+                "contactNormal": {
+                  "x": -0.955064136811237,
+                  "z": 0.2963992148724528
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1153,
+                "impactEnergy": 35.20969055374593,
+                "dentRadius": 0.5869720855114706,
+                "dentDepth": 0.11660985235238819,
+                "deformation": 0.17148507698880613,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:3:4",
+                  "SPACE:4:3",
+                  "SPACE:4:4",
+                  "SPACE:4:5",
+                  "SPACE:5:3",
+                  "SPACE:5:4"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:11:0:CROSSWALK:EAST",
+                "contactPoint": {
+                  "x": 5.398012729460378,
+                  "z": 3.398012729460378
+                },
+                "contactNormal": {
+                  "x": 0.9497515879228918,
+                  "z": -0.31300466647950365
+                },
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": -1
+                },
+                "impulse": {
+                  "x": 0.4480228565597965,
+                  "z": -0.44802285655979646
+                },
+                "restPose": {
+                  "x": 7.053727554546374,
+                  "z": 2.5519771434402037,
+                  "heading": 2.356194490192345
+                },
+                "fallDirection": 2.356194490192345,
+                "massKg": 75,
+                "impactEnergy": 35.20969055374593,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:7:3"
+                ]
+              }
+            ]
+          },
+          {
+            "impactTick": 138,
+            "resourceId": "SPACE:4:5",
+            "contactPoint": {
+              "x": 4,
+              "z": 5
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00084",
+                "preImpactVelocity": {
+                  "x": 0.7071067811865476,
+                  "z": -0.7071067811865475
+                },
+                "impulse": {
+                  "x": 0.13338702904490476,
+                  "z": -0.30315233873841996
+                },
+                "restPose": {
+                  "x": 3.1333870290449046,
+                  "z": 4.69684766126158,
+                  "heading": 2.471394490192345
+                },
+                "contactPoint": {
+                  "x": 4,
+                  "z": 5
+                },
+                "contactNormal": {
+                  "x": -0.8876428328932214,
+                  "z": 0.46053251917024973
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 12310,
+                "impactEnergy": 527.1273118918517,
+                "dentRadius": 0.6922309579753565,
+                "dentDepth": 0.11819153175196798,
+                "deformation": 0.17381107610583524,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:1:6",
+                  "SPACE:1:7",
+                  "SPACE:2:5",
+                  "SPACE:2:6",
+                  "SPACE:2:7",
+                  "SPACE:3:4",
+                  "SPACE:3:5",
+                  "SPACE:3:6",
+                  "SPACE:4:5"
+                ]
+              },
+              {
+                "vehicleId": "V00074",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.11862482820199041,
+                  "z": -0.05219492440887578
+                },
+                "restPose": {
+                  "x": 5.11862482820199,
+                  "z": 2.9478050755911243,
+                  "heading": 2.356194490192345
+                },
+                "contactPoint": {
+                  "x": 4,
+                  "z": 5
+                },
+                "contactNormal": {
+                  "x": 0.1923371170562138,
+                  "z": -0.9813289119365148
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1153,
+                "impactEnergy": 527.127311891852,
+                "dentRadius": 0.6672309579753566,
+                "dentDepth": 0.20328943461338497,
+                "deformation": 0.2989550509020367,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:3:4",
+                  "SPACE:4:3",
+                  "SPACE:4:4",
+                  "SPACE:4:5",
+                  "SPACE:5:3",
+                  "SPACE:5:4"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 20
+      },
+      {
+        "id": "INC0003",
+        "triggerTick": 138,
+        "status": "CLOSED",
+        "collisionType": "PILEUP",
+        "severity": "CRITICAL",
+        "vehicleIds": [
+          "V00038",
+          "V00069",
+          "V00015",
+          "V00024",
+          "V00076"
+        ],
+        "pedestrianIds": [],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 138,
+            "resourceId": "PAIR:N_S2_STRAIGHT:5|E_S2_STRAIGHT:9",
+            "contactPoint": {
+              "x": -1.5,
+              "z": -2.5
+            },
+            "collisionType": "SCRAPE",
+            "severity": "MINOR",
+            "vehicles": [
+              {
+                "vehicleId": "V00038",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0.006637127996862261,
+                  "z": 0.11480831212047876
+                },
+                "restPose": {
+                  "x": -1.9933628720031378,
+                  "z": -2.885191687879521,
+                  "heading": 0.04
+                },
+                "contactPoint": {
+                  "x": -1.5,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": -0.2846847384295487,
+                  "z": -0.9586211971917268
+                },
+                "damageSeverity": "MINOR",
+                "massKg": 1228,
+                "impactEnergy": 1015.1281761716542,
+                "dentRadius": 0.6151945535461445,
+                "dentDepth": 0.08632295757980415,
+                "deformation": 0.12694552585265315,
+                "slideTicks": 3,
+                "hazardResourceIds": [
+                  "SPACE:-1:-3",
+                  "SPACE:-1:-4",
+                  "SPACE:-2:-3",
+                  "SPACE:-2:-4",
+                  "SPACE:-2:-5",
+                  "SPACE:-3:-3",
+                  "SPACE:-3:-4",
+                  "SPACE:-3:-5"
+                ]
+              },
+              {
+                "vehicleId": "V00069",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.10845965018623566,
+                  "z": -0.03822962570414983
+                },
+                "restPose": {
+                  "x": -1.1084596501862356,
+                  "z": -2.0382296257041497,
+                  "heading": -1.6107963267948966
+                },
+                "contactPoint": {
+                  "x": -1.5,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": 0.9639808616128082,
+                  "z": 0.2659716121021716
+                },
+                "damageSeverity": "MINOR",
+                "massKg": 5856,
+                "impactEnergy": 1015.1281761716542,
+                "dentRadius": 0.6151945535461445,
+                "dentDepth": 0.05463478327835706,
+                "deformation": 0.1,
+                "slideTicks": 3,
+                "hazardResourceIds": [
+                  "SPACE:-1:-1",
+                  "SPACE:-1:-2",
+                  "SPACE:-1:-3",
+                  "SPACE:0:-1",
+                  "SPACE:0:-2",
+                  "SPACE:0:-3",
+                  "SPACE:1:-1",
+                  "SPACE:1:-2",
+                  "SPACE:1:-3",
+                  "SPACE:2:-2",
+                  "SPACE:2:-3"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 138,
+            "resourceId": "SPACE:-3:-3",
+            "contactPoint": {
+              "x": -2.5,
+              "z": -3.604101
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00015",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0.16672528013127633,
+                  "z": 0.4287221489089962
+                },
+                "restPose": {
+                  "x": -2.8332747198687236,
+                  "z": -1.5712778510910037,
+                  "heading": 0.16
+                },
+                "contactPoint": {
+                  "x": -2.5,
+                  "z": -3.604101
+                },
+                "contactNormal": {
+                  "x": -0.7071067811865475,
+                  "z": 0.7071067811865475
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 1515,
+                "impactEnergy": 339.1213999270871,
+                "dentRadius": 0.7018103168378669,
+                "dentDepth": 0.2502154752568002,
+                "deformation": 0.36796393420117673,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-2",
+                  "SPACE:-2:-3",
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-3:-4",
+                  "SPACE:-4:-3",
+                  "SPACE:-4:-4"
+                ]
+              },
+              {
+                "vehicleId": "V00038",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.06524032700789073,
+                  "z": 0.16776084087743326
+                },
+                "restPose": {
+                  "x": -2.0652403270078907,
+                  "z": -2.8322391591225666,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -2.5,
+                  "z": -3.604101
+                },
+                "contactNormal": {
+                  "x": 0.6532283808607608,
+                  "z": -0.7571609356259928
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 1228,
+                "impactEnergy": 339.1213999270871,
+                "dentRadius": 0.7018103168378669,
+                "dentDepth": 0.2502154752568002,
+                "deformation": 0.36796393420117673,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-3",
+                  "SPACE:-2:-4",
+                  "SPACE:-2:-5",
+                  "SPACE:-3:-3",
+                  "SPACE:-3:-4",
+                  "SPACE:-3:-5"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 139,
+            "resourceId": "PAIR:N_S1_STRAIGHT:6|E_S2_STRAIGHT:10",
+            "contactPoint": {
+              "x": -2,
+              "z": -2
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00015",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.06524032700789073,
+                  "z": 0.16776084087743326
+                },
+                "restPose": {
+                  "x": -2.9347596729921093,
+                  "z": -1.8322391591225666,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -2,
+                  "z": -2
+                },
+                "contactNormal": {
+                  "x": -0.6713013656243614,
+                  "z": -0.741184509087223
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 1515,
+                "impactEnergy": 0,
+                "dentRadius": 0.615,
+                "dentDepth": 0.12,
+                "deformation": 0.1764705882352941,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-2",
+                  "SPACE:-2:-3",
+                  "SPACE:-2:-4",
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-3:-4"
+                ]
+              },
+              {
+                "vehicleId": "V00069",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.06524032700789073,
+                  "z": 0.16776084087743326
+                },
+                "restPose": {
+                  "x": -1.0652403270078907,
+                  "z": -1.8322391591225666,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": -2,
+                  "z": -2
+                },
+                "contactNormal": {
+                  "x": 1,
+                  "z": 0
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 5856,
+                "impactEnergy": 0,
+                "dentRadius": 0.615,
+                "dentDepth": 0.07594936708860758,
+                "deformation": 0.11169024571854055,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-1:-1",
+                  "SPACE:-1:-2",
+                  "SPACE:0:-1",
+                  "SPACE:0:-2",
+                  "SPACE:1:-1",
+                  "SPACE:1:-2",
+                  "SPACE:2:-1",
+                  "SPACE:2:-2"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 139,
+            "resourceId": "SPACE:2:-3",
+            "contactPoint": {
+              "x": 2,
+              "z": -3
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00024",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.4287221489089962,
+                  "z": 0.16672528013127633
+                },
+                "restPose": {
+                  "x": 2.5712778510910037,
+                  "z": -2.8332747198687236,
+                  "heading": -1.4107963267948966
+                },
+                "contactPoint": {
+                  "x": 2,
+                  "z": -3
+                },
+                "contactNormal": {
+                  "x": 1,
+                  "z": 0
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 15729,
+                "impactEnergy": 2133.635024322446,
+                "dentRadius": 0.8327478166402822,
+                "dentDepth": 0.2826719778230526,
+                "deformation": 0.4156940850339008,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:3:-2",
+                  "SPACE:3:-3",
+                  "SPACE:3:-4",
+                  "SPACE:4:-2",
+                  "SPACE:4:-3",
+                  "SPACE:4:-4",
+                  "SPACE:5:-3",
+                  "SPACE:5:-4"
+                ]
+              },
+              {
+                "vehicleId": "V00069",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.16776084087743326,
+                  "z": -0.0652403270078907
+                },
+                "restPose": {
+                  "x": -1.1677608408774334,
+                  "z": -2.0652403270078907,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": 2,
+                  "z": -3
+                },
+                "contactNormal": {
+                  "x": -0.8603329303936202,
+                  "z": 0.5097325268023671
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 5856,
+                "impactEnergy": 2133.635024322446,
+                "dentRadius": 0.8327478166402822,
+                "dentDepth": 0.2826719778230526,
+                "deformation": 0.4156940850339008,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-1:-1",
+                  "SPACE:-1:-2",
+                  "SPACE:-1:-3",
+                  "SPACE:0:-1",
+                  "SPACE:0:-2",
+                  "SPACE:0:-3",
+                  "SPACE:1:-1",
+                  "SPACE:1:-2",
+                  "SPACE:1:-3"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 139,
+            "resourceId": "SPACE:2:-2",
+            "contactPoint": {
+              "x": 4.1651925,
+              "z": -2.5
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00076",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.4287221489089962,
+                  "z": 0.16672528013127633
+                },
+                "restPose": {
+                  "x": 2.5712778510910037,
+                  "z": -1.8332747198687236,
+                  "heading": -1.4107963267948966
+                },
+                "contactPoint": {
+                  "x": 4.1651925,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": 0.7548768409508115,
+                  "z": 0.6558665679817224
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 9550,
+                "impactEnergy": 2971.0817279164526,
+                "dentRadius": 0.8969514319830566,
+                "dentDepth": 0.2938529930084796,
+                "deformation": 0.4321367544242347,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:3:-1",
+                  "SPACE:3:-2",
+                  "SPACE:3:-3",
+                  "SPACE:4:-1",
+                  "SPACE:4:-2",
+                  "SPACE:4:-3",
+                  "SPACE:5:-2",
+                  "SPACE:5:-3",
+                  "SPACE:6:-2",
+                  "SPACE:6:-3"
+                ]
+              },
+              {
+                "vehicleId": "V00024",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.16776084087743326,
+                  "z": -0.0652403270078907
+                },
+                "restPose": {
+                  "x": 2.8322391591225666,
+                  "z": -3.0652403270078907,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": 4.1651925,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": 0,
+                  "z": -1
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 15729,
+                "impactEnergy": 2971.0817279164526,
+                "dentRadius": 0.8719514319830566,
+                "dentDepth": 0.31989059998391445,
+                "deformation": 0.4704273529175212,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:3:-2",
+                  "SPACE:3:-3",
+                  "SPACE:3:-4",
+                  "SPACE:4:-2",
+                  "SPACE:4:-3",
+                  "SPACE:4:-4",
+                  "SPACE:5:-2",
+                  "SPACE:5:-3",
+                  "SPACE:5:-4"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 37
+      },
+      {
+        "id": "INC0004",
+        "triggerTick": 171,
+        "status": "CLOSED",
+        "collisionType": "REAR_END",
+        "severity": "MODERATE",
+        "vehicleIds": [
+          "V00044",
+          "V00059"
+        ],
+        "pedestrianIds": [],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 171,
+            "resourceId": "CROSSWALK:SOUTH:CELL:0:0",
+            "contactPoint": {
+              "x": -4,
+              "z": 4.917039
+            },
+            "collisionType": "REAR_END",
+            "severity": "MODERATE",
+            "vehicles": [
+              {
+                "vehicleId": "V00044",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0,
+                  "z": 0.2208
+                },
+                "restPose": {
+                  "x": -4,
+                  "z": 7.2208,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -4,
+                  "z": 4.917039
+                },
+                "contactNormal": {
+                  "x": 0,
+                  "z": 1
+                },
+                "damageSeverity": "MODERATE",
+                "massKg": 2161,
+                "impactEnergy": 0,
+                "dentRadius": 0.5110000000000001,
+                "dentDepth": 0.0576,
+                "deformation": 0.1,
+                "slideTicks": 4,
+                "hazardResourceIds": [
+                  "SPACE:-3:5",
+                  "SPACE:-3:6",
+                  "SPACE:-3:7",
+                  "SPACE:-4:5",
+                  "SPACE:-4:6",
+                  "SPACE:-4:7",
+                  "SPACE:-5:5",
+                  "SPACE:-5:6",
+                  "SPACE:-5:7"
+                ]
+              },
+              {
+                "vehicleId": "V00059",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0,
+                  "z": 0.2208
+                },
+                "restPose": {
+                  "x": -4,
+                  "z": 5.2208,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -4,
+                  "z": 4.917039
+                },
+                "contactNormal": {
+                  "x": 0,
+                  "z": -1
+                },
+                "damageSeverity": "MODERATE",
+                "massKg": 1704,
+                "impactEnergy": 0,
+                "dentRadius": 0.5110000000000001,
+                "dentDepth": 0.0576,
+                "deformation": 0.1,
+                "slideTicks": 4,
+                "hazardResourceIds": [
+                  "SPACE:-3:3",
+                  "SPACE:-3:4",
+                  "SPACE:-3:5",
+                  "SPACE:-4:3",
+                  "SPACE:-4:4",
+                  "SPACE:-4:5",
+                  "SPACE:-5:3",
+                  "SPACE:-5:4",
+                  "SPACE:-5:5"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 8
+      },
+      {
+        "id": "INC0005",
+        "triggerTick": 204,
+        "status": "CLOSED",
+        "collisionType": "ANGLE_COLLISION",
+        "severity": "SERIOUS",
+        "vehicleIds": [
+          "V00072",
+          "V00040"
+        ],
+        "pedestrianIds": [
+          "PED:81:0:CROSSWALK:WEST"
+        ],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 204,
+            "resourceId": "CROSSWALK:WEST:CELL:5:0",
+            "contactPoint": {
+              "x": -6.624375000000001,
+              "z": 0.9999999999999999
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00072",
+                "preImpactVelocity": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": 0.08643038522005364,
+                  "z": -0.033611816474465296
+                },
+                "restPose": {
+                  "x": -3.9135696147799464,
+                  "z": 0.9663881835255347,
+                  "heading": 1.6859963267948965
+                },
+                "contactPoint": {
+                  "x": -6.624375000000001,
+                  "z": 0.9999999999999999
+                },
+                "contactNormal": {
+                  "x": 1,
+                  "z": 0
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 5357,
+                "impactEnergy": 36.98223490427099,
+                "dentRadius": 0.5876675328955447,
+                "dentDepth": 0.07427907311847352,
+                "deformation": 0.1092339310565787,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-4:0",
+                  "SPACE:-4:1",
+                  "SPACE:-4:2",
+                  "SPACE:-5:0",
+                  "SPACE:-5:1",
+                  "SPACE:-5:2",
+                  "SPACE:-6:1",
+                  "SPACE:-6:2",
+                  "SPACE:-7:1"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:81:0:CROSSWALK:WEST",
+                "contactPoint": {
+                  "x": -6.624375000000001,
+                  "z": 0.9999999999999999
+                },
+                "contactNormal": {
+                  "x": -1,
+                  "z": -6.123233995736766e-17
+                },
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": -1
+                },
+                "impulse": {
+                  "x": 0.6335999999999999,
+                  "z": 3.8796810596988145e-17
+                },
+                "restPose": {
+                  "x": -6.210775,
+                  "z": 0.9999999999999999,
+                  "heading": 1.5707963267948966
+                },
+                "fallDirection": 1.5707963267948966,
+                "massKg": 75,
+                "impactEnergy": 36.98223490427099,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-6:1",
+                  "SPACE:-7:1"
+                ]
+              }
+            ]
+          },
+          {
+            "impactTick": 204,
+            "resourceId": "SPACE:-4:0",
+            "contactPoint": {
+              "x": -4.198096932365095,
+              "z": 0.49569704709528345
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00040",
+                "preImpactVelocity": {
+                  "x": -0.7071067811865476,
+                  "z": -0.7071067811865475
+                },
+                "impulse": {
+                  "x": -0.30315233873841996,
+                  "z": -0.13338702904490476
+                },
+                "restPose": {
+                  "x": -4.30315233873842,
+                  "z": -0.13338702904490476,
+                  "heading": -2.2409944901923446
+                },
+                "contactPoint": {
+                  "x": -4.198096932365095,
+                  "z": 0.49569704709528345
+                },
+                "contactNormal": {
+                  "x": 0.949710338059504,
+                  "z": 0.31312980340891033
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1182,
+                "impactEnergy": 484.1699036549931,
+                "dentRadius": 0.6627271960111387,
+                "dentDepth": 0.19842537169202976,
+                "deformation": 0.2918020171941614,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-2:1",
+                  "SPACE:-3:0",
+                  "SPACE:-3:1",
+                  "SPACE:-3:2",
+                  "SPACE:-4:-1",
+                  "SPACE:-4:0",
+                  "SPACE:-4:1",
+                  "SPACE:-5:0"
+                ]
+              },
+              {
+                "vehicleId": "V00072",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.052194924408875784,
+                  "z": -0.11862482820199041
+                },
+                "restPose": {
+                  "x": -4.052194924408876,
+                  "z": 0.8813751717980096,
+                  "heading": 1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": -4.198096932365095,
+                  "z": 0.49569704709528345
+                },
+                "contactNormal": {
+                  "x": -0.9110128271463676,
+                  "z": 0.4123780168422934
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 5357,
+                "impactEnergy": 484.1699036549931,
+                "dentRadius": 0.6627271960111387,
+                "dentDepth": 0.12558567828609477,
+                "deformation": 0.18468482100896289,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-4:0",
+                  "SPACE:-4:1",
+                  "SPACE:-5:0",
+                  "SPACE:-5:1",
+                  "SPACE:-6:0",
+                  "SPACE:-6:1",
+                  "SPACE:-7:0",
+                  "SPACE:-7:1"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 17
+      },
+      {
+        "id": "INC0006",
+        "triggerTick": 227,
+        "status": "CLOSED",
+        "collisionType": "ANGLE_COLLISION",
+        "severity": "SERIOUS",
+        "vehicleIds": [
+          "V00090"
+        ],
+        "pedestrianIds": [
+          "PED:45:1:CROSSWALK:WEST"
+        ],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 227,
+            "resourceId": "CROSSWALK:WEST:CELL:7:0",
+            "contactPoint": {
+              "x": -6,
+              "z": 3
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00090",
+                "preImpactVelocity": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": 0.08643038522005364,
+                  "z": -0.033611816474465296
+                },
+                "restPose": {
+                  "x": -5.913569614779947,
+                  "z": 2.9663881835255346,
+                  "heading": 1.6859963267948965
+                },
+                "contactPoint": {
+                  "x": -6,
+                  "z": 3
+                },
+                "contactNormal": {
+                  "x": -1,
+                  "z": 0
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 10046,
+                "impactEnergy": 37.22211243948227,
+                "dentRadius": 0.6127603555995178,
+                "dentDepth": 0.06829138607411585,
+                "deformation": 0.1004285089325233,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-6:2",
+                  "SPACE:-6:3",
+                  "SPACE:-6:4",
+                  "SPACE:-7:2",
+                  "SPACE:-7:3",
+                  "SPACE:-7:4",
+                  "SPACE:-8:3",
+                  "SPACE:-8:4",
+                  "SPACE:-9:3",
+                  "SPACE:-9:4"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:45:1:CROSSWALK:WEST",
+                "contactPoint": {
+                  "x": -6,
+                  "z": 3
+                },
+                "contactNormal": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0.6335999999999999,
+                  "z": 3.8796810596988145e-17
+                },
+                "restPose": {
+                  "x": -5.1464,
+                  "z": 3,
+                  "heading": 1.5707963267948966
+                },
+                "fallDirection": 1.5707963267948966,
+                "massKg": 75,
+                "impactEnergy": 37.22211243948227,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-5:3",
+                  "SPACE:-6:3"
+                ]
+              }
+            ]
+          }
+        ],
+        "clearanceLatencyTicks": 17
+      },
+      {
+        "id": "INC0007",
+        "triggerTick": 229,
+        "status": "CLOSED",
+        "collisionType": "ANGLE_COLLISION",
+        "severity": "SERIOUS",
+        "vehicleIds": [
+          "V00205"
+        ],
+        "pedestrianIds": [
+          "PED:86:0:CROSSWALK:SOUTH",
+          "PED:95:0:CROSSWALK:SOUTH"
+        ],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 229,
+            "resourceId": "CROSSWALK:SOUTH:CELL:7:0",
+            "contactPoint": {
+              "x": 2.875389195362814,
+              "z": 5.981093893349391
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00205",
+                "preImpactVelocity": {
+                  "x": 0.7071067811865476,
+                  "z": -0.7071067811865475
+                },
+                "impulse": {
+                  "x": 0.03734836813257335,
+                  "z": -0.0848826548467576
+                },
+                "restPose": {
+                  "x": 4.037348368132573,
+                  "z": 3.9151173451532424,
+                  "heading": 2.471394490192345
+                },
+                "contactPoint": {
+                  "x": 2.875389195362814,
+                  "z": 5.981093893349391
+                },
+                "contactNormal": {
+                  "x": -0.6330494339969708,
+                  "z": -0.7741113706154399
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 15623,
+                "impactEnergy": 37.320837049305645,
+                "dentRadius": 0.6377984710432518,
+                "dentDepth": 0.07436857514348859,
+                "deformation": 0.10936555168160085,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:1:6",
+                  "SPACE:1:7",
+                  "SPACE:2:5",
+                  "SPACE:2:6",
+                  "SPACE:2:7",
+                  "SPACE:2:8",
+                  "SPACE:3:4",
+                  "SPACE:3:5",
+                  "SPACE:3:6",
+                  "SPACE:3:7",
+                  "SPACE:4:4",
+                  "SPACE:4:5"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:86:0:CROSSWALK:SOUTH",
+                "contactPoint": {
+                  "x": 2.875389195362814,
+                  "z": 5.981093893349391
+                },
+                "contactNormal": {
+                  "x": 0.7071067811865475,
+                  "z": 0.7071067811865475
+                },
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.4480228565597965,
+                  "z": -0.44802285655979646
+                },
+                "restPose": {
+                  "x": 3.4480228565597963,
+                  "z": 5.657681841426781,
+                  "heading": 2.356194490192345
+                },
+                "fallDirection": 2.356194490192345,
+                "massKg": 75,
+                "impactEnergy": 37.320837049305645,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:3:6"
+                ]
+              }
+            ]
+          },
+          {
+            "impactTick": 229,
+            "resourceId": "CROSSWALK:SOUTH:CELL:7:1",
+            "contactPoint": {
+              "x": 2.625389195362814,
+              "z": 6.231093893349391
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00205",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.013152449924790772,
+                  "z": 0.033820585520890546
+                },
+                "restPose": {
+                  "x": 4.013152449924791,
+                  "z": 4.033820585520891,
+                  "heading": 2.356194490192345
+                },
+                "contactPoint": {
+                  "x": 2.625389195362814,
+                  "z": 6.231093893349391
+                },
+                "contactNormal": {
+                  "x": -0.18441042360718862,
+                  "z": -0.9828493250061361
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 15623,
+                "impactEnergy": 0,
+                "dentRadius": 0.609,
+                "dentDepth": 0.05468354430379746,
+                "deformation": 0.1,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:1:6",
+                  "SPACE:1:7",
+                  "SPACE:2:5",
+                  "SPACE:2:6",
+                  "SPACE:2:7",
+                  "SPACE:3:4",
+                  "SPACE:3:5",
+                  "SPACE:3:6",
+                  "SPACE:4:4",
+                  "SPACE:4:5"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:95:0:CROSSWALK:SOUTH",
+                "contactPoint": {
+                  "x": 2.625389195362814,
+                  "z": 6.231093893349391
+                },
+                "contactNormal": {
+                  "x": 0.7071067811865475,
+                  "z": 0.7071067811865475
+                },
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0,
+                  "z": 0.3024
+                },
+                "restPose": {
+                  "x": 3,
+                  "z": 6.908104697986577,
+                  "heading": 0
+                },
+                "fallDirection": 0,
+                "massKg": 75,
+                "impactEnergy": 0,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:3:7"
+                ]
+              }
+            ]
+          }
+        ],
+        "clearanceLatencyTicks": 32
+      },
+      {
+        "id": "INC0008",
+        "triggerTick": 231,
+        "status": "OPEN",
+        "collisionType": "PILEUP",
+        "severity": "CRITICAL",
+        "vehicleIds": [
+          "V00020",
+          "V00053",
+          "V00088",
+          "V00086",
+          "V00067",
+          "V00087"
+        ],
+        "pedestrianIds": [
+          "PED:43:0:CROSSWALK:NORTH"
+        ],
+        "lockedResourceIds": [
+          "CROSSWALK:NORTH:CELL:0:0",
+          "CROSSWALK:NORTH:CELL:0:1",
+          "CROSSWALK:NORTH:CELL:1:0",
+          "CROSSWALK:NORTH:CELL:1:1",
+          "CROSSWALK:WEST:CELL:5:0",
+          "CROSSWALK:WEST:CELL:5:1",
+          "PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:10",
+          "PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:9",
+          "PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:10",
+          "PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:12",
+          "PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:4",
+          "PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:5",
+          "PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:12",
+          "PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:13",
+          "PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:4",
+          "PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:5",
+          "PAIR:E_S2_STRAIGHT:10|E_L1_GUIDED_STRAIGHT:10",
+          "PAIR:E_S2_STRAIGHT:10|E_L1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S2_STRAIGHT:10|E_L1_GUIDED_STRAIGHT:9",
+          "PAIR:E_S2_STRAIGHT:10|W_L1_LEFT:7",
+          "PAIR:E_S2_STRAIGHT:10|W_L1_LEFT:8",
+          "PAIR:E_S2_STRAIGHT:11|E_L1_GUIDED_STRAIGHT:10",
+          "PAIR:E_S2_STRAIGHT:11|E_L1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S2_STRAIGHT:11|E_L1_GUIDED_STRAIGHT:12",
+          "PAIR:E_S2_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:5",
+          "PAIR:E_S2_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:6",
+          "PAIR:E_S2_STRAIGHT:12|E_L1_GUIDED_STRAIGHT:11",
+          "PAIR:E_S2_STRAIGHT:12|E_L1_GUIDED_STRAIGHT:12",
+          "PAIR:E_S2_STRAIGHT:12|E_L1_GUIDED_STRAIGHT:13",
+          "PAIR:E_S2_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:5",
+          "PAIR:E_S2_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:6",
+          "PAIR:E_S2_STRAIGHT:9|E_L1_GUIDED_STRAIGHT:10",
+          "PAIR:E_S2_STRAIGHT:9|E_L1_GUIDED_STRAIGHT:8",
+          "PAIR:E_S2_STRAIGHT:9|E_L1_GUIDED_STRAIGHT:9",
+          "PAIR:E_S2_STRAIGHT:9|N_L1_GUIDED_STRAIGHT:5",
+          "PAIR:E_S2_STRAIGHT:9|N_L1_GUIDED_STRAIGHT:6",
+          "PAIR:E_S2_STRAIGHT:9|N_S2_GUIDED_LEFT:6",
+          "PAIR:E_S2_STRAIGHT:9|N_S2_GUIDED_LEFT:7",
+          "PAIR:E_S2_STRAIGHT:9|W_L1_LEFT:7",
+          "PAIR:E_S2_STRAIGHT:9|W_L1_LEFT:8",
+          "PAIR:E_S2_STRAIGHT:9|W_L1_LEFT:9",
+          "PAIR:E_S2_STRAIGHT:9|W_S2_GUIDED_LEFT:8",
+          "PAIR:E_S2_STRAIGHT:9|W_S2_GUIDED_LEFT:9",
+          "PAIR:N_R1_RIGHT:0|N_R1_GUIDED_STRAIGHT:0",
+          "PAIR:N_R1_RIGHT:1|N_R1_GUIDED_STRAIGHT:1",
+          "PAIR:N_R1_RIGHT:1|N_R1_GUIDED_STRAIGHT:2",
+          "PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:1",
+          "PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:2",
+          "PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:3",
+          "PAIR:N_R1_RIGHT:2|N_S1_GUIDED_RIGHT:3",
+          "PAIR:N_R1_RIGHT:2|N_S1_GUIDED_RIGHT:4",
+          "PAIR:N_R1_RIGHT:3|N_R1_GUIDED_STRAIGHT:2",
+          "PAIR:N_R1_RIGHT:3|N_R1_GUIDED_STRAIGHT:3",
+          "PAIR:N_R1_RIGHT:3|N_S1_GUIDED_RIGHT:3",
+          "PAIR:N_R1_RIGHT:3|N_S1_GUIDED_RIGHT:4",
+          "PAIR:N_S1_STRAIGHT:0|N_S1_GUIDED_RIGHT:0",
+          "PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:1",
+          "PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:2",
+          "PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10",
+          "PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:11",
+          "PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:10",
+          "PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:11",
+          "PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:10",
+          "PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:11",
+          "PAIR:N_S1_STRAIGHT:6|E_S2_STRAIGHT:10",
+          "PAIR:N_S1_STRAIGHT:6|E_S2_STRAIGHT:11",
+          "PAIR:N_S1_STRAIGHT:7|S_L1_LEFT:8",
+          "PAIR:N_S1_STRAIGHT:7|S_L1_LEFT:9",
+          "PAIR:N_S1_STRAIGHT:8|S_L1_LEFT:8",
+          "PAIR:N_S1_STRAIGHT:8|S_L1_LEFT:9",
+          "PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:10",
+          "PAIR:N_S2_STRAIGHT:5|E_S1_STRAIGHT:10",
+          "PAIR:N_S2_STRAIGHT:5|E_S2_STRAIGHT:10",
+          "PAIR:N_S2_STRAIGHT:5|E_S2_STRAIGHT:9",
+          "PAIR:N_S2_STRAIGHT:6|E_S2_STRAIGHT:10",
+          "PAIR:N_S2_STRAIGHT:6|E_S2_STRAIGHT:9",
+          "PAIR:N_S2_STRAIGHT:7|S_L1_LEFT:8",
+          "PAIR:N_S2_STRAIGHT:8|S_L1_LEFT:8",
+          "PAIR:S_L1_LEFT:10|N_R1_GUIDED_STRAIGHT:6",
+          "PAIR:S_L1_LEFT:10|N_R1_GUIDED_STRAIGHT:7",
+          "PAIR:S_L1_LEFT:10|S_S2_GUIDED_LEFT:11",
+          "PAIR:S_L1_LEFT:10|S_S2_GUIDED_LEFT:12",
+          "PAIR:S_L1_LEFT:10|W_L1_GUIDED_STRAIGHT:3",
+          "PAIR:S_L1_LEFT:10|W_L1_GUIDED_STRAIGHT:4",
+          "PAIR:S_L1_LEFT:10|W_L1_LEFT:3",
+          "PAIR:S_L1_LEFT:10|W_L1_LEFT:4",
+          "PAIR:S_L1_LEFT:10|W_L1_LEFT:5",
+          "PAIR:S_L1_LEFT:10|W_S2_GUIDED_LEFT:4",
+          "PAIR:S_L1_LEFT:10|W_S2_GUIDED_LEFT:5",
+          "PAIR:S_L1_LEFT:8|N_R1_GUIDED_STRAIGHT:7",
+          "PAIR:S_L1_LEFT:8|N_R1_GUIDED_STRAIGHT:8",
+          "PAIR:S_L1_LEFT:8|S_S2_GUIDED_LEFT:10",
+          "PAIR:S_L1_LEFT:8|S_S2_GUIDED_LEFT:11",
+          "PAIR:S_L1_LEFT:8|S_S2_GUIDED_LEFT:9",
+          "PAIR:S_L1_LEFT:8|W_L1_GUIDED_STRAIGHT:4",
+          "PAIR:S_L1_LEFT:8|W_L1_GUIDED_STRAIGHT:5",
+          "PAIR:S_L1_LEFT:8|W_L1_GUIDED_STRAIGHT:6",
+          "PAIR:S_L1_LEFT:8|W_S2_GUIDED_LEFT:5",
+          "PAIR:S_L1_LEFT:8|W_S2_GUIDED_LEFT:6",
+          "PAIR:S_L1_LEFT:8|W_S2_GUIDED_LEFT:7",
+          "PAIR:S_L1_LEFT:9|N_R1_GUIDED_STRAIGHT:7",
+          "PAIR:S_L1_LEFT:9|N_R1_GUIDED_STRAIGHT:8",
+          "PAIR:S_L1_LEFT:9|S_S2_GUIDED_LEFT:10",
+          "PAIR:S_L1_LEFT:9|S_S2_GUIDED_LEFT:11",
+          "PAIR:S_L1_LEFT:9|W_L1_GUIDED_STRAIGHT:3",
+          "PAIR:S_L1_LEFT:9|W_L1_GUIDED_STRAIGHT:4",
+          "PAIR:S_L1_LEFT:9|W_L1_GUIDED_STRAIGHT:5",
+          "PAIR:S_L1_LEFT:9|W_L1_LEFT:3",
+          "PAIR:S_L1_LEFT:9|W_L1_LEFT:4",
+          "PAIR:S_L1_LEFT:9|W_S2_GUIDED_LEFT:4",
+          "PAIR:S_L1_LEFT:9|W_S2_GUIDED_LEFT:5",
+          "PAIR:S_L1_LEFT:9|W_S2_GUIDED_LEFT:6",
+          "PAIR:W_S2_STRAIGHT:1|W_S2_GUIDED_LEFT:1",
+          "PAIR:W_S2_STRAIGHT:1|W_S2_GUIDED_LEFT:2",
+          "PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:1",
+          "PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:2",
+          "PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:3",
+          "PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:2",
+          "PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:3",
+          "PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:4",
+          "SPACE:-2:-2",
+          "SPACE:-2:-3",
+          "SPACE:-2:-6",
+          "SPACE:-2:-7",
+          "SPACE:-2:0",
+          "SPACE:-3:-1",
+          "SPACE:-3:-2",
+          "SPACE:-3:-3",
+          "SPACE:-3:-4",
+          "SPACE:-3:-6",
+          "SPACE:-3:-7",
+          "SPACE:-3:-8",
+          "SPACE:-3:-9",
+          "SPACE:-3:0",
+          "SPACE:-3:1",
+          "SPACE:-4:-1",
+          "SPACE:-4:-2",
+          "SPACE:-4:-3",
+          "SPACE:-4:-4",
+          "SPACE:-4:-5",
+          "SPACE:-4:-6",
+          "SPACE:-4:-7",
+          "SPACE:-4:-8",
+          "SPACE:-4:-9",
+          "SPACE:-4:0",
+          "SPACE:-4:1",
+          "SPACE:-4:2",
+          "SPACE:-5:-1",
+          "SPACE:-5:-2",
+          "SPACE:-5:-3",
+          "SPACE:-5:-4",
+          "SPACE:-5:-5",
+          "SPACE:-5:-6",
+          "SPACE:-5:0",
+          "SPACE:-5:1",
+          "SPACE:-5:2",
+          "SPACE:-6:-5",
+          "SPACE:-6:1",
+          "SPACE:-6:2"
+        ],
+        "severedRouteIds": [
+          "E_L1_GUIDED_STRAIGHT",
+          "E_R1_GUIDED_STRAIGHT",
+          "E_S1_STRAIGHT",
+          "E_S2_STRAIGHT",
+          "N_L1_GUIDED_STRAIGHT",
+          "N_R1_GUIDED_STRAIGHT",
+          "N_R1_RIGHT",
+          "N_S1_GUIDED_RIGHT",
+          "N_S1_STRAIGHT",
+          "N_S2_GUIDED_LEFT",
+          "N_S2_STRAIGHT",
+          "S_L1_LEFT",
+          "S_S2_GUIDED_LEFT",
+          "W_L1_GUIDED_STRAIGHT",
+          "W_L1_LEFT",
+          "W_S1_GUIDED_RIGHT",
+          "W_S1_STRAIGHT",
+          "W_S2_GUIDED_LEFT",
+          "W_S2_STRAIGHT"
+        ],
+        "suggestedEvacLanes": [
+          "OUT_EAST_2",
+          "OUT_NORTH_3",
+          "OUT_SOUTH_1",
+          "OUT_WEST_0",
+          "OUT_WEST_1",
+          "OUT_WEST_2",
+          "OUT_WEST_3"
+        ],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 22,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 231,
+            "resourceId": "CROSSWALK:NORTH:CELL:1:0",
+            "contactPoint": {
+              "x": -2.394375,
+              "z": -6.605704697986577
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00020",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": 0.03361181647446531,
+                  "z": 0.08643038522005364
+                },
+                "restPose": {
+                  "x": -2.9663881835255346,
+                  "z": -5.913569614779947,
+                  "heading": 0.1152
+                },
+                "contactPoint": {
+                  "x": -2.394375,
+                  "z": -6.605704697986577
+                },
+                "contactNormal": {
+                  "x": -0.5501904264070627,
+                  "z": -0.835039217456291
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 12090,
+                "impactEnergy": 37.268803945745994,
+                "dentRadius": 0.6127783884753611,
+                "dentDepth": 0.06830270904266862,
+                "deformation": 0.10044516035686561,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-2:-6",
+                  "SPACE:-2:-7",
+                  "SPACE:-3:-6",
+                  "SPACE:-3:-7",
+                  "SPACE:-3:-8",
+                  "SPACE:-3:-9",
+                  "SPACE:-4:-6",
+                  "SPACE:-4:-7",
+                  "SPACE:-4:-8",
+                  "SPACE:-4:-9"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:43:0:CROSSWALK:NORTH",
+                "contactPoint": {
+                  "x": -2.394375,
+                  "z": -6.605704697986577
+                },
+                "contactNormal": {
+                  "x": 1,
+                  "z": 0
+                },
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0,
+                  "z": 0.6335999999999999
+                },
+                "restPose": {
+                  "x": -2.174375,
+                  "z": -5.972104697986577,
+                  "heading": 0
+                },
+                "fallDirection": 0,
+                "massKg": 75,
+                "impactEnergy": 37.268803945745994,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-6",
+                  "SPACE:-2:-7"
+                ]
+              }
+            ]
+          },
+          {
+            "impactTick": 231,
+            "resourceId": "SPACE:-4:-6",
+            "contactPoint": {
+              "x": -3.211310091918874,
+              "z": -6.709814908081126
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00053",
+                "preImpactVelocity": {
+                  "x": -0.7071067811865475,
+                  "z": 0.7071067811865476
+                },
+                "impulse": {
+                  "x": -0.13338702904490476,
+                  "z": 0.30315233873841996
+                },
+                "restPose": {
+                  "x": -5.133387029044905,
+                  "z": -4.69684766126158,
+                  "heading": -0.6701981633974483
+                },
+                "contactPoint": {
+                  "x": -3.211310091918874,
+                  "z": -6.709814908081126
+                },
+                "contactNormal": {
+                  "x": -0.747163317153891,
+                  "z": 0.6646404874062323
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 10126,
+                "impactEnergy": 2755.2966330572563,
+                "dentRadius": 0.8314445676670617,
+                "dentDepth": 0.22382286903824464,
+                "deformation": 0.32915127799741856,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-3:-6",
+                  "SPACE:-3:-7",
+                  "SPACE:-4:-5",
+                  "SPACE:-4:-6",
+                  "SPACE:-4:-7",
+                  "SPACE:-5:-4",
+                  "SPACE:-5:-5",
+                  "SPACE:-5:-6",
+                  "SPACE:-6:-5"
+                ]
+              },
+              {
+                "vehicleId": "V00020",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.11862482820199041,
+                  "z": 0.052194924408875784
+                },
+                "restPose": {
+                  "x": -3.1186248282019906,
+                  "z": -5.947805075591124,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -3.211310091918874,
+                  "z": -6.709814908081126
+                },
+                "contactNormal": {
+                  "x": 0.2509591639531901,
+                  "z": -0.9679976745984031
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 12090,
+                "impactEnergy": 2755.2966330572563,
+                "dentRadius": 0.8314445676670617,
+                "dentDepth": 0.2056047285351317,
+                "deformation": 0.3023598949046054,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-3:-6",
+                  "SPACE:-3:-7",
+                  "SPACE:-3:-8",
+                  "SPACE:-3:-9",
+                  "SPACE:-4:-6",
+                  "SPACE:-4:-7",
+                  "SPACE:-4:-8",
+                  "SPACE:-4:-9"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 234,
+            "resourceId": "PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10",
+            "contactPoint": {
+              "x": -4,
+              "z": -4.5
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00020",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.12078780543175195,
+                  "z": 0.04697303544568133
+                },
+                "restPose": {
+                  "x": -3.120787805431752,
+                  "z": -5.953026964554319,
+                  "heading": 0
+                },
+                "contactPoint": {
+                  "x": -4,
+                  "z": -4.5
+                },
+                "contactNormal": {
+                  "x": 0.3138841120730664,
+                  "z": -0.9494613021014089
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 12090,
+                "impactEnergy": 2959.331855604813,
+                "dentRadius": 0.8404428398777228,
+                "dentDepth": 0.21125480643484923,
+                "deformation": 0.3106688329924253,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-3:-6",
+                  "SPACE:-3:-7",
+                  "SPACE:-3:-8",
+                  "SPACE:-3:-9",
+                  "SPACE:-4:-6",
+                  "SPACE:-4:-7",
+                  "SPACE:-4:-8",
+                  "SPACE:-4:-9"
+                ]
+              },
+              {
+                "vehicleId": "V00088",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.3086799472144772,
+                  "z": -0.1200422016945189
+                },
+                "restPose": {
+                  "x": -5.308679947214477,
+                  "z": -3.120042201694519,
+                  "heading": -1.6859963267948965
+                },
+                "contactPoint": {
+                  "x": -4,
+                  "z": -4.5
+                },
+                "contactNormal": {
+                  "x": 0.1998073415017351,
+                  "z": 0.9798352036347792
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 11595,
+                "impactEnergy": 2959.331855604813,
+                "dentRadius": 0.8154428398777229,
+                "dentDepth": 0.22997358675186116,
+                "deformation": 0.33819645110567814,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-4:-2",
+                  "SPACE:-4:-3",
+                  "SPACE:-4:-4",
+                  "SPACE:-5:-2",
+                  "SPACE:-5:-3",
+                  "SPACE:-5:-4"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 234,
+            "resourceId": "SPACE:-3:-2",
+            "contactPoint": {
+              "x": -3.694121,
+              "z": -2.5
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00086",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.4287221489089962,
+                  "z": 0.16672528013127633
+                },
+                "restPose": {
+                  "x": -5.428722148908996,
+                  "z": -1.8332747198687236,
+                  "heading": -1.4107963267948966
+                },
+                "contactPoint": {
+                  "x": -3.694121,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": 0.6561885043239931,
+                  "z": 0.7545970095309422
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 9937,
+                "impactEnergy": 2675.541403492476,
+                "dentRadius": 0.8838369857777243,
+                "dentDepth": 0.28241597596894563,
+                "deformation": 0.41531761171903764,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-2",
+                  "SPACE:-2:-3",
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-4:-1",
+                  "SPACE:-4:-2",
+                  "SPACE:-4:-3",
+                  "SPACE:-5:-1",
+                  "SPACE:-5:-2",
+                  "SPACE:-5:-3"
+                ]
+              },
+              {
+                "vehicleId": "V00088",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.16776084087743326,
+                  "z": -0.0652403270078907
+                },
+                "restPose": {
+                  "x": -5.167760840877433,
+                  "z": -3.0652403270078907,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": -3.694121,
+                  "z": -2.5
+                },
+                "contactNormal": {
+                  "x": 0,
+                  "z": -1
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 11595,
+                "impactEnergy": 2675.541403492476,
+                "dentRadius": 0.8588369857777243,
+                "dentDepth": 0.30744017637125726,
+                "deformation": 0.45211790642831945,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-3:-4",
+                  "SPACE:-4:-2",
+                  "SPACE:-4:-3",
+                  "SPACE:-4:-4",
+                  "SPACE:-5:-2",
+                  "SPACE:-5:-3",
+                  "SPACE:-5:-4"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 235,
+            "resourceId": "SPACE:-4:-1",
+            "contactPoint": {
+              "x": -3.5969491347236677,
+              "z": -1.3972669550921106
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00067",
+                "preImpactVelocity": {
+                  "x": -0.7071067811865476,
+                  "z": -0.7071067811865475
+                },
+                "impulse": {
+                  "x": -0.42104491491447216,
+                  "z": -0.18525976256236773
+                },
+                "restPose": {
+                  "x": -4.421044914914472,
+                  "z": -1.1852597625623678,
+                  "heading": -2.1961944901923447
+                },
+                "contactPoint": {
+                  "x": -3.5969491347236677,
+                  "z": -1.3972669550921106
+                },
+                "contactNormal": {
+                  "x": 0.28348755335912557,
+                  "z": 0.9589759158031327
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 2457,
+                "impactEnergy": 984.9608278199129,
+                "dentRadius": 0.7629459982425955,
+                "dentDepth": 0.29992894505604667,
+                "deformation": 0.441071978023598,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-3:-1",
+                  "SPACE:-3:0",
+                  "SPACE:-3:1",
+                  "SPACE:-4:-1",
+                  "SPACE:-4:-2",
+                  "SPACE:-4:0",
+                  "SPACE:-5:-1"
+                ]
+              },
+              {
+                "vehicleId": "V00086",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.07249295056788303,
+                  "z": -0.1647567058360978
+                },
+                "restPose": {
+                  "x": -5.072492950567883,
+                  "z": -2.1647567058360977,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": -3.5969491347236677,
+                  "z": -1.3972669550921106
+                },
+                "contactNormal": {
+                  "x": 0.4887043346039766,
+                  "z": -0.8724494674989975
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 9937,
+                "impactEnergy": 984.9608278199129,
+                "dentRadius": 0.7879459982425955,
+                "dentDepth": 0.19879011474644953,
+                "deformation": 0.2923384040388963,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:-2",
+                  "SPACE:-2:-3",
+                  "SPACE:-3:-2",
+                  "SPACE:-3:-3",
+                  "SPACE:-4:-2",
+                  "SPACE:-4:-3",
+                  "SPACE:-5:-2",
+                  "SPACE:-5:-3"
+                ]
+              }
+            ],
+            "pedestrians": []
+          },
+          {
+            "impactTick": 238,
+            "resourceId": "SPACE:-3:1",
+            "contactPoint": {
+              "x": -3,
+              "z": 1
+            },
+            "collisionType": "PILEUP",
+            "severity": "CRITICAL",
+            "vehicles": [
+              {
+                "vehicleId": "V00087",
+                "preImpactVelocity": {
+                  "x": 1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": 0.4287221489089962,
+                  "z": -0.16672528013127627
+                },
+                "restPose": {
+                  "x": -3.5712778510910037,
+                  "z": 0.8332747198687237,
+                  "heading": 1.7307963267948965
+                },
+                "contactPoint": {
+                  "x": -3,
+                  "z": 1
+                },
+                "contactNormal": {
+                  "x": -1,
+                  "z": -4.801613297473308e-17
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 12513,
+                "impactEnergy": 1026.8684368737474,
+                "dentRadius": 0.7660605792296402,
+                "dentDepth": 0.21936130939522797,
+                "deformation": 0.3225901608753352,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-4:0",
+                  "SPACE:-4:1",
+                  "SPACE:-4:2",
+                  "SPACE:-5:0",
+                  "SPACE:-5:1",
+                  "SPACE:-5:2",
+                  "SPACE:-6:1",
+                  "SPACE:-6:2"
+                ]
+              },
+              {
+                "vehicleId": "V00067",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": 0.16776084087743326,
+                  "z": 0.06524032700789073
+                },
+                "restPose": {
+                  "x": -3.8322391591225666,
+                  "z": -0.9347596729921093,
+                  "heading": -2.356194490192345
+                },
+                "contactPoint": {
+                  "x": -3,
+                  "z": 1
+                },
+                "contactNormal": {
+                  "x": -0.2027259897344158,
+                  "z": -0.9792355044044316
+                },
+                "damageSeverity": "CRITICAL",
+                "massKg": 2457,
+                "impactEnergy": 1026.8684368737474,
+                "dentRadius": 0.7660605792296402,
+                "dentDepth": 0.30402707793373707,
+                "deformation": 0.44709864402020155,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:-2:0",
+                  "SPACE:-3:-1",
+                  "SPACE:-3:0",
+                  "SPACE:-3:1",
+                  "SPACE:-4:-1",
+                  "SPACE:-4:0"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ]
+      },
+      {
+        "id": "INC0009",
+        "triggerTick": 232,
+        "status": "CLOSED",
+        "collisionType": "ANGLE_COLLISION",
+        "severity": "SERIOUS",
+        "vehicleIds": [
+          "V00111",
+          "V00118"
+        ],
+        "pedestrianIds": [
+          "PED:61:0:CROSSWALK:EAST"
+        ],
+        "lockedResourceIds": [],
+        "severedRouteIds": [],
+        "suggestedEvacLanes": [],
+        "activeLaneHolds": [],
+        "estimatedClearanceTicks": 0,
+        "secondaryCollisionRisk": false,
+        "collisionOutcomes": [
+          {
+            "impactTick": 232,
+            "resourceId": "CROSSWALK:EAST:CELL:2:0",
+            "contactPoint": {
+              "x": 6.605704697986577,
+              "z": -2.562875
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00111",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.08643038522005364,
+                  "z": 0.03361181647446531
+                },
+                "restPose": {
+                  "x": 4.913569614779947,
+                  "z": -1.9663881835255348,
+                  "heading": -1.4555963267948966
+                },
+                "contactPoint": {
+                  "x": 6.605704697986577,
+                  "z": -2.562875
+                },
+                "contactNormal": {
+                  "x": -0.5999039752555909,
+                  "z": 0.8000720095544771
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1737,
+                "impactEnergy": 35.9478476821192,
+                "dentRadius": 0.5872637764568476,
+                "dentDepth": 0.11692487857339531,
+                "deformation": 0.17194835084322838,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:5:-1",
+                  "SPACE:5:-2",
+                  "SPACE:5:-3",
+                  "SPACE:6:-2",
+                  "SPACE:6:-3",
+                  "SPACE:7:-2",
+                  "SPACE:7:-3"
+                ]
+              }
+            ],
+            "pedestrians": [
+              {
+                "pedestrianId": "PED:61:0:CROSSWALK:EAST",
+                "contactPoint": {
+                  "x": 6.605704697986577,
+                  "z": -2.562875
+                },
+                "contactNormal": {
+                  "x": -6.123233995736766e-17,
+                  "z": -1
+                },
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 1
+                },
+                "impulse": {
+                  "x": -0.6335999999999999,
+                  "z": 3.8796810596988145e-17
+                },
+                "restPose": {
+                  "x": 5.972104697986577,
+                  "z": -2.782875,
+                  "heading": -1.5707963267948966
+                },
+                "fallDirection": -1.5707963267948966,
+                "massKg": 75,
+                "impactEnergy": 35.9478476821192,
+                "slideTicks": 6,
+                "hazardResourceIds": [
+                  "SPACE:6:-3",
+                  "SPACE:7:-3"
+                ]
+              }
+            ]
+          },
+          {
+            "impactTick": 232,
+            "resourceId": "SPACE:5:-1",
+            "contactPoint": {
+              "x": 6.183654000000001,
+              "z": -1.5
+            },
+            "collisionType": "ANGLE_COLLISION",
+            "severity": "SERIOUS",
+            "vehicles": [
+              {
+                "vehicleId": "V00118",
+                "preImpactVelocity": {
+                  "x": -1,
+                  "z": 6.123233995736766e-17
+                },
+                "impulse": {
+                  "x": -0.3086799472144772,
+                  "z": 0.12004220169451896
+                },
+                "restPose": {
+                  "x": 4.691320052785523,
+                  "z": -0.879957798305481,
+                  "heading": -1.4555963267948966
+                },
+                "contactPoint": {
+                  "x": 6.183654000000001,
+                  "z": -1.5
+                },
+                "contactNormal": {
+                  "x": -1.7763568394002505e-15,
+                  "z": 1
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1695,
+                "impactEnergy": 428.93575174825173,
+                "dentRadius": 0.6566314785015857,
+                "dentDepth": 0.19184199678171257,
+                "deformation": 0.28212058350251845,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:5:-1",
+                  "SPACE:5:0",
+                  "SPACE:6:-1",
+                  "SPACE:6:-2",
+                  "SPACE:6:0",
+                  "SPACE:7:-1",
+                  "SPACE:7:-2"
+                ]
+              },
+              {
+                "vehicleId": "V00111",
+                "preImpactVelocity": {
+                  "x": 0,
+                  "z": 0
+                },
+                "impulse": {
+                  "x": -0.12078780543175195,
+                  "z": -0.04697303544568131
+                },
+                "restPose": {
+                  "x": 4.879212194568248,
+                  "z": -2.0469730354456814,
+                  "heading": -1.5707963267948966
+                },
+                "contactPoint": {
+                  "x": 6.183654000000001,
+                  "z": -1.5
+                },
+                "contactNormal": {
+                  "x": -1.7763568394002505e-15,
+                  "z": -1
+                },
+                "damageSeverity": "SERIOUS",
+                "massKg": 1737,
+                "impactEnergy": 428.93575174825173,
+                "dentRadius": 0.6566314785015857,
+                "dentDepth": 0.19184199678171257,
+                "deformation": 0.28212058350251845,
+                "slideTicks": 5,
+                "hazardResourceIds": [
+                  "SPACE:5:-1",
+                  "SPACE:5:-2",
+                  "SPACE:5:-3",
+                  "SPACE:6:-1",
+                  "SPACE:6:-2",
+                  "SPACE:6:-3",
+                  "SPACE:7:-1",
+                  "SPACE:7:-2",
+                  "SPACE:7:-3"
+                ]
+              }
+            ],
+            "pedestrians": []
+          }
+        ],
+        "clearanceLatencyTicks": 21
+      }
+    ],
+    "replayPath": "logs/replay_qwen-qwen3.8-flash-next_2026-10-19_222501498-10539.json",
+    "cycles": [
+      {
+        "cycle": 1,
+        "tick": 62,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 1,
+        "nonTerminalToolCalls": 0,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "api_error"
+        ],
+        "financialDelta": -0.024,
+        "balance": 999.976,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.004,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0,
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "reasoningTokens": 0,
+        "outputTokens": 0,
+        "avgDecodeTokensPerSec": 0,
+        "avgGenerationTokensPerSec": 0
+      },
+      {
+        "cycle": 2,
+        "tick": 66,
+        "sleepTicks": 4,
+        "usedFallback": false,
+        "admitted": [
+          "V00007",
+          "V00002",
+          "V00009",
+          "V00010",
+          "V00001",
+          "V00005",
+          "V00003",
+          "V00004"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Wave 1: admit 8 compatible heads (school bus W_R1 = 40 pax) plus all four crosswalk phases; empty junction so straights from N/W are safe now. Vertical straights intentionally reserved for next wave.",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 2,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -0.115,
+        "balance": 999.861,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.052,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0,
+        "promptTokens": 28944,
+        "completionTokens": 882,
+        "reasoningTokens": 0,
+        "outputTokens": 882,
+        "avgDecodeTokensPerSec": 76.69,
+        "avgGenerationTokensPerSec": 76.69
+      },
+      {
+        "cycle": 3,
+        "tick": 75,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Quota exhausted this cycle after probing blocked lane heads (S_S1/S_L1 heads not ready; two stalled heads V00006/V00014 occupy N_R1/S_R1 stoplines). Let the 8-vehicle wave clear (reservedUntil 70-83) and W crosswalk vehicle reservations expire at 71, then release W and S pedestrian phases (all appro",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.1873,
+        "balance": 999.6737,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.016,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.0008,
+        "promptTokens": 91017,
+        "completionTokens": 1071,
+        "reasoningTokens": 0,
+        "outputTokens": 1071,
+        "avgDecodeTokensPerSec": 70.08,
+        "avgGenerationTokensPerSec": 70.08
+      },
+      {
+        "cycle": 4,
+        "tick": 84,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [
+          "V00018",
+          "V00035"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Admit E_S1 head (43-pax lane, clears crosswalk E by t=79 before ped steps) and S_S2 hazmat head (only low-pax head; S_L1/S_S1 heads blocked by incident-stalled V00006/V00014 at stoplines). Release both W crosswalk directions (no vehicle reservations on W). Drop N_S2 bus (conflicts E_S1) and W_L1/W_S",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.4923,
+        "balance": 999.1814,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.06,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.3298,
+        "promptTokens": 44980,
+        "completionTokens": 478,
+        "reasoningTokens": 0,
+        "outputTokens": 478,
+        "avgDecodeTokensPerSec": 71.79,
+        "avgGenerationTokensPerSec": 71.79
+      },
+      {
+        "cycle": 5,
+        "tick": 92,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [
+          "V00008",
+          "V00011",
+          "V00016",
+          "V00025",
+          "V00013",
+          "V00021",
+          "V00019"
+        ],
+        "rejected": [],
+        "tacticalSummary": "7-vehicle wave: E_L1 left + E_R1 right (clear fast, right lane head), N_S2 bus (40 pax) + follower, W_S2 van pair, S_L1 left (unblocks emergency V00034 behind it). E crosswalk reserved until 95 so no ped phase this window; N/S crosswalks expire 95/90 for next cycle. High-pax W_S1/E_S1 heads deferred",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.5101,
+        "balance": 998.6713,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.036,
+        "stallChainBleed": 0.0046,
+        "upstreamBleed": 0.018,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.367,
+        "promptTokens": 45417,
+        "completionTokens": 758,
+        "reasoningTokens": 0,
+        "outputTokens": 758,
+        "avgDecodeTokensPerSec": 71.17,
+        "avgGenerationTokensPerSec": 71.17
+      },
+      {
+        "cycle": 6,
+        "tick": 95,
+        "sleepTicks": 3,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Dry-run quota spent on two probes that both hit STALLED heads (V00006 on N_R1, V00014 on S_R1 at stopline) \\u2192 those lanes are dead until cleared; no verified admission exists this cycle, so commit empty. Sleep 3 lets N crosswalk vehicle reservation expire (was 95) and discharges already-permitte",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.3322,
+        "balance": 998.3391,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0135,
+        "stallChainBleed": 0.0138,
+        "upstreamBleed": 0.024,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.1964,
+        "promptTokens": 45371,
+        "completionTokens": 1036,
+        "reasoningTokens": 0,
+        "outputTokens": 1036,
+        "avgDecodeTokensPerSec": 83.35,
+        "avgGenerationTokensPerSec": 83.35
+      },
+      {
+        "cycle": 7,
+        "tick": 100,
+        "sleepTicks": 5,
+        "usedFallback": false,
+        "admitted": [
+          "V00069"
+        ],
+        "rejected": [
+          "V00076",
+          "V00086",
+          "V00056",
+          "V00049",
+          "V00012"
+        ],
+        "tacticalSummary": "6-vehicle wave: E_S2 triple (bus-heavy lane, clears stall-blocked head), N_L1 emergency V00056 (ends its 12-tick-surcharge wait), S_S2 car, W_S1 head (16-pax queue). E_R1 head rejected as not-ready; W_S2 discharging already. N ped phase empty cohort this tick (no waiting). Sleep 5 lets W_L1/W_S1 res",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.8327,
+        "balance": 997.5064,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0285,
+        "stallChainBleed": 0.047,
+        "upstreamBleed": 0.046,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.4322,
+        "promptTokens": 70991,
+        "completionTokens": 925,
+        "reasoningTokens": 0,
+        "outputTokens": 925,
+        "avgDecodeTokensPerSec": 76.31,
+        "avgGenerationTokensPerSec": 76.31
+      },
+      {
+        "cycle": 8,
+        "tick": 110,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Both stopline stalls (V00006 N_R1, V00014 S_R1) had zero bypass capacity, so both are now under paid tow, removal tick 118, releasing 12+5 tailgated vehicles and killing their stallChain escalation. Dry-run budget was consumed by three probes: N_S2 head V00038 and S_S2 head V00049 both collide with ",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -4.1034,
+        "balance": 993.403,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0555,
+        "stallChainBleed": 0.188,
+        "upstreamBleed": 0.252,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 2.4,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 1.0374,
+        "promptTokens": 94406,
+        "completionTokens": 1322,
+        "reasoningTokens": 0,
+        "outputTokens": 1322,
+        "avgDecodeTokensPerSec": 76.96,
+        "avgGenerationTokensPerSec": 76.96
+      },
+      {
+        "cycle": 9,
+        "tick": 118,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [
+          "V00022",
+          "V00082"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Two conflict-free stopline heads: V00022 (W_R1_RIGHT) unblocks emergency V00036 which has sat 40 ticks at 0.0015/tick inside 12 grids, and lets its tail move (idle counters reset); V00082 (E_R1_RIGHT) is the head ahead of emergency V00207. Neither route is in reservedUntil, both crosswalks clear of ",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.9696,
+        "balance": 991.4334,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0285,
+        "stallChainBleed": 0.2658,
+        "upstreamBleed": 0.692,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.8988,
+        "promptTokens": 45890,
+        "completionTokens": 864,
+        "reasoningTokens": 0,
+        "outputTokens": 864,
+        "avgDecodeTokensPerSec": 82.8,
+        "avgGenerationTokensPerSec": 82.8
+      },
+      {
+        "cycle": 10,
+        "tick": 128,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00104"
+        ],
+        "rejected": [],
+        "tacticalSummary": "E_R1 head V00104 admitted (verified, unblocks following emergency V0207). N/S crosswalk phases verified empty (no waiting peds, clear immediately, no cost). V00033 (W_R1) blocked emergency V00036 but conflicts with V00012 in candidate set and its crosswalk checks were unverified after quota exhausti",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.7449,
+        "balance": 989.6885,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.048,
+        "stallChainBleed": 0.0494,
+        "upstreamBleed": 0.306,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.003,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 1.211,
+        "promptTokens": 70321,
+        "completionTokens": 826,
+        "reasoningTokens": 0,
+        "outputTokens": 826,
+        "avgDecodeTokensPerSec": 71.95,
+        "avgGenerationTokensPerSec": 71.95
+      },
+      {
+        "cycle": 11,
+        "tick": 133,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00069",
+          "V00076",
+          "V00056",
+          "V00017",
+          "V00074",
+          "V00049",
+          "V00033"
+        ],
+        "rejected": [],
+        "tacticalSummary": "6 verified batches: E_S2 top2 (bus V00069 clears path for emergency V00238), N_L1 emergency V00056 (42 idle ticks), N_R1 V00017 (aggressive, 8 patience left) + S_R1 + W_R1 V00033 (unblocks emergency V00036), S_S2 head. W A_TO_B peds admitted in the gap before vehicle resumption at 135; clear_tick 16",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.0432,
+        "balance": 988.6453,
+        "despawned": 1,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0255,
+        "stallChainBleed": 0.0002,
+        "upstreamBleed": 0.182,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "VEHICLE_RED_LIGHT vehicle=V00015 route=N_S1_STRAIGHT",
+        "delayBleedCharged": 0.871,
+        "promptTokens": 35118,
+        "completionTokens": 610,
+        "reasoningTokens": 0,
+        "outputTokens": 610,
+        "avgDecodeTokensPerSec": 75.53,
+        "avgGenerationTokensPerSec": 75.53
+      },
+      {
+        "cycle": 12,
+        "tick": 134,
+        "sleepTicks": 7,
+        "usedFallback": false,
+        "admitted": [
+          "V00106",
+          "V00012",
+          "V00036",
+          "V00084",
+          "V00028",
+          "V00024",
+          "V00026",
+          "V00079",
+          "V00027",
+          "V00034"
+        ],
+        "rejected": [],
+        "tacticalSummary": "9 heads admitted across both verified prechecks: bus V00084 (S_R1, 40pax), E_S1 head, S_S1 heavy, E_L1, S_L1 top2 (unblocks emergency V00034 stuck 24 ticks), N_R1, E_R1, W_S1. V00036 emergency clears at 145 within same plan. Tow truck dispatched for W_S2 stall V00029 (done tick 151, 18 blocked behin",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.6012,
+        "balance": 987.0441,
+        "despawned": 1,
+        "hazardBleed": 0.186,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0.0006,
+        "upstreamBleed": 0.114,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 1.2,
+        "pedestrianDelay": 0.001,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0001 locked=CROSSWALK:WEST:CELL:7:0,CROSSWALK:WEST:CELL:7:1,PAIR:W_R1_RIGHT:0|W_R1_GUIDED_STRAIGHT:0,PAIR:W_R1_RIGHT:1|W_R1_GUIDED_STRAIGHT:1,PAIR:W_R1_RIGHT:1|W_R1_GUIDED_STRAIGHT:2,PAIR:W_R1_RIGHT:2|W_R1_GUIDED_STRAIGHT:1,PAIR:W_R1_RIGHT:2|W_R1_GUIDED_STRAIGHT:2,PAIR:W_R1_RIGHT:2|W_R1_GUIDED_STRAIGHT:3,PAIR:W_R1_RIGHT:2|W_S1_GUIDED_RIGHT:3,PAIR:W_R1_RIGHT:2|W_S1_GUIDED_RIGHT:4,SPACE:-4:3,SPACE:-5:2,SPACE:-5:3,SPACE:-5:4,SPACE:-6:1,SPACE:-6:2,SPACE:-6:3,SPACE:-7:1,SPACE:-7:2,SPACE:-7:3,SPACE:-7:4,SPACE:-8:2,SPACE:-8:3,SPACE:-8:4,SPACE:-9:2,SPACE:-9:3,SPACE:-9:4 vehicles=V00033,V00036; ACCIDENT_INTERRUPT incident=INC0001 secondary=true",
+        "delayBleedCharged": 0.1676,
+        "promptTokens": 70810,
+        "completionTokens": 927,
+        "reasoningTokens": 0,
+        "outputTokens": 927,
+        "avgDecodeTokensPerSec": 78.93,
+        "avgGenerationTokensPerSec": 78.93
+      },
+      {
+        "cycle": 13,
+        "tick": 135,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [
+          "V00038"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0001 pileup (31 locked cells, W-side severed) clearance ordered toward OUT_EAST_1. Committed the only pre-verified head: N_S2 V00038 (reservation 154). E crosswalk B_TO_A peds released in the window before E-lane vehicle reservations at 157. W lanes held (incidentBlocked); W_S1 impatient heads le",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -5.6647,
+        "balance": 981.3794,
+        "despawned": 0,
+        "hazardBleed": 0.242,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0.0012,
+        "upstreamBleed": 0.116,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 5,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0002 locked=CROSSWALK:EAST:CELL:7:0,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:5,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:6,PAIR:S_R1_RIGHT:5|S_S1_GUIDED_RIGHT:5,PAIR:S_R1_RIGHT:5|S_S1_GUIDED_RIGHT:6,PAIR:S_R1_RIGHT:6|S_S1_GUIDED_RIGHT:7,PAIR:S_R1_RIGHT:6|S_S1_GUIDED_RIGHT:8,SPACE:3:4,SPACE:4:3,SPACE:4:4,SPACE:4:5,SPACE:5:3,SPACE:5:4,SPACE:7:3 vehicles=V00074 pedestrians=PED:11:0:CROSSWALK:EAST",
+        "delayBleedCharged": 0.152,
+        "promptTokens": 90541,
+        "completionTokens": 1022,
+        "reasoningTokens": 0,
+        "outputTokens": 1022,
+        "avgDecodeTokensPerSec": 73.55,
+        "avgGenerationTokensPerSec": 73.55
+      },
+      {
+        "cycle": 14,
+        "tick": 138,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [
+          "V00034",
+          "V00041"
+        ],
+        "tacticalSummary": "Quota exhausted with no fully verified batch (lane heads kept changing between prechecks). Commit only the explicit emergency head V00034 (S_L1 lane, stuck 26 ticks, 0.0015/tick) plus verified W_L1 head V00031? No—V00031 reserved until 156, so omitted. W crosswalk A_TO_B released in the gap before v",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [
+          "warning_summary_truncated",
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.9565,
+        "balance": 979.4229,
+        "despawned": 0,
+        "hazardBleed": 0.856,
+        "emergencyBleed": 0.012,
+        "stallChainBleed": 0.0092,
+        "upstreamBleed": 0.382,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0003 locked=PAIR:E_S2_STRAIGHT:6|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:6|N_S2_GUIDED_LEFT:9,PAIR:E_S2_STRAIGHT:6|S_L1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:6|S_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:6|S_R1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:6|S_R1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:7,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:9,PAIR:E_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:8|E_L1_GUIDED_STRAIGHT:8,PAIR:E_S2_STRAIGHT:8|E_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:8|N_L1_GUIDED_STRAIGHT:5,PAIR:E_S2_STRAIGHT:8|N_L1_GUIDED_STRAIGHT:6,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:6,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:7,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_L1_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_L1_LEFT:9,PAIR:E_S2_STRAIGHT:8|W_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_S2_GUIDED_LEFT:9,PAIR:N_L1_LEFT:6|E_S2_STRAIGHT:7,PAIR:N_L1_LEFT:6|E_S2_STRAIGHT:8,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:6,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:7,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:8,PAIR:N_L1_LEFT:8|E_S2_STRAIGHT:6,PAIR:N_L1_LEFT:8|E_S2_STRAIGHT:7,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:1,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:2,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:2,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:4,PAIR:N_S2_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S2_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:9,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:9,PAIR:N_S2_STRAIGHT:4|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:4|N_S2_GUIDED_LEFT:4,PAIR:S_S1_STRAIGHT:10|E_S2_STRAIGHT:6,PAIR:S_S1_STRAIGHT:9|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:10|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:10|E_S2_STRAIGHT:7,PAIR:S_S2_STRAIGHT:9|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:9|E_S2_STRAIGHT:7,SPACE:-1:-1,SPACE:-1:-2,SPACE:-1:-3,SPACE:-1:-4,SPACE:-2:-3,SPACE:-2:-4,SPACE:-2:-5,SPACE:-3:-3,SPACE:-3:-4,SPACE:-3:-5,SPACE:0:-1,SPACE:0:-2,SPACE:0:-3,SPACE:1:-1,SPACE:1:-2,SPACE:1:-3,SPACE:2:-2,SPACE:2:-3 vehicles=V00038,V00069",
+        "delayBleedCharged": 0.3998,
+        "promptTokens": 86726,
+        "completionTokens": 1635,
+        "reasoningTokens": 0,
+        "outputTokens": 1635,
+        "avgDecodeTokensPerSec": 78.69,
+        "avgGenerationTokensPerSec": 78.69
+      },
+      {
+        "cycle": 15,
+        "tick": 139,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0003 (minor scrape, 65 locked cells) clearance ordered to OUT_SOUTH_2. Most routes are incidentBlocked; no pre-verified batch this cycle (W_R1 head not ready, quota exhausted). Sleep to let clearance + discharging lanes drain; tow for V00029 arrives tick 151.",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -1.1077,
+        "balance": 978.3152,
+        "despawned": 1,
+        "hazardBleed": 0.818,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0.0056,
+        "upstreamBleed": 0.132,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0003 secondary=true; ACCIDENT_INTERRUPT incident=INC0002 secondary=true; ACCIDENT_INTERRUPT incident=INC0003 locked=PAIR:E_S2_STRAIGHT:6|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:6|N_S2_GUIDED_LEFT:9,PAIR:E_S2_STRAIGHT:6|S_L1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:6|S_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:6|S_R1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:6|S_R1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:7,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:7|N_S2_GUIDED_LEFT:9,PAIR:E_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:10,PAIR:E_S2_STRAIGHT:7|S_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:8|E_L1_GUIDED_STRAIGHT:8,PAIR:E_S2_STRAIGHT:8|E_L1_GUIDED_STRAIGHT:9,PAIR:E_S2_STRAIGHT:8|N_L1_GUIDED_STRAIGHT:5,PAIR:E_S2_STRAIGHT:8|N_L1_GUIDED_STRAIGHT:6,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:6,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:7,PAIR:E_S2_STRAIGHT:8|N_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_L1_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_L1_LEFT:9,PAIR:E_S2_STRAIGHT:8|W_S2_GUIDED_LEFT:8,PAIR:E_S2_STRAIGHT:8|W_S2_GUIDED_LEFT:9,PAIR:N_L1_LEFT:6|E_S2_STRAIGHT:7,PAIR:N_L1_LEFT:6|E_S2_STRAIGHT:8,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:6,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:7,PAIR:N_L1_LEFT:7|E_S2_STRAIGHT:8,PAIR:N_L1_LEFT:8|E_S2_STRAIGHT:6,PAIR:N_L1_LEFT:8|E_S2_STRAIGHT:7,PAIR:N_S1_STRAIGHT:3|N_S1_GUIDED_RIGHT:2,PAIR:N_S1_STRAIGHT:3|N_S1_GUIDED_RIGHT:3,PAIR:N_S1_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_L1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_L1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_R1_GUIDED_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S2_STRAIGHT:11,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:1,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:2,PAIR:N_S2_STRAIGHT:2|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:2,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:3|N_S2_GUIDED_LEFT:4,PAIR:N_S2_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:10,PAIR:N_S2_STRAIGHT:4|E_R1_GUIDED_STRAIGHT:9,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:9,PAIR:N_S2_STRAIGHT:4|N_S2_GUIDED_LEFT:3,PAIR:N_S2_STRAIGHT:4|N_S2_GUIDED_LEFT:4,PAIR:S_S1_STRAIGHT:10|E_S2_STRAIGHT:6,PAIR:S_S1_STRAIGHT:9|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:10|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:10|E_S2_STRAIGHT:7,PAIR:S_S2_STRAIGHT:9|E_S2_STRAIGHT:6,PAIR:S_S2_STRAIGHT:9|E_S2_STRAIGHT:7,SPACE:-1:-1,SPACE:-1:-2,SPACE:-1:-3,SPACE:-1:-4,SPACE:-2:-2,SPACE:-2:-3,SPACE:-2:-4,SPACE:-2:-5,SPACE:-3:-2,SPACE:-3:-3,SPACE:-3:-4,SPACE:-3:-5,SPACE:-4:-3,SPACE:-4:-4,SPACE:0:-1,SPACE:0:-2,SPACE:0:-3,SPACE:1:-1,SPACE:1:-2,SPACE:1:-3,SPACE:2:-1,SPACE:2:-2,SPACE:2:-3 vehicles=V00038,V00069,V00015",
+        "delayBleedCharged": 0.1216,
+        "promptTokens": 74661,
+        "completionTokens": 717,
+        "reasoningTokens": 0,
+        "outputTokens": 717,
+        "avgDecodeTokensPerSec": 70.2,
+        "avgGenerationTokensPerSec": 70.2
+      },
+      {
+        "cycle": 16,
+        "tick": 140,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified batch: INC0003 PILEUP (84 cells) and INC0002 block almost all routes; E_R1 head V00113 conflicts with exiting V00106 until tick 142, N/W crosswalk phases clash with in-transit reservations (V00049 at 159). Let ordered clearance of INC0003 (est. 161) and INC0002 (est. 154) progress; disch",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.2765,
+        "balance": 977.0387,
+        "despawned": 1,
+        "hazardBleed": 0.998,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0.007,
+        "upstreamBleed": 0.126,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0003 secondary=true",
+        "delayBleedCharged": 0.112,
+        "promptTokens": 79621,
+        "completionTokens": 625,
+        "reasoningTokens": 0,
+        "outputTokens": 625,
+        "avgDecodeTokensPerSec": 71.34,
+        "avgGenerationTokensPerSec": 71.34
+      },
+      {
+        "cycle": 17,
+        "tick": 150,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0003 is a CRITICAL PILEUP (114 locked cells) blocking nearly every route; clearance already ordered to OUT_SOUTH_2 and confirmed in progress (no new idle vehicles to start). E_R1 head V00113 dry-run rejected with ROUTE_SEVERED (-0.3). INC0002 est. clears ~154, INC0001 ~156, INC0003 est. ~175. No ",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -18.4568,
+        "balance": 958.5819,
+        "despawned": 4,
+        "hazardBleed": 9.98,
+        "emergencyBleed": 0.0225,
+        "stallChainBleed": 0.147,
+        "upstreamBleed": 1.42,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.012,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 10,
+        "interruptReason": null,
+        "delayBleedCharged": 1.0908,
+        "promptTokens": 49242,
+        "completionTokens": 349,
+        "reasoningTokens": 0,
+        "outputTokens": 349,
+        "avgDecodeTokensPerSec": 63.9,
+        "avgGenerationTokensPerSec": 63.9
+      },
+      {
+        "cycle": 18,
+        "tick": 153,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Three incidents dominate: INC0003 PILEUP (114 cells, est. ~175) severs nearly all routes; INC0002 clearance re-ordered to OUT_NORTH_1 and INC0001 to OUT_SOUTH_0 to exploit fresh evac progress. All stopline heads sit on severed or conflicting routes (W_L1 head V00031 rejected ROUTE_SEVERED; W_R1 head",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -3.9621,
+        "balance": 954.6198,
+        "despawned": 1,
+        "hazardBleed": 2.994,
+        "emergencyBleed": 0.0135,
+        "stallChainBleed": 0.0502,
+        "upstreamBleed": 0.462,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.006,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:24:0:CROSSWALK:EAST remaining=24",
+        "delayBleedCharged": 0.4044,
+        "promptTokens": 78001,
+        "completionTokens": 762,
+        "reasoningTokens": 0,
+        "outputTokens": 762,
+        "avgDecodeTokensPerSec": 75.18,
+        "avgGenerationTokensPerSec": 75.18
+      },
+      {
+        "cycle": 19,
+        "tick": 154,
+        "sleepTicks": 1,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [
+          "V00079"
+        ],
+        "tacticalSummary": "No verified batch this cycle (quota exhausted; W_R1 head is 2 cells back so batch rejected). Only new event: INC0001 reported est. clearance 3 ticks, so INC0001-severed W routes may reopen ~tick 156 and INC0002 heads ~154. Keeping V00079 (already scheduled E_L1) as the sole entry; NC1 is idle on a n",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.7719,
+        "balance": 952.8479,
+        "despawned": 0,
+        "hazardBleed": 0.87,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.16,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0.3,
+        "towingCost": 0,
+        "pedestrianDelay": 0.002,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.1334,
+        "promptTokens": 90065,
+        "completionTokens": 764,
+        "reasoningTokens": 0,
+        "outputTokens": 764,
+        "avgDecodeTokensPerSec": 67.79,
+        "avgGenerationTokensPerSec": 67.79
+      },
+      {
+        "cycle": 20,
+        "tick": 161,
+        "sleepTicks": 7,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0003 (est.175) severs nearly all routes; INC0001 severs W routes (est.156). Only N_R1_RIGHT head is unsevered but sits 2 cells back, so batches reject. No verified admits possible this cycle; sleeping to let INC0001 clearance complete (~156) and INC0003 progress toward 175, then re-admit W/N/S he",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -6.6508,
+        "balance": 946.1971,
+        "despawned": 2,
+        "hazardBleed": 4.974,
+        "emergencyBleed": 0.0315,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.05,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.015,
+        "pedestrianReward": 0.04,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 1.0558,
+        "promptTokens": 36201,
+        "completionTokens": 391,
+        "reasoningTokens": 0,
+        "outputTokens": 391,
+        "avgDecodeTokensPerSec": 66.11,
+        "avgGenerationTokensPerSec": 66.11
+      },
+      {
+        "cycle": 21,
+        "tick": 162,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0003 PILEUP (114 locked cells) covers nearly the whole junction; clearance already dispatched toward OUT_SOUTH_2 (no_op = already in progress). Only unsevered head N_R1_RIGHT sits 2 cells back, and NORTH/EAST crosswalk phases conflict with vehicle reservations/INCIDENT locks. Sleeping to let evac",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 4,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.1022,
+        "balance": 945.0949,
+        "despawned": 0,
+        "hazardBleed": 0.684,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.154,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.003,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:20:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.1522,
+        "promptTokens": 60552,
+        "completionTokens": 425,
+        "reasoningTokens": 0,
+        "outputTokens": 425,
+        "avgDecodeTokensPerSec": 66.29,
+        "avgGenerationTokensPerSec": 66.29
+      },
+      {
+        "cycle": 22,
+        "tick": 166,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00045",
+          "V00044"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0003 still severs most routes (est.175). W_S2 straight head V00045 and W_R1 right head V00044 are unsevered and verified conflict-free; admit both now. W_L1 left severed. Then sleep to let INC0003 clearance progress toward 175 before re-attempting E/N/S axes.",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 2,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -0.0122,
+        "balance": 945.0827,
+        "despawned": 2,
+        "hazardBleed": 2.736,
+        "emergencyBleed": 0.012,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.644,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.013,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "VEHICLE_RED_LIGHT vehicle=V00041 route=N_R1_RIGHT; VEHICLE_TAILGATE vehicle=V00059 route=W_R1_RIGHT",
+        "delayBleedCharged": 0.6442,
+        "promptTokens": 35207,
+        "completionTokens": 392,
+        "reasoningTokens": 0,
+        "outputTokens": 392,
+        "avgDecodeTokensPerSec": 72.63,
+        "avgGenerationTokensPerSec": 72.63
+      },
+      {
+        "cycle": 23,
+        "tick": 171,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0003 PILEUP (114 locked cells, est. clearance ~175) severs nearly all routes; W_S2 and S_R1 heads verified at tick166 but S_R1 was rejected by V00041's NORTH-crosswalk sweep, and dry-run quota is spent. No verified plan remains, so sleep 9 to let clearance finish (est.175) and V00041/V00044/V0005",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -5.4075,
+        "balance": 939.6752,
+        "despawned": 1,
+        "hazardBleed": 3.51,
+        "emergencyBleed": 0.015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.888,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.033,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0004 locked=CROSSWALK:SOUTH:CELL:0:0,CROSSWALK:SOUTH:CELL:0:1,PAIR:W_R1_RIGHT:3|W_R1_GUIDED_STRAIGHT:2,PAIR:W_R1_RIGHT:3|W_R1_GUIDED_STRAIGHT:3,PAIR:W_R1_RIGHT:3|W_S1_GUIDED_RIGHT:3,PAIR:W_R1_RIGHT:3|W_S1_GUIDED_RIGHT:4,PAIR:W_R1_RIGHT:3|W_S1_GUIDED_RIGHT:5,PAIR:W_R1_RIGHT:4|W_S1_GUIDED_RIGHT:4,PAIR:W_R1_RIGHT:4|W_S1_GUIDED_RIGHT:5,PAIR:W_R1_RIGHT:4|W_S1_GUIDED_RIGHT:6,PAIR:W_R1_RIGHT:5|W_S1_GUIDED_RIGHT:5,PAIR:W_R1_RIGHT:5|W_S1_GUIDED_RIGHT:6,PAIR:W_R1_RIGHT:5|W_S1_GUIDED_RIGHT:7,PAIR:W_R1_RIGHT:7|W_S1_GUIDED_RIGHT:7,PAIR:W_R1_RIGHT:7|W_S1_GUIDED_RIGHT:8,SPACE:-3:3,SPACE:-3:4,SPACE:-3:5,SPACE:-3:6,SPACE:-3:7,SPACE:-4:3,SPACE:-4:4,SPACE:-4:5,SPACE:-4:6,SPACE:-4:7,SPACE:-5:3,SPACE:-5:4,SPACE:-5:5,SPACE:-5:6,SPACE:-5:7 vehicles=V00044,V00059",
+        "delayBleedCharged": 0.934,
+        "promptTokens": 74774,
+        "completionTokens": 659,
+        "reasoningTokens": 0,
+        "outputTokens": 659,
+        "avgDecodeTokensPerSec": 66.46,
+        "avgGenerationTokensPerSec": 66.46
+      },
+      {
+        "cycle": 24,
+        "tick": 175,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [
+          "V00046",
+          "V00023",
+          "V00072"
+        ],
+        "rejected": [
+          "V00056"
+        ],
+        "tacticalSummary": "Both incidents now ordered to evacuate south. Admit the 4 verified unsevered heads (N_L1 V00056, N_R1 V00046, W_S1 V00023, W_S2 V00072) at CRUISE; V00020 (N_S1) was severed-rejected and excluded. Open NORTH and WEST crosswalks both ways (no vehicle reservations there) to bank pedestrian rewards befo",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -4.4353,
+        "balance": 935.2399,
+        "despawned": 0,
+        "hazardBleed": 2.412,
+        "emergencyBleed": 0.0165,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.628,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0.3,
+        "towingCost": 0,
+        "pedestrianDelay": 0.031,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:44:0:CROSSWALK:WEST remaining=24",
+        "delayBleedCharged": 0.7888,
+        "promptTokens": 63065,
+        "completionTokens": 920,
+        "reasoningTokens": 0,
+        "outputTokens": 920,
+        "avgDecodeTokensPerSec": 77.23,
+        "avgGenerationTokensPerSec": 77.23
+      },
+      {
+        "cycle": 25,
+        "tick": 176,
+        "sleepTicks": 5,
+        "usedFallback": false,
+        "admitted": [
+          "V00079",
+          "V00098",
+          "V00113",
+          "V00120",
+          "V00042",
+          "V00056",
+          "V00046",
+          "V00053",
+          "V00047",
+          "V00055",
+          "V00040",
+          "V00049",
+          "V00031",
+          "V00058",
+          "V00072"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0004 clearance already heading OUT_SOUTH_0 (no_op). Dry-run quota exhausted this cycle; previous verified batch set had a NORTH-crosswalk conflict with V00046, so exclude pedestrian phases and re-verify next cycle.",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -0.5759,
+        "balance": 934.664,
+        "despawned": 0,
+        "hazardBleed": 0.09,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.134,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.005,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:45:1:CROSSWALK:WEST remaining=24",
+        "delayBleedCharged": 0.1934,
+        "promptTokens": 88417,
+        "completionTokens": 2068,
+        "reasoningTokens": 0,
+        "outputTokens": 2068,
+        "avgDecodeTokensPerSec": 77.2,
+        "avgGenerationTokensPerSec": 77.2
+      },
+      {
+        "cycle": 26,
+        "tick": 181,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0004 clearance already dispatched to OUT_SOUTH_0 (idempotent). Dry-run quota exhausted after two head-not-ready errors (queued heads hold pending permits), so admit nothing this cycle; let the 9 discharging lanes clear, let reserved E_S2/S_S1/W_S1 permits expire before the high-occupancy bus/scho",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.0451,
+        "balance": 933.6189,
+        "despawned": 3,
+        "hazardBleed": 0.18,
+        "emergencyBleed": 0.0225,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.864,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.025,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:38:0:CROSSWALK:SOUTH remaining=24",
+        "delayBleedCharged": 0.9246,
+        "promptTokens": 78852,
+        "completionTokens": 867,
+        "reasoningTokens": 0,
+        "outputTokens": 867,
+        "avgDecodeTokensPerSec": 73.44,
+        "avgGenerationTokensPerSec": 73.44
+      },
+      {
+        "cycle": 27,
+        "tick": 184,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00121",
+          "V00078"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Dry-run quota exhausted (2 attempts, both RESOURCE_CONFLICT). Verified-vs-attempted gap: attempt1 dropped only V00023 (W-straight head vs WEST-crosswalk ped PED:44); attempt2 dropped S_S1 batch because it crossed SOUTH:CELL:2:0 at tick189 while a pedestrian crosses. So commit only the two conflict-f",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 2,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.9148,
+        "balance": 932.7041,
+        "despawned": 1,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.558,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.016,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:43:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.5628,
+        "promptTokens": 34272,
+        "completionTokens": 948,
+        "reasoningTokens": 0,
+        "outputTokens": 948,
+        "avgDecodeTokensPerSec": 79.48,
+        "avgGenerationTokensPerSec": 79.48
+      },
+      {
+        "cycle": 28,
+        "tick": 185,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 2,
+        "nonTerminalToolCalls": 0,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "text_without_tool_call",
+          "api_error"
+        ],
+        "financialDelta": -0.4702,
+        "balance": 932.2339,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.234,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.007,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.1832,
+        "promptTokens": 11138,
+        "completionTokens": 2296,
+        "reasoningTokens": 0,
+        "outputTokens": 2296,
+        "avgDecodeTokensPerSec": 92.02,
+        "avgGenerationTokensPerSec": 92.02
+      },
+      {
+        "cycle": 29,
+        "tick": 186,
+        "sleepTicks": 7,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified admission available: both dry-run attempts rejected with \"Lane head is not ready\" (IN_S_S2_STRAIGHT, then IN_W_S2_STRAIGHT — heads already hold SCHEDULED_ENTERING permits), and the 2-attempt quota was consumed before a clean combination could be validated, so nothing was committed rather",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.1925,
+        "balance": 931.0414,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.24,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.006,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:20:0:CROSSWALK:NORTH",
+        "delayBleedCharged": 0.173,
+        "promptTokens": 100016,
+        "completionTokens": 1248,
+        "reasoningTokens": 0,
+        "outputTokens": 1248,
+        "avgDecodeTokensPerSec": 76.97,
+        "avgGenerationTokensPerSec": 76.97
+      },
+      {
+        "cycle": 30,
+        "tick": 187,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified plan this cycle (quota exhausted; S_L1/N_L1 heads hold SCHEDULED_ENTERING permits). Sleeping 6 ticks to let the heavy in-junction wave clear (E_S1 bus, N/E lefts, E_R/S_R rights), so W_S1 straight (V00023 emergency-blocked queue head), N_R1 (V00053 with V00096/V00101 emergencies behind) ",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -0.5522,
+        "balance": 930.4892,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.244,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.006,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:50:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.1702,
+        "promptTokens": 74305,
+        "completionTokens": 859,
+        "reasoningTokens": 0,
+        "outputTokens": 859,
+        "avgDecodeTokensPerSec": 76.33,
+        "avgGenerationTokensPerSec": 76.33
+      },
+      {
+        "cycle": 31,
+        "tick": 197,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00134"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Admit E_R1 right-turn head V00134 (only conflict-free head; E_L1/S_R conflict with in-junction traffic, N_R1 blocked by jaywalker on NORTH). Grant 4 pedestrian phases (N/W/E A_TO_B, S B_TO_A) to bank crossing bonuses before patience collapses. Sleep 10 to let in-junction wave clear and reservations ",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -5.6783,
+        "balance": 924.8109,
+        "despawned": 2,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.03,
+        "stallChainBleed": 0,
+        "upstreamBleed": 3.932,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.067,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 1.7648,
+        "promptTokens": 47801,
+        "completionTokens": 546,
+        "reasoningTokens": 0,
+        "outputTokens": 546,
+        "avgDecodeTokensPerSec": 72.56,
+        "avgGenerationTokensPerSec": 72.56
+      },
+      {
+        "cycle": 32,
+        "tick": 200,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00105",
+          "V00169"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Admit verified E_L1 left V00105 (enter 208) and S_R right V00169. Bank NORTH A_TO_B and WEST B_TO_A pedestrian phases. N_R1 held by NORTH jaywalker; W_S1/S_S1/N_S1/E_S2 conflict-saturated — wait for in-junction wave and reservation expiry (202-213) before the next big phase.",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -2.2382,
+        "balance": 922.5727,
+        "despawned": 1,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.0165,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.154,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.017,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:45:1:CROSSWALK:WEST",
+        "delayBleedCharged": 0.5662,
+        "promptTokens": 47602,
+        "completionTokens": 543,
+        "reasoningTokens": 0,
+        "outputTokens": 543,
+        "avgDecodeTokensPerSec": 72.53,
+        "avgGenerationTokensPerSec": 72.53
+      },
+      {
+        "cycle": 33,
+        "tick": 201,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 2,
+        "nonTerminalToolCalls": 0,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "text_without_tool_call",
+          "api_error"
+        ],
+        "financialDelta": -0.7134,
+        "balance": 921.8593,
+        "despawned": 0,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.472,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.005,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:61:0:CROSSWALK:EAST remaining=24",
+        "delayBleedCharged": 0.1904,
+        "promptTokens": 11543,
+        "completionTokens": 464,
+        "reasoningTokens": 0,
+        "outputTokens": 464,
+        "avgDecodeTokensPerSec": 87.2,
+        "avgGenerationTokensPerSec": 87.2
+      },
+      {
+        "cycle": 34,
+        "tick": 204,
+        "sleepTicks": 5,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified plan after quota loss. Towed V00068 (clear 219). Wait for reservation expiry: E_R1 206, N_S1 204, N_S2 208, W_L1 212, then run big N/S/E phase. Avoided W_S1 head V00023 (patience 0, WEST crosswalk has jaywalker + vehicle reservation to 210) and E_L1 (already discharging V00105).",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -2.9355,
+        "balance": 918.9238,
+        "despawned": 2,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.268,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 1.2,
+        "pedestrianDelay": 0.017,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:68:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.605,
+        "promptTokens": 73529,
+        "completionTokens": 1420,
+        "reasoningTokens": 0,
+        "outputTokens": 1420,
+        "avgDecodeTokensPerSec": 84.24,
+        "avgGenerationTokensPerSec": 84.24
+      },
+      {
+        "cycle": 35,
+        "tick": 205,
+        "sleepTicks": 8,
+        "usedFallback": false,
+        "admitted": [
+          "V00195",
+          "V00048",
+          "V00055"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Tow V00068 clears N_L1 at 219; bypass 0 so no reroute. Admit heads whose crosswalks are clear of the two jaywalkers (N:col4, W). Skip right-turn batch: jaywalker warnings on N/W. Keep V00043/V00050 emergency movement by clearing S1/S2 heads. Short 8-tick sleep before big west phase.",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -6.6495,
+        "balance": 912.2743,
+        "despawned": 0,
+        "hazardBleed": 0.28,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.478,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.006,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 5,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:38:0:CROSSWALK:SOUTH; ACCIDENT_INTERRUPT incident=INC0005 locked=CROSSWALK:WEST:CELL:5:0,CROSSWALK:WEST:CELL:5:1,PAIR:W_S2_STRAIGHT:1|W_S2_GUIDED_LEFT:1,PAIR:W_S2_STRAIGHT:1|W_S2_GUIDED_LEFT:2,PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:1,PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:2,PAIR:W_S2_STRAIGHT:2|W_S2_GUIDED_LEFT:3,PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:2,PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:3,PAIR:W_S2_STRAIGHT:3|W_S2_GUIDED_LEFT:4,SPACE:-4:0,SPACE:-4:1,SPACE:-4:2,SPACE:-5:0,SPACE:-5:1,SPACE:-5:2,SPACE:-6:1,SPACE:-6:2,SPACE:-7:1 vehicles=V00072 pedestrians=PED:81:0:CROSSWALK:WEST; ACCIDENT_INTERRUPT incident=INC0005 secondary=true",
+        "delayBleedCharged": 0.195,
+        "promptTokens": 48563,
+        "completionTokens": 532,
+        "reasoningTokens": 0,
+        "outputTokens": 532,
+        "avgDecodeTokensPerSec": 74.27,
+        "avgGenerationTokensPerSec": 74.27
+      },
+      {
+        "cycle": 36,
+        "tick": 208,
+        "sleepTicks": 5,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified plan: dry-run #1 failed (IN_E_S1_STRAIGHT head not ready - V00048 still clearing that lane), dry-run #2 rejected (V00134 E_R1_RIGHT vs PED:24 on CROSSWALK:EAST cell 0:0, E-side clearTick 207). Quota exhausted, so committing empty. Ordered INC0005 clearance toward OUT_EAST_2 (V00072, V000",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -3.5284,
+        "balance": 908.7459,
+        "despawned": 0,
+        "hazardBleed": 0.84,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.446,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.017,
+        "pedestrianReward": 0.12,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:43:0:CROSSWALK:NORTH",
+        "delayBleedCharged": 0.5784,
+        "promptTokens": 93236,
+        "completionTokens": 1389,
+        "reasoningTokens": 0,
+        "outputTokens": 1389,
+        "avgDecodeTokensPerSec": 77.78,
+        "avgGenerationTokensPerSec": 77.78
+      },
+      {
+        "cycle": 37,
+        "tick": 210,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "No verified plan: dry-run #1 rejected severed N_L1/S_L1/W_* routes (INC0005 until ~221); dry-run #2 also rejected W_S1/W_S2 as severed. Jaywalkers occupy NORTH (PED:20 col5 AB, PED:43 col7 BA) and WEST (PED:45 col2 AB), so N/E/W-sweeping routes are unsafe. Waiting for jaywalkers to clear and INC0005",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -2.1147,
+        "balance": 906.6312,
+        "despawned": 0,
+        "hazardBleed": 0.56,
+        "emergencyBleed": 0.012,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.972,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.013,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:62:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.4072,
+        "promptTokens": 97705,
+        "completionTokens": 1340,
+        "reasoningTokens": 0,
+        "outputTokens": 1340,
+        "avgDecodeTokensPerSec": 77.78,
+        "avgGenerationTokensPerSec": 77.78
+      },
+      {
+        "cycle": 38,
+        "tick": 216,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0005 locks the western junction core (severing N/S1-N/W-* routes). Only E and right-turn corridors remain. NORTH has jaywalkers on AB and the BA waiters (incl. the interrupting PED:62, 18-24 patience) have no vehicle reservations before 229, so admit nothing and sleep to let INC0005 clearance, ja",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -6.2151,
+        "balance": 900.4161,
+        "despawned": 1,
+        "hazardBleed": 1.68,
+        "emergencyBleed": 0.036,
+        "stallChainBleed": 0.007,
+        "upstreamBleed": 3.084,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.047,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 1.3766,
+        "promptTokens": 51138,
+        "completionTokens": 636,
+        "reasoningTokens": 0,
+        "outputTokens": 636,
+        "avgDecodeTokensPerSec": 74.32,
+        "avgGenerationTokensPerSec": 74.32
+      },
+      {
+        "cycle": 39,
+        "tick": 217,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0005 (ANGLE_COLLISION, 70 locked cells incl. WEST crosswalk) still severs N/S1/S2, S_L1, W-* corridors; clearance re-issued toward OUT_WEST_3. Only E corridor and right turns are live, but E_R1 conflicts with NORTH crosswalk pedestrians (PED:50 reserved cohort, jaywalkers), S_R1 conflicts with in",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -1.2573,
+        "balance": 899.1588,
+        "despawned": 0,
+        "hazardBleed": 0.28,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0.0042,
+        "upstreamBleed": 0.552,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.009,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:80:0:CROSSWALK:SOUTH remaining=24; PEDESTRIAN_PATIENCE pedestrian=PED:86:0:CROSSWALK:SOUTH remaining=24",
+        "delayBleedCharged": 0.2556,
+        "promptTokens": 93919,
+        "completionTokens": 739,
+        "reasoningTokens": 0,
+        "outputTokens": 739,
+        "avgDecodeTokensPerSec": 72.04,
+        "avgGenerationTokensPerSec": 72.04
+      },
+      {
+        "cycle": 40,
+        "tick": 220,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0005 仍 OPEN（70 锁格、锁 WEST 横道、切断 N/S1/S2 与 W-* 共 12 条路线），拖车接近到达；紧急车 V00043/V00050/V00096/V00101 全部堵在被切断或受阻车道上，本轮无法合法放行。两次 dry-run 分别被 E_R1×CROSSWALK:NORTH(225) 与 E_S1×CROSSWALK:EAST(221) 拒绝，试算配额已用尽，故不提交任何车辆。改为释放 NORTH 与 EAST 双向行人 phase：这两条横道在 220/229 的车辆预约之后已无新增冲突，让耐心告急的 PED:61(8)、PED:62/68 与 SOUTH",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 5,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -3.8763,
+        "balance": 895.2825,
+        "despawned": 0,
+        "hazardBleed": 0.84,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0.0216,
+        "upstreamBleed": 2.088,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.03,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:82:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.7712,
+        "promptTokens": 66104,
+        "completionTokens": 1324,
+        "reasoningTokens": 0,
+        "outputTokens": 1324,
+        "avgDecodeTokensPerSec": 83.09,
+        "avgGenerationTokensPerSec": 83.09
+      },
+      {
+        "cycle": 41,
+        "tick": 225,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [
+          "V00088",
+          "V00115",
+          "V00141",
+          "V00086",
+          "V00111",
+          "V00116",
+          "V00134",
+          "V00205"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0005 仍 OPEN（70 锁格、锁 WEST 横道、切断 N/S1/S2 与 W-* 12 条路线），拖车已在路上，不向切断路线放行。东向两条直行各 Top-3（含 40 乘员公交 V00086 与校车 V00086 队列）加 E_R1、S_R1 一起放出，消化 upstream 与排队停滞罚。dry-run 两次分别被 CROSSWALK:EAST(229 车辆预约) 与 CROSSWALK:NORTH 在途行人 PED:50 拒绝，冲突均在行人 phase 项，故本轮不带 phase 纯提交车辆；NORTH 的 B_TO_A 告急行人 PED:68(8)/62(14)/82(24",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -5.1824,
+        "balance": 890.1001,
+        "despawned": 1,
+        "hazardBleed": 0,
+        "emergencyBleed": 0.03,
+        "stallChainBleed": 0.0018,
+        "upstreamBleed": 4.156,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.051,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:92:0:CROSSWALK:EAST remaining=24; PEDESTRIAN_JAYWALK pedestrian=PED:61:0:CROSSWALK:EAST",
+        "delayBleedCharged": 1.2346,
+        "promptTokens": 66941,
+        "completionTokens": 1102,
+        "reasoningTokens": 0,
+        "outputTokens": 1102,
+        "avgDecodeTokensPerSec": 76.23,
+        "avgGenerationTokensPerSec": 76.23
+      },
+      {
+        "cycle": 42,
+        "tick": 228,
+        "sleepTicks": 3,
+        "usedFallback": false,
+        "admitted": [
+          "V00105",
+          "V00053",
+          "V00067",
+          "V00026",
+          "V00090"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0005 仍切断 N/*、W/*，EAST 横道被在途 E 直行公交占住，S 列7/W 列1 各有闯红灯者趴在车辆正占的格上，NORTH 列7 有已授权行人 PED:50 会与新 phase 队列撞格，故本轮不放行人 phase（撞人 -5/人 远大于 0.04 奖励）。提交已验证的 5 辆队首：E_L1(1)、N_R1 K(3)、S_L1 van(8)、S_S1 K(3)、W_R1 校车(40)，共 55 乘员，全部 CRUISE。四辆紧急车全部堵在切断/抛锚车后方无法合法放行。短睡 3 拍让东向车流离开 EAST 横道。",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -9.0052,
+        "balance": 881.0949,
+        "despawned": 0,
+        "hazardBleed": 0.064,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0,
+        "upstreamBleed": 2.524,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.029,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 5,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:68:0:CROSSWALK:NORTH; ACCIDENT_INTERRUPT incident=INC0006 locked=CROSSWALK:WEST:CELL:7:0,CROSSWALK:WEST:CELL:7:1,PAIR:W_R1_RIGHT:0|W_R1_GUIDED_STRAIGHT:0,PAIR:W_R1_RIGHT:1|W_R1_GUIDED_STRAIGHT:1,PAIR:W_R1_RIGHT:1|W_R1_GUIDED_STRAIGHT:2,SPACE:-5:3,SPACE:-6:2,SPACE:-6:3,SPACE:-6:4,SPACE:-7:2,SPACE:-7:3,SPACE:-7:4,SPACE:-8:3,SPACE:-8:4,SPACE:-9:3,SPACE:-9:4 vehicles=V00090 pedestrians=PED:45:1:CROSSWALK:WEST",
+        "delayBleedCharged": 0.6382,
+        "promptTokens": 85138,
+        "completionTokens": 1740,
+        "reasoningTokens": 0,
+        "outputTokens": 1740,
+        "avgDecodeTokensPerSec": 80.02,
+        "avgGenerationTokensPerSec": 80.02
+      },
+      {
+        "cycle": 43,
+        "tick": 229,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "api_round_limit_exhausted"
+        ],
+        "financialDelta": -11.2665,
+        "balance": 869.8284,
+        "despawned": 0,
+        "hazardBleed": 0.064,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.848,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.01,
+        "pedestrianReward": 0.04,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 10,
+        "interruptReason": null,
+        "delayBleedCharged": 0.208,
+        "promptTokens": 108610,
+        "completionTokens": 792,
+        "reasoningTokens": 0,
+        "outputTokens": 792,
+        "avgDecodeTokensPerSec": 67.95,
+        "avgGenerationTokensPerSec": 67.95
+      },
+      {
+        "cycle": 44,
+        "tick": 230,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [
+          "V00020"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0006 清障已在途（no_op，目标 OUT_SOUTH_0），W 向四条路线维持切断。jaywalker 挡住 NORTH(col2/col7)、EAST(col0)、SOUTH(row0 col6)。仅放行 SOUTH B_TO_A phase（PED:86、PED:95，走 row1，避开 row0 的 jaywalker PED:38）；N 直行 V00020(B,40) 用已到期 N_S1 预约入场，其出口横道 SOUTH row1 在 229 无车辆预约、且早于行人到达。其余 E/N/S 队首与 jaywalker 冲突，暂不入场以免撞人（-5/人）。睡 6 拍让 S_R1",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -11.4027,
+        "balance": 858.4257,
+        "despawned": 0,
+        "hazardBleed": 0.176,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 0.85,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.008,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 10,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0007 locked=CROSSWALK:SOUTH:CELL:7:0,CROSSWALK:SOUTH:CELL:7:1,PAIR:S_R1_RIGHT:0|S_R1_GUIDED_STRAIGHT:0,PAIR:S_R1_RIGHT:1|S_R1_GUIDED_STRAIGHT:1,PAIR:S_R1_RIGHT:1|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:1,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:2|S_R1_GUIDED_STRAIGHT:3,PAIR:S_R1_RIGHT:2|S_S1_GUIDED_RIGHT:3,PAIR:S_R1_RIGHT:2|S_S1_GUIDED_RIGHT:4,PAIR:S_R1_RIGHT:3|S_R1_GUIDED_STRAIGHT:2,PAIR:S_R1_RIGHT:3|S_R1_GUIDED_STRAIGHT:3,PAIR:S_R1_RIGHT:3|S_S1_GUIDED_RIGHT:3,PAIR:S_R1_RIGHT:3|S_S1_GUIDED_RIGHT:4,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:5,PAIR:S_R1_RIGHT:4|S_S1_GUIDED_RIGHT:6,SPACE:1:6,SPACE:1:7,SPACE:2:5,SPACE:2:6,SPACE:2:7,SPACE:2:8,SPACE:3:4,SPACE:3:5,SPACE:3:6,SPACE:3:7,SPACE:4:4,SPACE:4:5 vehicles=V00205 pedestrians=PED:86:0:CROSSWALK:SOUTH,PED:95:0:CROSSWALK:SOUTH",
+        "delayBleedCharged": 0.1952,
+        "promptTokens": 105363,
+        "completionTokens": 845,
+        "reasoningTokens": 0,
+        "outputTokens": 845,
+        "avgDecodeTokensPerSec": 65.56,
+        "avgGenerationTokensPerSec": 65.56
+      },
+      {
+        "cycle": 45,
+        "tick": 232,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [
+          "V00118",
+          "V00134",
+          "V00115",
+          "V00111",
+          "V00109",
+          "V00061",
+          "V00055"
+        ],
+        "rejected": [],
+        "tacticalSummary": "INC0007/INC0006 切断 S 与 W_R 全部路线（估计 244/246 清障），本轮不动 S/W 车道。放行 E 四条 + N_L1/N_R1/N_S2 共 7 辆（含公交 V00115=40、出租车队），已 verified。jaywalker（NORTH col2/col7、EAST col0、SOUTH col6）都在来车侧列，JAYWALKER_AHEAD 只会撤自己的预约、伤不到人，值得换 40+ 乘员吞吐。W 向紧急车 V00043/N 向 V00050 因路线被占或无安全清道路线暂不借道。睡 10 拍出清。",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 4,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -7.8066,
+        "balance": 850.6191,
+        "despawned": 0,
+        "hazardBleed": 0.488,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.798,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.016,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 5,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0008 locked=CROSSWALK:NORTH:CELL:1:0,CROSSWALK:NORTH:CELL:1:1,PAIR:N_S1_STRAIGHT:0|N_S1_GUIDED_RIGHT:0,PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:1,PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:2,SPACE:-2:-6,SPACE:-2:-7,SPACE:-3:-6,SPACE:-3:-7,SPACE:-3:-8,SPACE:-3:-9,SPACE:-4:-6,SPACE:-4:-7,SPACE:-4:-8,SPACE:-4:-9 vehicles=V00020 pedestrians=PED:43:0:CROSSWALK:NORTH; ACCIDENT_INTERRUPT incident=INC0008 secondary=true",
+        "delayBleedCharged": 0.3926,
+        "promptTokens": 64322,
+        "completionTokens": 820,
+        "reasoningTokens": 0,
+        "outputTokens": 820,
+        "avgDecodeTokensPerSec": 70.46,
+        "avgGenerationTokensPerSec": 70.46
+      },
+      {
+        "cycle": 46,
+        "tick": 233,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "INC0008（ANGLE/SERIOUS，锁15+4横道格，切断N全向）清障已下达，目标 OUT_WEST_0，V00020/V00053 开始缓行离场。INC0007/INC0006 仍切断 S 直行与 W_R 路线，估计 248/244 解锁。NORTH 横道有伤员 PED:43 与 jaywalker PED:68（col6 row1）压格，且 NORTH 仍被车辆预约到 242；SOUTH/EAST 亦有 jaywalker，故本拍不放行任何车辆或行人相位，避免 -5/人的车人碰撞（上周期已因此损失 5）。睡 10 拍让清障推进、预约到期（E_S1 已到期，S_R1 与 E 向直行下",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -6.7582,
+        "balance": 843.8609,
+        "despawned": 0,
+        "hazardBleed": 0.42,
+        "emergencyBleed": 0.0015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.022,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.008,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 5,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:87:0:CROSSWALK:WEST remaining=24; ACCIDENT_INTERRUPT incident=INC0009 locked=CROSSWALK:EAST:CELL:2:0,CROSSWALK:EAST:CELL:2:1,PAIR:E_S2_STRAIGHT:0|E_S2_GUIDED_LEFT:0,PAIR:E_S2_STRAIGHT:1|E_S2_GUIDED_LEFT:1,PAIR:E_S2_STRAIGHT:1|E_S2_GUIDED_LEFT:2,PAIR:E_S2_STRAIGHT:2|E_S2_GUIDED_LEFT:1,PAIR:E_S2_STRAIGHT:2|E_S2_GUIDED_LEFT:2,PAIR:E_S2_STRAIGHT:2|E_S2_GUIDED_LEFT:3,SPACE:5:-1,SPACE:5:-2,SPACE:5:-3,SPACE:6:-2,SPACE:6:-3,SPACE:7:-2,SPACE:7:-3 vehicles=V00111 pedestrians=PED:61:0:CROSSWALK:EAST; ACCIDENT_INTERRUPT incident=INC0009 secondary=true; VEHICLE_RED_LIGHT vehicle=V00087 route=W_S2_STRAIGHT",
+        "delayBleedCharged": 0.1962,
+        "promptTokens": 66118,
+        "completionTokens": 878,
+        "reasoningTokens": 0,
+        "outputTokens": 878,
+        "avgDecodeTokensPerSec": 76.38,
+        "avgGenerationTokensPerSec": 76.38
+      },
+      {
+        "cycle": 47,
+        "tick": 234,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "两起 ANGLE 严重事故（INC0008 锁15+4横格切 N 全向、INC0009 锁11+4横格切 E 直行/左）清障已在推进，估计 250 前后解封；INC0007 切 S 直行、INC0006 切 W_R。本拍 E_R1 排队车与 S_S2 队首分别卡在 W/E 横道的 jaywalker 与伤员格上，S_L1 与 W 横道 B_TO_A 相位在 col7 撞事故锁格，两次 dry-run 均被拒（ROUTE_SEVERED / CROSSWALK:WEST:CELL INCIDENT），配额已尽，故不提交任何放行，睡 10 拍让清障推进、横道清空、预约到期（E_R1 241、S_L",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -2.4713,
+        "balance": 841.3896,
+        "despawned": 0,
+        "hazardBleed": 0.524,
+        "emergencyBleed": 0.0015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.024,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.008,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:62:0:CROSSWALK:NORTH; ACCIDENT_INTERRUPT incident=INC0008 locked=CROSSWALK:NORTH:CELL:0:0,CROSSWALK:NORTH:CELL:0:1,CROSSWALK:NORTH:CELL:1:0,CROSSWALK:NORTH:CELL:1:1,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:10,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:10|E_R1_GUIDED_STRAIGHT:9,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:10,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:11|E_R1_GUIDED_STRAIGHT:12,PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:4,PAIR:E_S1_STRAIGHT:11|N_R1_GUIDED_STRAIGHT:5,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:11,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:12,PAIR:E_S1_STRAIGHT:12|E_R1_GUIDED_STRAIGHT:13,PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:4,PAIR:E_S1_STRAIGHT:12|N_R1_GUIDED_STRAIGHT:5,PAIR:N_R1_RIGHT:0|N_R1_GUIDED_STRAIGHT:0,PAIR:N_R1_RIGHT:1|N_R1_GUIDED_STRAIGHT:1,PAIR:N_R1_RIGHT:1|N_R1_GUIDED_STRAIGHT:2,PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:1,PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:2,PAIR:N_R1_RIGHT:2|N_R1_GUIDED_STRAIGHT:3,PAIR:N_R1_RIGHT:2|N_S1_GUIDED_RIGHT:3,PAIR:N_R1_RIGHT:2|N_S1_GUIDED_RIGHT:4,PAIR:N_R1_RIGHT:3|N_R1_GUIDED_STRAIGHT:2,PAIR:N_R1_RIGHT:3|N_R1_GUIDED_STRAIGHT:3,PAIR:N_R1_RIGHT:3|N_S1_GUIDED_RIGHT:3,PAIR:N_R1_RIGHT:3|N_S1_GUIDED_RIGHT:4,PAIR:N_S1_STRAIGHT:0|N_S1_GUIDED_RIGHT:0,PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:1,PAIR:N_S1_STRAIGHT:1|N_S1_GUIDED_RIGHT:2,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:4|E_S1_STRAIGHT:11,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:10,PAIR:N_S1_STRAIGHT:5|E_S1_STRAIGHT:11,PAIR:N_S2_STRAIGHT:4|E_S1_STRAIGHT:10,PAIR:N_S2_STRAIGHT:5|E_S1_STRAIGHT:10,SPACE:-2:-6,SPACE:-2:-7,SPACE:-3:-2,SPACE:-3:-3,SPACE:-3:-6,SPACE:-3:-7,SPACE:-3:-8,SPACE:-3:-9,SPACE:-4:-2,SPACE:-4:-3,SPACE:-4:-4,SPACE:-4:-5,SPACE:-4:-6,SPACE:-4:-7,SPACE:-4:-8,SPACE:-4:-9,SPACE:-5:-2,SPACE:-5:-3,SPACE:-5:-4,SPACE:-5:-5,SPACE:-5:-6,SPACE:-6:-5 vehicles=V00020,V00053,V00088 pedestrians=PED:43:0:CROSSWALK:NORTH",
+        "delayBleedCharged": 0.1848,
+        "promptTokens": 79673,
+        "completionTokens": 686,
+        "reasoningTokens": 0,
+        "outputTokens": 686,
+        "avgDecodeTokensPerSec": 70.24,
+        "avgGenerationTokensPerSec": 70.24
+      },
+      {
+        "cycle": 48,
+        "tick": 235,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [
+          "V00049",
+          "V00031",
+          "V00054"
+        ],
+        "tacticalSummary": "最后周期：仅放行未切断路线且横道无动车预约的 S_S2 直行(V00049 及其后一辆)与 W_L1 左转(V00031)。N 横道 A_TO_B 相位放行 PC00016 两人。紧急车 V00043 在 W_S1 排 4，等清障后放行。INC0008/0009/0007/0006 清障继续推进。睡 10 拍到 244。",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [],
+        "financialDelta": -3.0129,
+        "balance": 838.3767,
+        "despawned": 0,
+        "hazardBleed": 0.884,
+        "emergencyBleed": 0.0015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.022,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0.6,
+        "towingCost": 0,
+        "pedestrianDelay": 0.008,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "ACCIDENT_INTERRUPT incident=INC0008 secondary=true",
+        "delayBleedCharged": 0.1754,
+        "promptTokens": 108755,
+        "completionTokens": 887,
+        "reasoningTokens": 0,
+        "outputTokens": 887,
+        "avgDecodeTokensPerSec": 68.54,
+        "avgGenerationTokensPerSec": 68.54
+      },
+      {
+        "cycle": 49,
+        "tick": 236,
+        "sleepTicks": 7,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [
+          "V00049"
+        ],
+        "tacticalSummary": "INC0008 PILEUP(锁100格,含N横道4格)与INC0009(锁27格,E横道)均OPEN且清障在推进；几乎所有路线被切断。仅放行未切断的S_S2直行队首V00049(卡S横道jaywalker已撤销许可)，N横道A_TO_B相位放行等候者；W_R1/S_R1队首未就绪故不提交。睡7拍到242，等预约到期与清障推进。",
+        "apiCalls": 6,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [],
+        "financialDelta": -12.9383,
+        "balance": 825.4384,
+        "despawned": 1,
+        "hazardBleed": 1.148,
+        "emergencyBleed": 0.0015,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.026,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0.3,
+        "towingCost": 0,
+        "pedestrianDelay": 0.009,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 10,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:106:0:CROSSWALK:WEST remaining=24; ACCIDENT_INTERRUPT incident=INC0008 secondary=true",
+        "delayBleedCharged": 0.1748,
+        "promptTokens": 77617,
+        "completionTokens": 736,
+        "reasoningTokens": 0,
+        "outputTokens": 736,
+        "avgDecodeTokensPerSec": 75.89,
+        "avgGenerationTokensPerSec": 75.89
+      },
+      {
+        "cycle": 50,
+        "tick": 239,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "几乎所有路线被 INC0006/7/8/9 切断（S_S2 也返回 ROUTE_SEVERED，E_R1 预约至241未到期）。无已验证可放行车辆，提交空计划并推进清障。W 横道 B_TO_A 相位放行 PED:87/106/101/119 等耐心告急者，横道车辆预约截止238，避开 A_TO_B（有伤员占格）。睡10拍到246，等 INC0009(约250)/INC0006(244) 清障后下一周期放行 W_R1、E 系与 N 系队首。",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 9,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -7.5502,
+        "balance": 817.8882,
+        "despawned": 0,
+        "hazardBleed": 3.548,
+        "emergencyBleed": 0.0045,
+        "stallChainBleed": 0,
+        "upstreamBleed": 3.33,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.032,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:91:0:CROSSWALK:EAST remaining=24; ACCIDENT_INTERRUPT incident=INC0008 secondary=true",
+        "delayBleedCharged": 0.4622,
+        "promptTokens": 108583,
+        "completionTokens": 747,
+        "reasoningTokens": 0,
+        "outputTokens": 747,
+        "avgDecodeTokensPerSec": 67.24,
+        "avgGenerationTokensPerSec": 67.24
+      },
+      {
+        "cycle": 51,
+        "tick": 241,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "两大事故(INC0008 PILEUP 162锁格、INC0009 27锁格)几乎切断全部路线；E横道被INC0009锁格致行人相位冲突，S_S2/E_R1均ROUTE_SEVERED。清障已对两起事故下达(INC0009→OUT_SOUTH_3, INC0008→OUT_WEST_1)。放行W横道B_TO_A相位解救耐心告急行人(PED:106/87)，该横道无车辆预约。睡10拍至249，等INC0009(约250)清障后放行E系/N_L1队首。",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 7,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 1,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -5.7111,
+        "balance": 812.1771,
+        "despawned": 1,
+        "hazardBleed": 2.504,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 2.22,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.021,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:80:0:CROSSWALK:SOUTH",
+        "delayBleedCharged": 0.2926,
+        "promptTokens": 105018,
+        "completionTokens": 633,
+        "reasoningTokens": 0,
+        "outputTokens": 633,
+        "avgDecodeTokensPerSec": 63.37,
+        "avgGenerationTokensPerSec": 63.37
+      },
+      {
+        "cycle": 52,
+        "tick": 242,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [
+          "V00134"
+        ],
+        "rejected": [
+          "V00049"
+        ],
+        "tacticalSummary": "INC0008/9仍切断绝大多数路线(N_S1/W_R1头车被抛锚车堵住，dry-run报Lane head not ready)。仅放行未受事故影响的E_R1右转V00134与S_S2直行V00049（均无同拍冲突边）。W横道无车辆预约，放行B_TO_A相位解救PED:106(剩19)/PED:87(剩16)等告急行人。睡6拍到247，等INC0009(约253)清障后再放行E系与N_L1队首。S横道有两名jaywalker，任何经过S的路线本轮不放。",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 1,
+        "warnings": [],
+        "financialDelta": -3.066,
+        "balance": 809.1111,
+        "despawned": 0,
+        "hazardBleed": 1.252,
+        "emergencyBleed": 0.003,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.102,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0.3,
+        "towingCost": 0,
+        "pedestrianDelay": 0.011,
+        "pedestrianReward": 0.08,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:113:0:CROSSWALK:WEST remaining=24",
+        "delayBleedCharged": 0.156,
+        "promptTokens": 109086,
+        "completionTokens": 1005,
+        "reasoningTokens": 0,
+        "outputTokens": 1005,
+        "avgDecodeTokensPerSec": 71.12,
+        "avgGenerationTokensPerSec": 71.12
+      },
+      {
+        "cycle": 53,
+        "tick": 244,
+        "sleepTicks": 6,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "事故封锁依旧：INC0008(锁格含W横道cell7)使W行人相位与本波全部直行/左转路线被切断或冲突；E_S2直行V00049报ROUTE_SEVERED，E_R1右转与W_B_TO_A相位冲突INCIDENT锁格，均无法放行。本轮不提交车辆，睡6拍至248，等INC0007(约258)/INC0009(约253)清障后恢复E系与S系放行。行人只能等W横道锁格解开。",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 4,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -5.7179,
+        "balance": 803.3932,
+        "despawned": 0,
+        "hazardBleed": 2.444,
+        "emergencyBleed": 0.0105,
+        "stallChainBleed": 0,
+        "upstreamBleed": 2.22,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.021,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:101:0:CROSSWALK:WEST remaining=24; PEDESTRIAN_JAYWALK pedestrian=PED:82:0:CROSSWALK:NORTH",
+        "delayBleedCharged": 0.3164,
+        "promptTokens": 62907,
+        "completionTokens": 442,
+        "reasoningTokens": 0,
+        "outputTokens": 442,
+        "avgDecodeTokensPerSec": 67.58,
+        "avgGenerationTokensPerSec": 67.58
+      },
+      {
+        "cycle": 54,
+        "tick": 245,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "api_round_limit_exhausted"
+        ],
+        "financialDelta": -2.7376,
+        "balance": 800.6556,
+        "despawned": 0,
+        "hazardBleed": 1.192,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.194,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.01,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.1636,
+        "promptTokens": 103842,
+        "completionTokens": 338,
+        "reasoningTokens": 0,
+        "outputTokens": 338,
+        "avgDecodeTokensPerSec": 55.96,
+        "avgGenerationTokensPerSec": 55.96
+      },
+      {
+        "cycle": 55,
+        "tick": 246,
+        "sleepTicks": 1,
+        "usedFallback": true,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Safe fallback: no admissions",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 8,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [
+          "api_round_limit_exhausted"
+        ],
+        "financialDelta": -2.7366,
+        "balance": 797.919,
+        "despawned": 1,
+        "hazardBleed": 1.192,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.276,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.01,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.1806,
+        "promptTokens": 101160,
+        "completionTokens": 410,
+        "reasoningTokens": 0,
+        "outputTokens": 410,
+        "avgDecodeTokensPerSec": 59.04,
+        "avgGenerationTokensPerSec": 59.04
+      },
+      {
+        "cycle": 56,
+        "tick": 247,
+        "sleepTicks": 4,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Two mega-incidents (INC0008 PILEUP 162 locked cells, INC0009) sever nearly all routes; evacuation already ordered to OUT_WEST_1/OUT_SOUTH_3. No plan passed dry-run verification this cycle (heads not ready; quota exhausted), so admit nothing and let clearance progress. E-side ped phase deferred to av",
+        "apiCalls": 8,
+        "nonTerminalToolCalls": 9,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -2.8805,
+        "balance": 795.0385,
+        "despawned": 0,
+        "hazardBleed": 1.192,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.292,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.01,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:115:0:CROSSWALK:EAST remaining=24",
+        "delayBleedCharged": 0.207,
+        "promptTokens": 102672,
+        "completionTokens": 956,
+        "reasoningTokens": 0,
+        "outputTokens": 956,
+        "avgDecodeTokensPerSec": 75.32,
+        "avgGenerationTokensPerSec": 75.32
+      },
+      {
+        "cycle": 57,
+        "tick": 249,
+        "sleepTicks": 4,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Near endgame: INC0009 locks EAST crosswalk cells, so E-side ped phase and W/E right-turns cannot pass dry-run this cycle. Most routes severed by INC0007/8/9 (est. 253-283, past endTick 261). Evacuation already ordered; let clearance progress and re-check next cycle for newly open routes.",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 4,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -6.1444,
+        "balance": 788.8941,
+        "despawned": 0,
+        "hazardBleed": 2.384,
+        "emergencyBleed": 0.012,
+        "stallChainBleed": 0,
+        "upstreamBleed": 2.59,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.019,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:92:0:CROSSWALK:EAST",
+        "delayBleedCharged": 0.4334,
+        "promptTokens": 61591,
+        "completionTokens": 513,
+        "reasoningTokens": 0,
+        "outputTokens": 513,
+        "avgDecodeTokensPerSec": 68.21,
+        "avgGenerationTokensPerSec": 68.21
+      },
+      {
+        "cycle": 58,
+        "tick": 252,
+        "sleepTicks": 10,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Endgame tick 249/261: all severable routes blocked by INC0007/8/9 (est. clearance past endTick). Both dry-runs rejected V00049 as ROUTE_SEVERED; no verified plan available and quota exhausted, so commit empty and let evacuations progress.",
+        "apiCalls": 7,
+        "nonTerminalToolCalls": 6,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -7.513,
+        "balance": 781.3811,
+        "despawned": 4,
+        "hazardBleed": 3.576,
+        "emergencyBleed": 0.018,
+        "stallChainBleed": 0,
+        "upstreamBleed": 4.146,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.027,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:119:0:CROSSWALK:WEST remaining=24",
+        "delayBleedCharged": 0.697,
+        "promptTokens": 89156,
+        "completionTokens": 557,
+        "reasoningTokens": 0,
+        "outputTokens": 557,
+        "avgDecodeTokensPerSec": 65.59,
+        "avgGenerationTokensPerSec": 65.59
+      },
+      {
+        "cycle": 59,
+        "tick": 257,
+        "sleepTicks": 9,
+        "usedFallback": false,
+        "admitted": [
+          "V00103"
+        ],
+        "rejected": [],
+        "tacticalSummary": "Endgame tick 252/261: nearly all routes severed by INC0007/8/9 with clearance estimates past endTick. V00095 (W_S2) rejected as ROUTE_SEVERED; jaywalkers on SOUTH block V00103 but it is the only viable admission. Admit W_R1 head and sleep to endgame; let evacuation progress.",
+        "apiCalls": 4,
+        "nonTerminalToolCalls": 3,
+        "verifiedCommits": 1,
+        "unverifiedCommits": 0,
+        "holdCommits": 0,
+        "recklessAttempts": 0,
+        "warnings": [],
+        "financialDelta": -10.3273,
+        "balance": 771.0538,
+        "despawned": 3,
+        "hazardBleed": 5.42,
+        "emergencyBleed": 0.03,
+        "stallChainBleed": 0,
+        "upstreamBleed": 7.082,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.044,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:87:0:CROSSWALK:WEST",
+        "delayBleedCharged": 1.2668,
+        "promptTokens": 48553,
+        "completionTokens": 382,
+        "reasoningTokens": 0,
+        "outputTokens": 382,
+        "avgDecodeTokensPerSec": 68.64,
+        "avgGenerationTokensPerSec": 68.64
+      },
+      {
+        "cycle": 60,
+        "tick": 259,
+        "sleepTicks": 4,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Endgame tick 257/261: INC0008 (19 severed routes, clearance ~tick 283) and INC0007 (~tick 261) block nearly everything. INC0007 evacuation already underway (no-op). Only E_R1 head V00134 is unserved, but jaywalkers on EAST/NORTH crosswalks mean admission risks collision; skip it. Sleep to endgame; i",
+        "apiCalls": 5,
+        "nonTerminalToolCalls": 4,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -5.6698,
+        "balance": 765.384,
+        "despawned": 0,
+        "hazardBleed": 2.168,
+        "emergencyBleed": 0.012,
+        "stallChainBleed": 0,
+        "upstreamBleed": 2.868,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.016,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_PATIENCE pedestrian=PED:111:0:CROSSWALK:NORTH remaining=24",
+        "delayBleedCharged": 0.4998,
+        "promptTokens": 64084,
+        "completionTokens": 318,
+        "reasoningTokens": 0,
+        "outputTokens": 318,
+        "avgDecodeTokensPerSec": 57.55,
+        "avgGenerationTokensPerSec": 57.55
+      },
+      {
+        "cycle": 61,
+        "tick": 260,
+        "sleepTicks": 2,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Endgame tick 259/261: every route except E_R1 is severed by INC0007/INC0008 (clearance ~283 > endTick). Dry-run of E_R1 head V00134 verified but carries jaywalker warnings on EAST and NORTH crosswalks (independent of any pedestrian phase, which would conflict with V00103's crossing). Collision risk ",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 2,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -3.4234,
+        "balance": 761.9606,
+        "despawned": 1,
+        "hazardBleed": 1.084,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.518,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.007,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0.6,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": "PEDESTRIAN_JAYWALK pedestrian=PED:106:0:CROSSWALK:WEST",
+        "delayBleedCharged": 0.2454,
+        "promptTokens": 37875,
+        "completionTokens": 320,
+        "reasoningTokens": 0,
+        "outputTokens": 320,
+        "avgDecodeTokensPerSec": 63.09,
+        "avgGenerationTokensPerSec": 63.09
+      },
+      {
+        "cycle": 62,
+        "tick": 261,
+        "sleepTicks": 1,
+        "usedFallback": false,
+        "admitted": [],
+        "rejected": [],
+        "tacticalSummary": "Endgame tick 260/261: INC0008 severs 19 routes (clearance ~283 > endTick); INC0007 locks 28 cells. Only E_R1 head V00134 is admissible; dry-run verified but carries jaywalker warnings on EAST (PED:92) and NORTH (PED:62, PED:82) crosswalks — admission would risk collision for 0.1 revenue. Skip admiss",
+        "apiCalls": 3,
+        "nonTerminalToolCalls": 2,
+        "verifiedCommits": 0,
+        "unverifiedCommits": 0,
+        "holdCommits": 1,
+        "recklessAttempts": 0,
+        "warnings": [
+          "warning_summary_truncated"
+        ],
+        "financialDelta": -2.816,
+        "balance": 759.1446,
+        "despawned": 0,
+        "hazardBleed": 0.972,
+        "emergencyBleed": 0.006,
+        "stallChainBleed": 0,
+        "upstreamBleed": 1.524,
+        "exitLockBleed": 0,
+        "secondaryPenalty": 0,
+        "towingCost": 0,
+        "pedestrianDelay": 0.007,
+        "pedestrianReward": 0,
+        "pedestrianJaywalk": 0,
+        "pedestrianStrike": 0,
+        "schoolBusPenalty": 0,
+        "interruptReason": null,
+        "delayBleedCharged": 0.244,
+        "promptTokens": 37532,
+        "completionTokens": 260,
+        "reasoningTokens": 0,
+        "outputTokens": 260,
+        "avgDecodeTokensPerSec": 65.67,
+        "avgGenerationTokensPerSec": 65.67
+      }
+    ]
+  }
+}
