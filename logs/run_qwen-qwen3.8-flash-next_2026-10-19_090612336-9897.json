@@ -1,0 +1,1 @@
+{"seed":63916,"cycleCount":200,"horizonTicks":200,"dotenvPath":"/root/silicon-conductor-bench/.env.qwen3.8-flash-next-w4a16","argv":["--plain"],"model":"qwen/qwen3.8-flash-next","apiLog":"/root/silicon-conductor-bench/logs/api-log_qwen-qwen3.8-flash-next_2026-10-19_090612336-9897.jsonl"}
