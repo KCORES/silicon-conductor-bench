@@ -1,0 +1,28 @@
+Adds three Jev benchmark results using the included System One adapter.
+
+Channel: **Official channel**. Requested model: `jev-latest`; all actual responses: **jev-1.14.0**. Endpoint addresses and credentials are omitted.
+
+Rules **v21**, seed **63916**, **200 ticks × 3 runs**, following the Chinese README's contribution specification. The current default horizon is 400; these results explicitly use 200 and are not mixed with 400-tick results.
+
+| Run | Final balance | Unserved liability | Hazard bleed | Pedestrian strike penalty | Admitted vehicles |
+|---|---:|---:|---:|---:|---:|
+| 1 | 736.44 | 204.40 | 13.17 | 10.00 | 117 |
+| 2 | 692.02 | 199.10 | 18.70 | 50.00 | 150 |
+| 3 | 737.44 | 204.80 | 13.98 | 5.00 | 114 |
+
+Mean **721.97**, median 736.44, population SD 21.18. Single-seed results do not establish generalization.
+
+All runs started fresh, without resume, API errors, fallback, or unverified commits. Per-cycle limits remain 8 API rounds, 12 nonterminal tool calls, and 2 dry-runs. The adapter uses canonical public observations, rules and tool definitions; no private future information or answer labels are supplied. Experimental policies remain disabled, and simulation/economy parameters retain defaults.
+
+This PR shares adapter commit 371570f with H2O PR #4; that source is required to reproduce the runs. It includes public-input parity, bounded paid probes and adapter regression tests; opt-in experimental branches are present but were not used for these scores. The score artifacts in this PR are Jev only.
+
+Connection configuration: AI_GATEWAY_MODEL=jev-latest; endpoint and key stay in a local ignored environment file. JEV_ADAPT=on is the default stable policy. Validation: benchmark TypeScript build and 363 core tests passed; no claim that all replay-specific repository checks passed.
+
+Reproduce after configuring your local connection:
+
+```powershell
+node node_modules/typescript/bin/tsc -p tsconfig.bench.json
+node scripts/bench-repeat.mjs --parallel 1 --runs 3 --env .env.jev-pr-local -- --ticks 200 --seed 63916 --plain
+```
+
+Complete API traces, reports, replays and run metadata are included. Only machine-local paths are normalized for portability; numerical results and API/replay evidence are unchanged. The submission manifest records source and artifact hashes. No secrets or endpoint address are committed.

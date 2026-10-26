@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { JevAnswer } from "../src/agent/jev/client.js";
 import {
   compileJevSchedule,
@@ -81,6 +81,10 @@ describe("Jev compile", () => {
     expect(rankPhases(PHASES, undefined).map((item) => item.key)).toEqual([HOLD_PHASE]);
   });
 
+  it("holds when the provider names a phase outside the offered choices", () => {
+    expect(rankPhases(PHASES, choice("UNKNOWN_PHASE")).map(item => item.key)).toEqual([HOLD_PHASE]);
+  });
+
   it("maps release and sleep options onto tool parameters", () => {
     const schedule = compileJevSchedule(facts(), {
       [PHASE_KEY]: choice("NS_STRAIGHT"),
@@ -126,8 +130,8 @@ describe("Jev compile", () => {
     expect(held.phase).toBeUndefined();
   });
 
-  it("probes at most two phases", () => {
-    const many = [phase("A"), phase("B"), phase("C"), phase(HOLD_PHASE, [])];
+  it("probes at most two distinct phases with adaptation enabled", () => {
+    const many = [phase("A"), phase("B"), phase("C"), phase("D"), phase("E"), phase(HOLD_PHASE, [])];
     let probes = 0;
     const selection = selectVerifiedPhase(many, () => {
       probes += 1;
@@ -146,7 +150,7 @@ describe("Jev compile", () => {
         { crosswalk_id: "CROSSWALK:WEST", directions: ["B_TO_A"] },
       ],
     };
-    const selection = selectVerifiedPhase([pedestrians, phase("EW_LEFT")], (candidate) =>
+    const selection = selectVerifiedPhase([pedestrians, phase(HOLD_PHASE), phase("EW_LEFT")], (candidate) =>
       candidate.pedestrianPhases.some((item) => item.crosswalk_id === "CROSSWALK:EAST")
         ? { ok: false, conflictCrosswalkId: "CROSSWALK:EAST" }
         : { ok: true },
@@ -157,6 +161,28 @@ describe("Jev compile", () => {
       { crosswalk_id: "CROSSWALK:WEST", directions: ["B_TO_A"] },
     ]);
     expect(selection.rejectedKeys).toEqual(["PEDESTRIANS_ONLY"]);
+  });
+
+  it("tries distinct phases before repairs and never passes the HOLD boundary", () => {
+    const mixed = { ...phase("A"), pedestrianPhases: [{ crosswalk_id: "CROSSWALK:EAST", directions: ["A_TO_B" as const] }] };
+    const probed: string[] = [];
+    const selection = selectVerifiedPhase([mixed, phase("B"), phase(HOLD_PHASE), phase("C")], (candidate) => {
+      probed.push(candidate.key);
+      return candidate.key === "A-EAST" ? { ok: true } : { ok: false, conflictCrosswalkId: "CROSSWALK:EAST" };
+    });
+    expect(probed).toEqual(["A", "B"]);
+    expect(selection.phase).toBeUndefined();
+  });
+
+  it("clears an incident using its own legal lane when lane confidence is low", () => {
+    const incidentFacts = facts({
+      incidents: [{ incidentId: "inc-1", suggestedEvacLanes: ["OUT_S_1"], severedLaneIds: [] }],
+      incidentActions: ["CLEAR", "IGNORE"], evacLanes: ["OUT_S_1", "OUT_N_1"],
+    });
+    expect(compileJevSchedule(incidentFacts, {
+      [INCIDENT_ACTION_KEY]: choice("CLEAR"), [EVAC_LANE_KEY]: choice("OUT_N_1", 0.2),
+    }).sideEffects).toEqual([{ name: "order_accident_clearance", arguments: { incident_id: "inc-1", target_evac_lane: "OUT_S_1" } }]);
+    expect(compileJevSchedule(incidentFacts, { [INCIDENT_ACTION_KEY]: choice("CLEAR", 0.2) }).sideEffects).toEqual([]);
   });
 
   it("compiles confident side-effect choices into tool calls", () => {
@@ -243,5 +269,23 @@ describe("Jev compile", () => {
         actions: [],
       }),
     ).toBe("random phase=HOLD sleep=2");
+  });
+});
+
+describe("Jev legacy isolation", () => {
+  afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
+
+  it("retains the two-probe budget and immediate crosswalk repair when adaptation is off", async () => {
+    vi.stubEnv("JEV_ADAPT", "off");
+    vi.stubEnv("JEV_ADAPT_PROBE", "off");
+    vi.resetModules();
+    const legacy = await import("../src/agent/jev/compile.js");
+    const probed: string[] = [];
+    const mixed = { ...phase("A"), pedestrianPhases: [{ crosswalk_id: "CROSSWALK:EAST", directions: ["A_TO_B" as const] }] };
+    legacy.selectVerifiedPhase([mixed, phase("B"), phase("C")], (candidate) => {
+      probed.push(candidate.key);
+      return { ok: false, conflictCrosswalkId: "CROSSWALK:EAST" };
+    });
+    expect(probed).toEqual(["A", "A-EAST"]);
   });
 });

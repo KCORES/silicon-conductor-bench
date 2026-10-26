@@ -441,7 +441,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 /** Inbound lane fields whose engine call only takes lane IDs. */
 const LANE_ID_FIELDS = ["lane_id", "source_lane", "target_lane"] as const;
 
-const DRY_RUN_QUOTA_PER_CYCLE = 2;
+export const DRY_RUN_QUOTA_PER_CYCLE = 2;
 
 export class AgentToolRuntime {
   private dryRunCallsInCycle = 0;

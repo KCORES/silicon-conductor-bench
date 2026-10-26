@@ -1,0 +1,178 @@
+{
+  "modelRequested": "jev-latest",
+  "actualModel": "jev-1.14.0",
+  "channel": "Official channel",
+  "rulesVersion": 21,
+  "seed": 63916,
+  "horizonTicks": 200,
+  "runs": 3,
+  "sourceCommit": "371570fa1ead763a8d7eb985093e046f169d4398",
+  "stats": {
+    "mean": 721.9652333333333,
+    "min": 692.0182,
+    "max": 737.4424,
+    "median": 736.4351,
+    "stddev": 21.17974295442597
+  },
+  "results": [
+    {
+      "group": "submission-200",
+      "index": 1,
+      "ticks": 200,
+      "balance": 736.4351,
+      "liability": 204.4,
+      "hazard": 13.171,
+      "strike": 10,
+      "upstream": 51.484,
+      "admitted": 117,
+      "empty": 88,
+      "apiCalls": 111,
+      "toolCalls": 164,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 3,
+      "usage": {
+        "input": 1963914,
+        "output": 27186
+      },
+      "elapsedMs": 104248
+    },
+    {
+      "group": "submission-200",
+      "index": 2,
+      "ticks": 200,
+      "balance": 692.0182,
+      "liability": 199.1,
+      "hazard": 18.7,
+      "strike": 50,
+      "upstream": 54.822,
+      "admitted": 150,
+      "empty": 81,
+      "apiCalls": 111,
+      "toolCalls": 177,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 4,
+      "usage": {
+        "input": 1996246,
+        "output": 31951
+      },
+      "elapsedMs": 111891
+    },
+    {
+      "group": "submission-200",
+      "index": 3,
+      "ticks": 200,
+      "balance": 737.4424,
+      "liability": 204.8,
+      "hazard": 13.982,
+      "strike": 5,
+      "upstream": 52.454,
+      "admitted": 114,
+      "empty": 86,
+      "apiCalls": 107,
+      "toolCalls": 172,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 4,
+      "usage": {
+        "input": 1904534,
+        "output": 27235
+      },
+      "elapsedMs": 109274
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "logs/api-log_jev-latest_2026-10-26_candidate-1.jsonl",
+      "sha256": "8c32e85cb5295d69f11ee5629e23509457dc63007e8f2be961eea2b713711a9c",
+      "sourceSha256": "8c32e85cb5295d69f11ee5629e23509457dc63007e8f2be961eea2b713711a9c",
+      "bytes": 5231929,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_jev-latest_2026-10-26_candidate-1.json",
+      "sha256": "9d4cdc0fe0ab7e86dfdb88401b0531c348d1109f1684f1acae16e2522b9dc91c",
+      "sourceSha256": "9d4cdc0fe0ab7e86dfdb88401b0531c348d1109f1684f1acae16e2522b9dc91c",
+      "bytes": 93131911,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_jev-latest_2026-10-26_candidate-1.json",
+      "sha256": "855a2f7b467ad2e751301f74a53a33c5fa6d1af5384b1ece97d6fe124f3c941e",
+      "sourceSha256": "5867e26ccf30c5510aa168a1cb87cce47987060d199a0ba0569c3ceb526c8ea6",
+      "bytes": 210405,
+      "normalization": "Machine-local paths only"
+    },
+    {
+      "path": "logs/run_jev-latest_2026-10-26_candidate-1.json",
+      "sha256": "278b1fb51861b7ab455a2927334a1f7b0da88fe05b81b4a81a960d7100b8e907",
+      "sourceSha256": "964905a0b223615d7d6dd447df7e77ae7f452d182ebad51e06a36fcd0a86d376",
+      "bytes": 278,
+      "normalization": "Machine-local paths only"
+    },
+    {
+      "path": "logs/api-log_jev-latest_2026-10-26_candidate-2.jsonl",
+      "sha256": "9e0486bf809d7a2b5235b0f7509676aefc654861ffad77b8ca15a89a9d66b32f",
+      "sourceSha256": "9e0486bf809d7a2b5235b0f7509676aefc654861ffad77b8ca15a89a9d66b32f",
+      "bytes": 5331492,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_jev-latest_2026-10-26_candidate-2.json",
+      "sha256": "5ff0b60ddf109ed54a6182178cc649e0b64a529ce9e9b5d236e19c9dc5500bc5",
+      "sourceSha256": "5ff0b60ddf109ed54a6182178cc649e0b64a529ce9e9b5d236e19c9dc5500bc5",
+      "bytes": 95242507,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_jev-latest_2026-10-26_candidate-2.json",
+      "sha256": "dad9080da23854131e7498e27284d6f7f13d3cc7ff646e841f0e754e69d33d4a",
+      "sourceSha256": "edb3acb2d1c65e635c57093c27dc65420869c59aadfefe4127d2c7338e9da0e5",
+      "bytes": 202276,
+      "normalization": "Machine-local paths only"
+    },
+    {
+      "path": "logs/run_jev-latest_2026-10-26_candidate-2.json",
+      "sha256": "a9574c722ed6aeed61c27ff5ea0c2a54dd548494bb7706af2c6b4ed4c0e83a99",
+      "sourceSha256": "e643057325a64bf93347d30521d3b60d62b1b58e87d97e2e4d308a70ec5947b4",
+      "bytes": 278,
+      "normalization": "Machine-local paths only"
+    },
+    {
+      "path": "logs/api-log_jev-latest_2026-10-26_candidate-3.jsonl",
+      "sha256": "c2bd93b863c00368e47e088a03ebd0bfbdb3ec8278d828e515fcea50678f639e",
+      "sourceSha256": "c2bd93b863c00368e47e088a03ebd0bfbdb3ec8278d828e515fcea50678f639e",
+      "bytes": 5115286,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_jev-latest_2026-10-26_candidate-3.json",
+      "sha256": "31fd196b5c3bc18a1ec0f0d719d7c5bcddd74043caf33272cb5c3cbe75109971",
+      "sourceSha256": "31fd196b5c3bc18a1ec0f0d719d7c5bcddd74043caf33272cb5c3cbe75109971",
+      "bytes": 93456095,
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_jev-latest_2026-10-26_candidate-3.json",
+      "sha256": "8dd37f4c1bafc188f72501bea69a8cbb854a43955484379bbc2fc8b32bad1742",
+      "sourceSha256": "4dff24da9eea5f51ddac22a1db6d92a795a5c1ec78ebedb855ae93b95baa078a",
+      "bytes": 149614,
+      "normalization": "Machine-local paths only"
+    },
+    {
+      "path": "logs/run_jev-latest_2026-10-26_candidate-3.json",
+      "sha256": "518c5a30cc54426464c30ac00949eb8753f83a2817c384590ef1ed5a8ff2316e",
+      "sourceSha256": "e8747d62ade9e8f9d6902d113e64c93d6dd0535c426123495a08162b14631b41",
+      "bytes": 278,
+      "normalization": "Machine-local paths only"
+    }
+  ],
+  "budgets": {
+    "apiRounds": 8,
+    "nonterminalTools": 12,
+    "dryRuns": 2
+  },
+  "configuration": "Stable System One adapter with full canonical public information; experimental feedback, conditional parameters, crosswalk context, horizon shrink, pedestrian-window and tailgate repairs disabled. Simulation and economy defaults.",
+  "validation": "Fresh uninterrupted runs; zero API errors, fallbacks and unverified commits. Same runtime code as the 363-passing core regression and benchmark build."
+}

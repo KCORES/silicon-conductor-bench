@@ -266,7 +266,7 @@ export function detectModelProvider(
   model: string,
   baseURL: string,
 ): ModelProvider {
-  if (/^jev(?:-|$)/i.test(model.trim())) {
+  if (/^jev(?:-|$)/i.test(model.trim()) || /^(?:h2oai\/)?h2o-lightning-4b$/i.test(model.trim())) {
     return "jev";
   }
   try {

@@ -12,10 +12,16 @@ import {
   type AgentEconomyConfig,
 } from "../metrics.js";
 import type { AgentCycleInput, AgentCycleResult, AgentTraceEvent, RunnerCheckpointState } from "../runner.js";
+import { buildAgentObservationPayload, buildTrafficSystemPrompt } from "../runner.js";
+import { laneVehicleCounts } from "../model-observation.js";
+import { buildJevParameterQuestions, applyJevParameters } from "./parameters.js";
+import { pedestrianWindowRisks } from "./pedestrian-window.js";
 import {
   COMMIT_SCHEDULE,
   DRY_RUN_ADMIT,
   INSPECT_INCIDENT,
+  DRY_RUN_QUOTA_PER_CYCLE,
+  selectAgentTools,
   AgentToolRuntime,
   type CommitExecution,
 } from "../tools.js";
@@ -34,10 +40,20 @@ import {
   selectVerifiedPhase,
   type JevToolCall,
   type PhaseProbeResult,
+  type PhaseSelection,
 } from "./compile.js";
 import {
   buildJevQuestions,
   buildJevState,
+  ADAPT_CROSSWALK,
+  ADAPT_JAYWALK_GUARD,
+  ADAPT_RESERVATIONS,
+  ADAPT_PARITY_INPUT,
+  ADAPT_FEEDBACK,
+  ADAPT_CONDITIONAL,
+  ADAPT_HORIZON_SHRINK,
+  ADAPT_PEDESTRIAN_WINDOW,
+  ADAPT_REPAIR_TAILGATE,
   type JevIncidentFact,
   type PhaseCandidate,
 } from "./questions.js";
@@ -47,6 +63,9 @@ interface RecentCycle {
   readonly tick: number;
   readonly admittedVehicleIds: readonly string[];
   readonly tacticalSummary: string;
+  readonly sleepTicks?: number;
+  readonly balance?: number;
+  readonly notices?: readonly string[];
 }
 
 interface CachedIncident {
@@ -62,6 +81,8 @@ export interface JevAgentRunnerOptions {
   readonly memory: WorkingMemoryStack;
   readonly model: string;
   readonly economy: AgentEconomyConfig;
+  readonly maxApiRounds?: number;
+  readonly maxToolCalls?: number;
   readonly tollMotorcycle: number;
   readonly tollStandard: number;
   readonly tollEmergency: number;
@@ -78,6 +99,11 @@ export class JevAgentRunner {
   private readonly logger: AgentApiLogger;
   private readonly deciderName: string;
   private cycle = 0;
+  private previousLaneCounts: ReadonlyMap<string, number> | undefined;
+  private readonly pendingFeedback: string[] = [];
+  private publicState: Record<string, unknown> = {};
+  private toolCalls = 0;
+  private dryRunCalls = 0;
 
   constructor(private readonly options: JevAgentRunnerOptions) {
     if ((options.client === undefined) === (options.baseline === undefined)) {
@@ -101,6 +127,8 @@ export class JevAgentRunner {
 
   async runCycle(input: AgentCycleInput): Promise<AgentCycleResult> {
     this.cycle += 1;
+    this.toolCalls = 0;
+    this.dryRunCalls = 0;
     const tick = this.options.engine.currentTick;
     const peeked = this.options.memory.peek().plan;
     const observation = this.options.engine.buildObservation(
@@ -116,6 +144,16 @@ export class JevAgentRunner {
           },
     );
     const metrics = new AgentMetricsCollector(this.options.economy);
+    if (this.options.client !== undefined && ADAPT_PARITY_INPUT) {
+      const snapshot = this.options.engine.spatialSnapshot();
+      this.publicState = buildAgentObservationPayload({ observation,
+        ...(this.options.economy.endTick === undefined ? {} : { endTick: this.options.economy.endTick }),
+        spatial: { snapshot, ...(this.previousLaneCounts === undefined ? {} : { previousLaneCounts: this.previousLaneCounts }) },
+        recentCycles: [...this.recentCycles], previousFeedback: this.pendingFeedback.splice(0),
+        lastSettlement: input.lastSettlement ?? null,
+      });
+      this.previousLaneCounts = laneVehicleCounts(snapshot);
+    }
     const runtime = new AgentToolRuntime({
       engine: this.options.engine,
       memory: this.options.memory,
@@ -135,7 +173,12 @@ export class JevAgentRunner {
     const build = buildJevQuestions({
       observation,
       network: this.options.engine.network,
-      incidents: this.openIncidentFacts(runtime, trace, tick, round),
+      allowReservedLanes: this.options.client !== undefined && ADAPT_RESERVATIONS,
+      flexiblePhases: this.options.client !== undefined && ADAPT_CONDITIONAL,
+      incidents: this.openIncidentFacts(runtime, trace, tick, round, observation),
+      ...(ADAPT_CROSSWALK && this.options.client !== undefined
+        ? { crosswalkSlots: this.options.engine.spatialSnapshot().crosswalks }
+        : {}),
     });
 
     const answers = await this.decide(build, observation, metrics, trace, tick, round);
@@ -143,7 +186,8 @@ export class JevAgentRunner {
       return this.fallback(observation, metrics, trace);
     }
 
-    const schedule = compileJevSchedule(build.facts, answers);
+    let schedule = compileJevSchedule(build.facts, answers);
+    let apiRound = 1;
     const actions: string[] = [];
     for (const call of schedule.sideEffects) {
       const result = this.executeTool(runtime, trace, tick, round, call);
@@ -154,9 +198,43 @@ export class JevAgentRunner {
         this.noteSideEffectFailure(call, result.output);
       }
     }
-    const selection = selectVerifiedPhase(schedule.rankedPhases, (phase) =>
-      this.dryRun(runtime, trace, tick, round, phase, schedule.topN),
-    );
+    let selection: PhaseSelection;
+    if (this.options.client !== undefined && (ADAPT_FEEDBACK || ADAPT_CONDITIONAL)) {
+      const rejectedKeys: string[] = [];
+      selection = { phase: undefined, rejectedKeys };
+      // A fresh model answer conditions phase, release and sleep on actual tool
+      // feedback. Side effects execute only once, never replayed on a repair.
+      for (let attempt = 1; attempt <= DRY_RUN_QUOTA_PER_CYCLE; attempt++) {
+        let phase = schedule.rankedPhases[0];
+        if (phase === undefined) break;
+        if (ADAPT_CONDITIONAL) {
+          if (apiRound >= (this.options.maxApiRounds ?? config.agent.maxApiRounds)) break;
+          const parameters = await this.decide({ ...build, questions: buildJevParameterQuestions(phase) },
+            observation, metrics, trace, tick, ++apiRound,
+            { decisionStage: "parameters", selectedPhase: phase });
+          if (parameters === undefined) return this.fallback(observation, metrics, trace);
+          const plan = applyJevParameters(phase, parameters);
+          phase = plan.phase;
+          schedule = { ...schedule, sleepTicks: plan.sleepTicks };
+        }
+        if (phase.kind === "HOLD") break;
+        const checked = this.dryRun(runtime, trace, tick, apiRound, phase, schedule.topN, observation);
+        if (checked.ok) { selection = { phase, rejectedKeys }; break; }
+        rejectedKeys.push(phase.key);
+        if (!ADAPT_FEEDBACK || attempt >= DRY_RUN_QUOTA_PER_CYCLE ||
+            apiRound + (ADAPT_CONDITIONAL ? 2 : 1) > (this.options.maxApiRounds ?? config.agent.maxApiRounds) ||
+            this.toolCalls >= (this.options.maxToolCalls ?? config.agent.maxToolCalls)) break;
+        const repaired = await this.decide(build, observation, metrics, trace, tick, ++apiRound);
+        if (repaired === undefined) return this.fallback(observation, metrics, trace);
+        schedule = compileJevSchedule(build.facts, repaired);
+      }
+    } else {
+      selection = selectVerifiedPhase(schedule.rankedPhases, (phase) =>
+        this.dryRun(runtime, trace, tick, round, phase, schedule.topN, observation),
+        this.options.client !== undefined && ADAPT_HORIZON_SHRINK
+          ? { horizonShrinkTopN: schedule.topN } : {},
+      );
+    }
     const commitCall: JevToolCall = {
       name: COMMIT_SCHEDULE,
       arguments: {
@@ -174,7 +252,7 @@ export class JevAgentRunner {
         }),
       },
     };
-    const committed = this.executeTool(runtime, trace, tick, round, commitCall);
+    const committed = this.executeTool(runtime, trace, tick, apiRound, commitCall);
     if (committed.commit === undefined) {
       trace.push({ kind: "FALLBACK", round, data: { reason: "commit_failed" } });
       return this.fallback(observation, metrics, trace);
@@ -196,6 +274,7 @@ export class JevAgentRunner {
     trace: AgentTraceEvent[],
     tick: number,
     round: number,
+    extraState: Readonly<Record<string, unknown>> = {},
   ): Promise<Readonly<Record<string, JevAnswer>> | undefined> {
     if (this.options.baseline !== undefined) {
       this.options.onActivity?.("baseline");
@@ -211,12 +290,22 @@ export class JevAgentRunner {
     }
     const requestPayload = {
       model: this.options.model,
-      state: buildJevState({
+      state: { ...buildJevState({
         observation,
         facts: build.facts,
         recentCycles: this.recentCycles,
-      }),
-      questions: build.questions,
+      }), ...(ADAPT_PARITY_INPUT ? {
+        ...this.publicState,
+        rules: buildTrafficSystemPrompt(this.options.maxApiRounds ?? config.agent.maxApiRounds, this.options.economy),
+        tools: selectAgentTools(observation),
+        toolFeedback: trace.filter(event => event.kind === "TOOL_RESULT").map(event => event.data),
+        remainingToolCalls: Math.max(0, (this.options.maxToolCalls ?? config.agent.maxToolCalls) - this.toolCalls),
+        remainingDryRuns: Math.max(0, DRY_RUN_QUOTA_PER_CYCLE - this.dryRunCalls),
+        ...(round > 1 ? { repairInstructions: "The previous admission plan failed or exposed jaywalkers. Use the toolFeedback to select a corrected phase and release size. A smaller wave, another lane, or fewer crosswalks may work. If no safe plan remains, choose HOLD. Side-effect actions already ran; do not repeat them. Sleep must match the corrected plan." } : {}),
+      } : {}), ...(ADAPT_CONDITIONAL ? { decisionStage: "phase" } : {}), ...extraState },
+      questions: ADAPT_CONDITIONAL && extraState.decisionStage !== "parameters"
+        ? Object.fromEntries(Object.entries(build.questions).filter(([key]) => key !== "release_size" && key !== "sleep"))
+        : build.questions,
     };
     this.logApi("API_REQUEST", tick, round, requestPayload);
     trace.push({ kind: "API_REQUEST", round, data: requestPayload });
@@ -271,19 +360,17 @@ export class JevAgentRunner {
     trace: AgentTraceEvent[],
     tick: number,
     round: number,
+    observation: CompactObservation,
   ): JevIncidentFact[] {
-    const open = new Set<string>();
-    for (const incident of this.options.engine.incidentSummaries()) {
-      if (incident.status !== "OPEN") {
-        continue;
-      }
-      open.add(incident.id);
-      if (this.incidents.has(incident.id)) {
+    // Incident IDs come from the public observation, never a private engine scan.
+    const open = new Set(observation.blockedRoutes.flatMap(route => route.incidentIds ?? []));
+    for (const incidentId of open) {
+      if (this.incidents.has(incidentId)) {
         continue;
       }
       const result = this.executeTool(runtime, trace, tick, round, {
         name: INSPECT_INCIDENT,
-        arguments: { incident_id: incident.id },
+        arguments: { incident_id: incidentId },
       });
       if (!isToolOk(result.output) || !isRecord(result.output)) {
         continue;
@@ -293,9 +380,9 @@ export class JevAgentRunner {
         return laneId === undefined ? [] : [laneId];
       });
       const lockedCrosswalkIds = stringList(result.output.locked_crosswalks);
-      this.incidents.set(incident.id, {
+      this.incidents.set(incidentId, {
         fact: {
-          incidentId: incident.id,
+          incidentId,
           suggestedEvacLanes: stringList(result.output.suggested_evac_lanes),
           severedLaneIds,
           lockedCrosswalkIds,
@@ -351,20 +438,60 @@ export class JevAgentRunner {
     round: number,
     phase: PhaseCandidate,
     topN: number,
+    observation: CompactObservation,
   ): PhaseProbeResult {
+    const batches = laneBatchesFor(phase, topN);
     const result = this.executeTool(runtime, trace, tick, round, {
       name: DRY_RUN_ADMIT,
       arguments: {
         candidate_vehicle_ids: [],
-        lane_batches: laneBatchesFor(phase, topN),
+        lane_batches: batches,
         vehicle_speed_profiles: [],
         pedestrian_phases: phase.pedestrianPhases,
       },
     });
     const conflict = isRecord(result.output) ? result.output.conflict : undefined;
+    // Reservations exclude jaywalkers, so `ok` alone is not a safe admission.
+    // Removing a pedestrian phase cannot repair a vehicle's route through them.
+    if (ADAPT_JAYWALK_GUARD && this.options.client !== undefined &&
+        isRecord(result.output) && Array.isArray(result.output.jaywalker_warnings) &&
+        result.output.jaywalker_warnings.length > 0) {
+      return { ok: false };
+    }
+    if (ADAPT_REPAIR_TAILGATE && this.options.client !== undefined &&
+        /:(HEAD_ONLY|WINDOW_HEADS)$/.test(phase.key) && isToolOk(result.output) && isRecord(result.output) &&
+        Array.isArray(result.output.tailgate_risk) && result.output.tailgate_risk.length > 0) {
+      trace.push({ kind: "PROTOCOL_WARNING", round, data: {
+        reason: "REPAIR_TAILGATE_RISK", phase: phase.key, risks: result.output.tailgate_risk,
+      } });
+      return { ok: false };
+    }
+    if (ADAPT_PEDESTRIAN_WINDOW && this.options.client !== undefined && isToolOk(result.output) && isRecord(result.output)) {
+      const plans: unknown[] = Array.isArray(result.output.vehicle_plans) ? result.output.vehicle_plans : [];
+      const checks = phase.lanes.map(lane => {
+        const head = observation.stoplineCandidates.find(candidate => candidate.lane === lane.laneId);
+        const headPlans = plans.filter(plan => Array.isArray(plan) && head !== undefined && plan[0] === head.vehicleId);
+        const crossed = lane.crosswalkIds ?? [];
+        const headSafe = headPlans.length === 1 && pedestrianWindowRisks(observation, crossed, headPlans).length === 0;
+        // Top-1 is exactly identifiable from the public stopline head. For
+        // followers the tool omits lane IDs, so keep the conservative bound.
+        const checkedPlans = batches.find(batch => batch.lane_id === lane.laneId)?.top_n === 1 && headPlans.length === 1 ? headPlans : plans;
+        return { laneId: lane.laneId, headSafe, risks: pedestrianWindowRisks(observation, crossed, checkedPlans) };
+      });
+      const risks = checks.flatMap(check => check.risks);
+      if (risks.length > 0) {
+        const windowRepairLaneIds = checks.filter(check => check.headSafe).map(check => check.laneId);
+        trace.push({ kind: "PROTOCOL_WARNING", round, data: { reason: "PEDESTRIAN_WINDOW_RISK", phase: phase.key, risks, windowRepairLaneIds } });
+        return { ok: false, windowRepairLaneIds };
+      }
+    }
     const crosswalk =
       typeof conflict === "string" ? /^(CROSSWALK:[A-Z]+)(?::|$)/.exec(conflict)?.[1] : undefined;
-    return { ok: isToolOk(result.output), conflictCrosswalkId: crosswalk };
+    const error = isRecord(result.output) ? result.output.error : undefined;
+    const horizonExceeded = isRecord(error) && error.tool_name === DRY_RUN_ADMIT &&
+      error.code === "TOOL_EXECUTION_ERROR" && typeof error.message === "string" &&
+      /^Admission planning horizon exceeded for \S+$/.test(error.message);
+    return { ok: isToolOk(result.output), conflictCrosswalkId: crosswalk, horizonExceeded };
   }
 
   private executeTool(
@@ -374,6 +501,13 @@ export class JevAgentRunner {
     round: number,
     call: JevToolCall,
   ): { readonly output: unknown; readonly commit?: CommitExecution } {
+    if (call.name !== COMMIT_SCHEDULE) {
+      if (this.toolCalls >= (this.options.maxToolCalls ?? config.agent.maxToolCalls)) {
+        return { output: { ok: false, reason: "TOOL_CALL_LIMIT_EXHAUSTED" } };
+      }
+      this.toolCalls += 1;
+      if (call.name === DRY_RUN_ADMIT) this.dryRunCalls += 1;
+    }
     this.options.onActivity?.(
       /^[A-Za-z0-9_-]+$/.test(call.name) ? `tool:${call.name}` : "tool_call",
     );
@@ -397,7 +531,7 @@ export class JevAgentRunner {
     trace.push({
       kind: "TOOL_RESULT",
       round,
-      data: { toolName: call.name, output: execution.output },
+      data: { toolName: call.name, arguments: call.arguments, output: execution.output },
     });
     return {
       output: execution.output,
@@ -453,6 +587,9 @@ export class JevAgentRunner {
       tick: observation.currentTick,
       admittedVehicleIds: [...commit.admission.admittedVehicleIds],
       tacticalSummary: commit.tacticalSummary,
+      sleepTicks: commit.sleepTicks,
+      balance: observation.financialBalance,
+      notices: observation.emergencyNotices.map(notice => `${notice.vehicleId}:${notice.kind}`),
     });
     if (this.recentCycles.length > 2) {
       this.recentCycles.shift();
@@ -463,7 +600,7 @@ export class JevAgentRunner {
     return {
       cycle: this.cycle,
       recentCycles: this.recentCycles.map((cycle) => ({ ...cycle })),
-      pendingFeedback: [],
+      pendingFeedback: [...this.pendingFeedback],
       incidents: [...this.incidents.entries()].map(([id, incident]) => ({
         id,
         fact: incident.fact,
@@ -476,6 +613,7 @@ export class JevAgentRunner {
     this.cycle = state.cycle;
     this.recentCycles.length = 0;
     this.recentCycles.push(...(state.recentCycles as RecentCycle[]));
+    this.pendingFeedback.splice(0, this.pendingFeedback.length, ...state.pendingFeedback);
     this.incidents.clear();
     for (const incident of state.incidents) {
       this.incidents.set(incident.id, {

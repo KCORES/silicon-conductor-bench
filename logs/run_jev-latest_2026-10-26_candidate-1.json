@@ -1,0 +1,15 @@
+{
+  "seed": 63916,
+  "cycleCount": 200,
+  "horizonTicks": 200,
+  "dotenvPath": ".env.jev-pr-local",
+  "argv": [
+    "--ticks",
+    "200",
+    "--seed",
+    "63916",
+    "--plain"
+  ],
+  "model": "jev-latest",
+  "apiLog": "logs/api-log_jev-latest_2026-10-26_candidate-1.jsonl"
+}
