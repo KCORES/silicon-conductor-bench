@@ -53,6 +53,7 @@ import type { SimulationEngine } from "../core/engine.js";
 import {
   compactObservationForModel,
   laneVehicleCounts,
+  type ModelSpatialContext,
 } from "./model-observation.js";
 import type { AgentSettlementSummary } from "./settlement.js";
 
@@ -72,6 +73,23 @@ export function compactSettlement(
     ...(settlement.revenue === 0 ? { revenue: undefined } : {}),
     ...(settlement.pedestrianReward === 0 ? { pedestrianReward: undefined } : {}),
   };
+}
+
+/** Provider-neutral public input. Both adapters must preserve this information. */
+export function buildAgentObservationPayload(input: {
+  readonly observation: CompactObservation;
+  readonly endTick?: number;
+  readonly spatial: ModelSpatialContext;
+  readonly recentCycles: readonly unknown[];
+  readonly previousFeedback: readonly string[];
+  readonly lastSettlement: AgentSettlementSummary | null;
+}): Record<string, unknown> {
+  return roundModelNumericPrecision({
+    observation: compactObservationForModel(input.observation, input.endTick, input.spatial),
+    previous_agent_feedback: input.previousFeedback,
+    recentCycles: input.recentCycles,
+    lastSettlement: compactSettlement(input.lastSettlement),
+  }) as Record<string, unknown>;
 }
 
 const FINAL_ROUND_WARNING =
@@ -382,18 +400,13 @@ export class ToolCallAgentRunner {
       {
         role: "user",
         content: JSON.stringify(
-          roundModelNumericPrecision({
-            observation: compactObservationForModel(
-              observation,
-              this.options.economy.endTick,
-              {
-                snapshot: spatialSnapshot,
-                ...(previousLaneCounts === undefined ? {} : { previousLaneCounts }),
-              },
-            ),
-            previous_agent_feedback: this.consumePendingFeedback(),
+          buildAgentObservationPayload({
+            observation,
+            ...(this.options.economy.endTick === undefined ? {} : { endTick: this.options.economy.endTick }),
+            spatial: { snapshot: spatialSnapshot, ...(previousLaneCounts === undefined ? {} : { previousLaneCounts }) },
+            previousFeedback: this.consumePendingFeedback(),
             recentCycles: this.recentCycles,
-            lastSettlement: compactSettlement(input.lastSettlement ?? null),
+            lastSettlement: input.lastSettlement ?? null,
           }),
         ),
       },

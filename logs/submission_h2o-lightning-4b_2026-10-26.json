@@ -1,0 +1,217 @@
+{
+  "modelRequested": "h2o-lightning-4b",
+  "actualModel": "h2oai/h2o-lightning-4b",
+  "rulesVersion": 21,
+  "seed": 63916,
+  "horizonTicks": 200,
+  "runs": 3,
+  "sourceCommit": "371570fa1ead763a8d7eb985093e046f169d4398",
+  "buildHashes": [
+    {
+      "file": "cli.js",
+      "sha256": "d542b14d0277471004a1d5843fdeab8ce5ef2c96dc35f45db5cbc07fee1f175d"
+    },
+    {
+      "file": "config.js",
+      "sha256": "b7dbf20c350fe2fb72218f4d8427099184db7eccc2ea3e34b123bcc359f05506"
+    },
+    {
+      "file": "core/engine.js",
+      "sha256": "847289dd4212039cc6e0c99ee36f133057c21fbf71adf2ad50d1d5808893b0f4"
+    },
+    {
+      "file": "core/safety.js",
+      "sha256": "313d11cded499cf67a63e447e42e6d4f69f10999e8c8be1e8a1942c97b1f11a4"
+    },
+    {
+      "file": "agent/tools.js",
+      "sha256": "9632a11a8dad21eb5b668b0728e54e307db8a1eae534a9b3e5198db02aa17c17"
+    },
+    {
+      "file": "agent/model-observation.js",
+      "sha256": "addd1e991fc325e3a9e1828407696e2dc87d0ddcfd7020f155b6a47c0df7c027"
+    },
+    {
+      "file": "agent/runner.js",
+      "sha256": "45d494ada21d3a5dc557eb8423f5d251e92caae8039cdecb4952e3f952f62f3f"
+    },
+    {
+      "file": "agent/jev/runner.js",
+      "sha256": "3c5b30d6050f9c520708aec1cac6f4438a0d4799ba07780f68dbf2da90490c8e"
+    },
+    {
+      "file": "agent/jev/compile.js",
+      "sha256": "9ff304e7438bd682216a80adf92f28af8044fc5891bf88de5a181d3c7ccbc2a0"
+    },
+    {
+      "file": "agent/jev/questions.js",
+      "sha256": "44b95ca250f3677a1a140563691f8167769a7aa69571e93c56dcbbdb381e2418"
+    }
+  ],
+  "firstInputMatchesJev": true,
+  "stats": {
+    "mean": 608.0071,
+    "median": 608.0071,
+    "min": 608.0071,
+    "max": 608.0071,
+    "stddev": 0
+  },
+  "results": [
+    {
+      "run": 1,
+      "score": 608.0071,
+      "unservedLiability": 216.2,
+      "hazardBleed": 81.608,
+      "pedestrianStrike": 15,
+      "upstreamBleed": 59.75,
+      "admittedVehicles": 87,
+      "emptyCommits": 45,
+      "apiCalls": 61,
+      "toolCalls": 123,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 4,
+      "usage": {
+        "input": 798338,
+        "output": 434
+      },
+      "elapsedMs": 407002
+    },
+    {
+      "run": 2,
+      "score": 608.0071,
+      "unservedLiability": 216.2,
+      "hazardBleed": 81.608,
+      "pedestrianStrike": 15,
+      "upstreamBleed": 59.75,
+      "admittedVehicles": 87,
+      "emptyCommits": 45,
+      "apiCalls": 61,
+      "toolCalls": 123,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 4,
+      "usage": {
+        "input": 798338,
+        "output": 434
+      },
+      "elapsedMs": 406272
+    },
+    {
+      "run": 3,
+      "score": 608.0071,
+      "unservedLiability": 216.2,
+      "hazardBleed": 81.608,
+      "pedestrianStrike": 15,
+      "upstreamBleed": 59.75,
+      "admittedVehicles": 87,
+      "emptyCommits": 45,
+      "apiCalls": 61,
+      "toolCalls": 123,
+      "maxApi": 1,
+      "maxDry": 2,
+      "maxTools": 4,
+      "usage": {
+        "input": 798338,
+        "output": 434
+      },
+      "elapsedMs": 406934
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "logs/api-log_h2o-lightning-4b_2026-10-26_candidate-1.jsonl",
+      "bytes": 3179005,
+      "sha256": "b81786081e0b365470682f3d6351360b9660f95dbf6fb7807aafd6b525224c5f",
+      "sourceSha256": "b81786081e0b365470682f3d6351360b9660f95dbf6fb7807aafd6b525224c5f",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_h2o-lightning-4b_2026-10-26_candidate-1.json",
+      "bytes": 86583436,
+      "sha256": "5e14261217b41bedfff1aaa7e6b503c743f89c8f7817a13a1c6067b9d2746968",
+      "sourceSha256": "5e14261217b41bedfff1aaa7e6b503c743f89c8f7817a13a1c6067b9d2746968",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_h2o-lightning-4b_2026-10-26_candidate-1.json",
+      "bytes": 118145,
+      "sha256": "59af0a5a574b5cdacd1740a9404f9a7be49148e7c8b1eca098e7632ab99c9bf6",
+      "sourceSha256": "0f9ae59be509f3dd103c10784ba7278bea3165ee0d6d85f3dd0697069ef008b0",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    },
+    {
+      "path": "logs/run_h2o-lightning-4b_2026-10-26_candidate-1.json",
+      "bytes": 287,
+      "sha256": "3267a6ceba7fa24626df31d9dfc24dabdbebde50da8695eee558d97ac2c2711a",
+      "sourceSha256": "402929192d37d75b76d207a0cfb6cdc49c21ec7540470056ed5cf40c610d4bd7",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    },
+    {
+      "path": "logs/api-log_h2o-lightning-4b_2026-10-26_candidate-2.jsonl",
+      "bytes": 3179014,
+      "sha256": "3a37da887752da11cbca275c701dff9a36b598f3d4378f0ed93a2c79e8b4ebbb",
+      "sourceSha256": "3a37da887752da11cbca275c701dff9a36b598f3d4378f0ed93a2c79e8b4ebbb",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_h2o-lightning-4b_2026-10-26_candidate-2.json",
+      "bytes": 86583436,
+      "sha256": "0d31abf6057c8f674f34dcfe27a8447e57edd78e22fa9a8770d19b9c8601c8ee",
+      "sourceSha256": "0d31abf6057c8f674f34dcfe27a8447e57edd78e22fa9a8770d19b9c8601c8ee",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_h2o-lightning-4b_2026-10-26_candidate-2.json",
+      "bytes": 118143,
+      "sha256": "95478484a5f808e2b4ea552ff3572b03542c4fd905e883a645de27503c05c115",
+      "sourceSha256": "66045abc1c11edfb17f36e0497ab89a0eaf68d21c2aa79d3c9808fd3bb092c3b",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    },
+    {
+      "path": "logs/run_h2o-lightning-4b_2026-10-26_candidate-2.json",
+      "bytes": 287,
+      "sha256": "3a2e25df142a5d922142a99923d0a1b9715fffd718f9261361ecfd2dccacf3a8",
+      "sourceSha256": "1fd3289995ec3430a130a9c258407df57020771bf807e8a1a0e9f588cc33d07b",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    },
+    {
+      "path": "logs/api-log_h2o-lightning-4b_2026-10-26_candidate-3.jsonl",
+      "bytes": 3178998,
+      "sha256": "0137ffdc1cbad51055f8808734bfe053140cc28cb10bd8af8ffc717afbcc996a",
+      "sourceSha256": "0137ffdc1cbad51055f8808734bfe053140cc28cb10bd8af8ffc717afbcc996a",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/replay_h2o-lightning-4b_2026-10-26_candidate-3.json",
+      "bytes": 86583436,
+      "sha256": "aa0c6e30557138da9a52f4ada3bbd051796ce22fd7e54b4fbbdae8ac2e40e069",
+      "sourceSha256": "aa0c6e30557138da9a52f4ada3bbd051796ce22fd7e54b4fbbdae8ac2e40e069",
+      "normalization": "None"
+    },
+    {
+      "path": "logs/report_h2o-lightning-4b_2026-10-26_candidate-3.json",
+      "bytes": 118157,
+      "sha256": "67d31c8d084b88732efd17543eefed5f29fae34e876b70db97a60bd0f45037b1",
+      "sourceSha256": "a37c791829827f77566c7414e90547ff782e36d15f5b5a8f2a2c3258a99c0471",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    },
+    {
+      "path": "logs/run_h2o-lightning-4b_2026-10-26_candidate-3.json",
+      "bytes": 287,
+      "sha256": "0a07528197d617e69dc5ac7d31cfe598daf11cf9095602281b84a47c67adb476",
+      "sourceSha256": "d9d8ca51388d404df5e00c421dbb61d4f652600082a8a55429fe029ddcf7e2ee",
+      "normalization": "Local paths only; scores, actions, and replay data unchanged"
+    }
+  ],
+  "information": "Full canonical public observation, rules, tool definitions and prior feedback; no private future data.",
+  "budgets": {
+    "apiRounds": 8,
+    "nonterminalTools": 12,
+    "dryRuns": 2
+  },
+  "adaptation": "Stable System One adapter defaults. Feedback, conditional, crosswalk context, horizon shrink, pedestrian-window and repair-tailgate experiments disabled.",
+  "excluded": "An earlier incomplete attempt exited with Windows code 3221226505 during concurrent local test execution; no provider error. All three submitted sessions restarted from tick zero, without resume.",
+  "validation": "Benchmark build passed; 363 core tests passed with maxWorkers=2. Initial unrestricted test workers produced a timeout and a Windows child-process crash; both resolved on bounded-worker rerun.",
+  "deployment": "NVIDIA RTX 4090"
+}

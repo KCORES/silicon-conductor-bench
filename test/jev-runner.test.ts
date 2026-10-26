@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { CapturingAgentApiLogger } from "../src/agent/api-logger.js";
 import {
   JevApiError,
@@ -17,6 +17,8 @@ import {
 import { SimulationEngine } from "../src/core/engine.js";
 import { createRoadNetwork } from "../src/core/network.js";
 
+vi.hoisted(() => { vi.stubEnv("JEV_ADAPT_CROSSWALK", "on"); });
+
 const economy = {
   decisionTax: 2,
   toolTax: 0.15,
@@ -31,6 +33,12 @@ function advanceToStoplines(engine: SimulationEngine): void {
 }
 
 describe("Jev provider selection", () => {
+  it("routes Lightning System One aliases through the structured adapter", () => {
+    for (const model of ["h2o-lightning-4b", "H2O-Lightning-4B", "h2oai/h2o-lightning-4b"]) {
+      expect(detectModelProvider(model, "https://gateway.example")).toBe("jev");
+    }
+    expect(detectModelProvider("h2o-other", "https://gateway.example")).toBe("openai");
+  });
   it("uses the gateway settings only when a gateway model is set", () => {
     expect(detectModelProvider("jev-latest", "https://api.openai.com/v1")).toBe("jev");
     expect(detectModelProvider("gpt-4.1", "https://api.typesafe.ai")).toBe("jev");
@@ -151,6 +159,58 @@ describe("Jev client", () => {
 });
 
 describe("Jev agent runner", () => {
+  afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
+
+  it.each(["on", "off"])("handles a successful dry-run with jaywalker warnings with guard=%s", async guard => {
+    vi.stubEnv("JEV_ADAPT_JAYWALK_GUARD", guard);
+    vi.resetModules();
+    const { JevAgentRunner: GuardedRunner } = await import("../src/agent/jev/runner.js");
+    const engine = new SimulationEngine({ network: createRoadNetwork() });
+    engine.spawnVehicle("N_S1_STRAIGHT", "SEDAN");
+    advanceToStoplines(engine);
+    const pedestrian = engine.spawnScheduledPedestrian({ id: "jaywalker", tick: engine.currentTick,
+      slot: 0, crosswalkId: "CROSSWALK:SOUTH", direction: "A_TO_B" });
+    if (pedestrian === undefined) throw new Error("missing pedestrian");
+    pedestrian.state = "CROSSING_JAYWALK";
+    const logger = new CapturingAgentApiLogger();
+    const runner = new GuardedRunner({
+      client: { async evaluate() { return { model: "jev-test", answers: {
+        phase: { type: "choice" as const, choice: "NS_STRAIGHT", confidence: 1, probabilities: { NS_STRAIGHT: 0.9, HOLD: 0.1 } },
+      } }; } },
+      engine, memory: new WorkingMemoryStack(), model: "jev-latest", economy,
+      tollMotorcycle: 20, tollStandard: 50, tollEmergency: 100, logger,
+    });
+    const result = await runner.runCycle({ financialBalance: 1000 });
+    expect(logger.records).toEqual(expect.arrayContaining([expect.objectContaining({
+      event: "TOOL_RESULT", payload: expect.objectContaining({ toolName: "dry_run_admit", output: expect.objectContaining({ ok: true, jaywalker_warnings: expect.any(Array) }) }),
+    })]));
+    expect(result.commit.admission.admittedVehicleIds.length).toBe(guard === "on" ? 0 : 1);
+    expect(result.commit.tacticalSummary).toContain(guard === "on" ? "phase=HOLD" : "phase=NS_STRAIGHT");
+  });
+
+  it("passes existing crosswalk reservations to the real decision request", async () => {
+    const engine = new SimulationEngine({ network: createRoadNetwork() });
+    const vehicle = engine.spawnVehicle("N_S1_STRAIGHT", "city-builder:car_sedan");
+    for (let tick = 0; tick < 40; tick++) engine.step();
+    engine.commitSchedule([vehicle!.id], [], []);
+    const north = engine.spatialSnapshot().crosswalks.find(view => view.crosswalkId === "CROSSWALK:NORTH")!;
+    expect(north.vehicleReservedUntil).toBeGreaterThanOrEqual(engine.currentTick);
+    const evaluate = vi.fn(async (request: JevEvaluateRequest): Promise<JevEvaluation> => {
+      expect(request.state).toMatchObject({ crosswalks: expect.arrayContaining([
+        expect.objectContaining({ crosswalkId: "CROSSWALK:NORTH", vehicleReservedUntil: north.vehicleReservedUntil }),
+      ]) });
+      return { model: "jev-test", answers: { phase: { type: "choice", choice: "HOLD", confidence: 1 } } };
+    });
+    const runner = new JevAgentRunner({
+      client: { evaluate }, engine, memory: new WorkingMemoryStack(), model: "jev-latest",
+      economy, tollMotorcycle: 20, tollStandard: 50, tollEmergency: 100,
+      logger: new CapturingAgentApiLogger(),
+    });
+    const result = await runner.runCycle({ financialBalance: 1000 });
+    expect(evaluate).toHaveBeenCalledOnce();
+    expect(result.usedFallback).toBe(false);
+  });
+
   it("admits the selected straight approach through the existing tools", async () => {
     const engine = new SimulationEngine({
       network: createRoadNetwork(),

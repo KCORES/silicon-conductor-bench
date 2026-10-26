@@ -1,0 +1,30 @@
+Adds H2O Lightning 4B support through the existing System One structured-decision adapter and three reproducible benchmark sessions.
+
+Requested model: `h2o-lightning-4b`; every response identifies `h2oai/h2o-lightning-4b`. Deployment: **NVIDIA RTX 4090**.
+
+Rules v21, seed **63916**, **200 ticks**, three independent fresh sessions. The Chinese README contribution prose explicitly requests 200 ticks/3 runs; its example omits --ticks while the current default is 400. These results explicitly use 200 and should not be compared with 400-tick scores.
+
+| Run | Final balance | Unserved liability | Hazard bleed | Pedestrian strikes (penalty) | Admitted vehicles |
+|---|---:|---:|---:|---:|---:|
+| 1 | 608.01 | 216.20 | 81.61 | 15.00 | 87 |
+| 2 | 608.01 | 216.20 | 81.61 | 15.00 | 87 |
+| 3 | 608.01 | 216.20 | 81.61 | 15.00 | 87 |
+
+Mean **608.01**; median 608.01; range 608.01–608.01; population SD 0.00. One seed only; repeated same-seed results are not evidence of generalization.
+
+The source commit provides public-input parity (canonical observation/rules/tool descriptions), HOLD handling, paid-probe verification and a shared 2-probe cap, plus Lightning model routing. It also contains opt-in experimental branches and their regression tests; all such experiments are disabled for these scores. This is the included System One adapter, not an unchanged upstream chat-completions runner.
+
+All sessions have zero API errors, fallbacks, and unverified commits. Audited per-cycle ceilings remain 8 API rounds, 12 nonterminal tool calls, and 2 dry-runs. No privileged future information or benchmark answer labels are model input. Rules and economy parameters remain default.
+
+Non-default connection settings: AI_GATEWAY_MODEL=h2o-lightning-4b; endpoint and credentials are private. JEV_ADAPT=on explicitly selects the default-enabled stable adapter; experiment flags are unset. Logging uses separate run directories. No API key or environment file is committed.
+
+Validation: tsc -p tsconfig.bench.json; 38 core test files / 363 tests passed with --maxWorkers=2. Replay-specific full-repository checks were not used as a passing gate. One earlier local Windows process crash is excluded; the three attached results are fresh uninterrupted runs, with no checkpoint resume.
+
+Reproduce with a local ignored .env.h2o-local containing the above gateway connection and your key:
+
+```powershell
+node node_modules/typescript/bin/tsc -p tsconfig.bench.json
+node scripts/bench-repeat.mjs --parallel 1 --runs 3 --env .env.h2o-local -- --ticks 200 --seed 63916 --plain
+```
+
+Logs include complete API traces, reports, replays, run metadata and a source/hash/quota manifest. Only machine-local metadata paths are normalized for portability; numeric results and replay/API evidence are unchanged.

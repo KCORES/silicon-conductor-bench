@@ -1,0 +1,15 @@
+{
+  "seed": 63916,
+  "cycleCount": 200,
+  "horizonTicks": 200,
+  "dotenvPath": ".env.h2o-local",
+  "argv": [
+    "--ticks",
+    "200",
+    "--seed",
+    "63916",
+    "--plain"
+  ],
+  "model": "h2o-lightning-4b",
+  "apiLog": "logs/api-log_h2o-lightning-4b_2026-10-26_candidate-1.jsonl"
+}
